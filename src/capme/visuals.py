@@ -295,6 +295,102 @@ def function_heatmap(aggregates: list[dict[str, str]], output: Path) -> None:
     c.save()
 
 
+def robustness_interval_figure(
+    summaries: list[dict[str, str]], output: Path
+) -> None:
+    """Plot model-ensemble AUAC intervals for four censor structures."""
+
+    output.parent.mkdir(parents=True, exist_ok=True)
+    family_order = (
+        "classifier_dominant",
+        "endpoint_discovery_dominant",
+        "resource_bounded_composed",
+        "adaptive_composed",
+    )
+    family_labels = {
+        "classifier_dominant": "Classifier-dominant path",
+        "endpoint_discovery_dominant": "Endpoint discovery",
+        "resource_bounded_composed": "Resource-bounded composed",
+        "adaptive_composed": "Adaptive composed",
+    }
+    short_labels = {
+        "direct_e2ee": "Direct E2EE",
+        "fixed_proxy": "Fixed proxy",
+        "generated_transport": "Generated",
+        "ephemeral_relay": "Ephemeral",
+        "platform_controlled": "Permitted platform*",
+    }
+    lookup = {
+        (row["censor_model"], row["architecture"]): row for row in summaries
+    }
+    width, height = 520, 360
+    c = canvas.Canvas(str(output), pagesize=(width, height), invariant=1)
+    c.setTitle("CAP-ME structural model uncertainty")
+    c.setFillColor(colors.HexColor("#111111"))
+    c.setFont("Helvetica-Bold", 11)
+    c.drawString(32, 340, "Architecture rankings widen under model uncertainty")
+    c.setFont("Helvetica", 7.5)
+    c.setFillColor(colors.HexColor("#555555"))
+    c.drawString(
+        32,
+        328,
+        "72 parameter draws per censor structure; three common seeds per draw; synthetic assumptions only",
+    )
+    panel_positions = ((32, 184), (278, 184), (32, 42), (278, 42))
+    architectures = list(ARCHITECTURES)
+    for family, (panel_x, panel_y) in zip(
+        family_order, panel_positions, strict=True
+    ):
+        c.setFillColor(colors.HexColor("#222222"))
+        c.setFont("Helvetica-Bold", 8)
+        c.drawString(panel_x, panel_y + 124, family_labels[family])
+        plot_left = panel_x + 82
+        plot_width = 140
+        plot_bottom = panel_y + 22
+        plot_height = 90
+        c.setStrokeColor(colors.HexColor("#DDDDDD"))
+        c.setLineWidth(0.35)
+        for tick in (0.0, 0.5, 1.0):
+            x = plot_left + plot_width * tick
+            c.line(x, plot_bottom, x, plot_bottom + plot_height)
+            c.setFillColor(colors.HexColor("#555555"))
+            c.setFont("Helvetica", 6.5)
+            c.drawCentredString(x, plot_bottom - 9, f"{tick:.1f}")
+        for index, architecture in enumerate(architectures):
+            row = lookup[(family, architecture)]
+            y = plot_bottom + plot_height * (len(architectures) - index - 0.5) / len(
+                architectures
+            )
+            q05 = float(row["auac_q05"])
+            q25 = float(row["auac_q25"])
+            median = float(row["auac_median"])
+            q75 = float(row["auac_q75"])
+            q95 = float(row["auac_q95"])
+            color = PALETTE[architecture]
+            c.setFillColor(colors.HexColor("#333333"))
+            c.setFont("Helvetica", 6.7)
+            c.drawRightString(plot_left - 5, y - 2.2, short_labels[architecture])
+            c.setStrokeColor(color)
+            c.setLineWidth(0.8)
+            c.line(plot_left + plot_width * q05, y, plot_left + plot_width * q95, y)
+            c.setLineWidth(3.0)
+            c.line(plot_left + plot_width * q25, y, plot_left + plot_width * q75, y)
+            c.setFillColor(color)
+            c.circle(plot_left + plot_width * median, y, 2.2, fill=1, stroke=0)
+        c.setFillColor(colors.HexColor("#444444"))
+        c.setFont("Helvetica", 6.5)
+        c.drawCentredString(plot_left + plot_width / 2, panel_y + 2, "AUAC")
+    c.setFillColor(colors.HexColor("#555555"))
+    c.setFont("Helvetica-Oblique", 6.7)
+    c.drawString(
+        32,
+        18,
+        "Thin: 5--95%; thick: 25--75%; dot: median. *Provider controls delivery; availability is not confidentiality.",
+    )
+    c.showPage()
+    c.save()
+
+
 def _latex_escape(value: str) -> str:
     return (
         value.replace("\\", "\\textbackslash{}")

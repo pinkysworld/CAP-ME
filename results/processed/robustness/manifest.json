@@ -1,0 +1,38 @@
+{
+  "architectures": [
+    "direct_e2ee",
+    "fixed_proxy",
+    "generated_transport",
+    "ephemeral_relay",
+    "platform_controlled"
+  ],
+  "censor_models": [
+    "classifier_dominant",
+    "endpoint_discovery_dominant",
+    "resource_bounded_composed",
+    "adaptive_composed"
+  ],
+  "config": "configs/robustness.json",
+  "config_sha256": "ed75ed13d933d8ba6808353def32e0acead66b51b392190e5d819acf91d1868a",
+  "design": "stratified_latin_hypercube",
+  "design_points": 72,
+  "files": {
+    "design.csv": "ff135dc7b29fc8a46627ca56dc85682de9f1571f7b440870471c72992a73dba7",
+    "design_metrics.csv": "980436c9386255f1ed5f16b0579b697d7b7ab5a49e7264de4752edd9d7691eba",
+    "effective_parameters.csv": "af1b61ff9d37288a0563e695d35fd840799679c266425907864930bbd5755b55",
+    "global_sensitivity_prcc.csv": "d508664205c1abb88a9f8523efa4af2fd63bd40b443f0e9d01e8a01311553202",
+    "pairwise_ordering.csv": "82337aab7c537d2beae8f26a6a6620961672284a23d3059dcca1426f53364a42",
+    "robustness_summary.csv": "91701bcf93a235f2654fd9dd34aca49b5e988fd84621e285e23c2351f94ed1c3",
+    "run_metrics.csv": "e2bbc84d877348782ab1963e9d55532544a42c6bbaa37b7022e0c2e33c13f963",
+    "variance_components.csv": "8cbb20feb6a1ef93eb5febabe81db527fda7a02168e98e37e0ff8d8f1693a6ce"
+  },
+  "replicate_seeds": [
+    4103,
+    4201,
+    4307
+  ],
+  "run_count": 4320,
+  "schema_version": 1,
+  "synthetic_only": true,
+  "uncertainty_interpretation": "Quantiles and sensitivities describe the declared synthetic model ensemble; they do not estimate uncertainty for a deployed national censor."
+}

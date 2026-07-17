@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "synthetic_only": true,
+  "architectures": ["direct_e2ee", "fixed_proxy", "generated_transport", "ephemeral_relay", "platform_controlled"],
+  "base_network": "mobile",
+  "design_points": 72,
+  "design_seed": 94117,
+  "replicate_seeds": [4103, 4201, 4307],
+  "bootstrap_repetitions": 100,
+  "simulation": {
+    "epochs": 36,
+    "operations_per_function": 8,
+    "training_positive": 120,
+    "training_benign": 350,
+    "calibration_benign": 2000,
+    "evaluation_positive": 300,
+    "prevalence": 0.001,
+    "sustained_windows": 3
+  },
+  "censor_models": [
+    {"name": "classifier_dominant", "label": "Classifier-dominant path model", "path_control": true, "endpoint_control": false, "platform_control": false, "adaptive_training": true, "false_positive_cap": 0.001, "probe_budget": 0, "block_budget": 0, "retrain_interval": 2, "block_ttl": 6, "reputation_threshold": 4, "path_enforcement": 0.98, "platform_filter_rate": 0.0},
+    {"name": "endpoint_discovery_dominant", "label": "Endpoint-discovery model", "path_control": false, "endpoint_control": true, "platform_control": false, "adaptive_training": false, "false_positive_cap": 0.001, "probe_budget": 10, "block_budget": 12, "retrain_interval": 8, "block_ttl": 12, "reputation_threshold": 2, "path_enforcement": 0.0, "platform_filter_rate": 0.0},
+    {"name": "resource_bounded_composed", "label": "Resource-bounded composed model", "path_control": true, "endpoint_control": true, "platform_control": true, "adaptive_training": true, "false_positive_cap": 0.001, "probe_budget": 2, "block_budget": 4, "retrain_interval": 8, "block_ttl": 6, "reputation_threshold": 4, "path_enforcement": 0.88, "platform_filter_rate": 0.65},
+    {"name": "adaptive_composed", "label": "Adaptive composed model", "path_control": true, "endpoint_control": true, "platform_control": true, "adaptive_training": true, "false_positive_cap": 0.001, "probe_budget": 5, "block_budget": 10, "retrain_interval": 3, "block_ttl": 10, "reputation_threshold": 3, "path_enforcement": 0.97, "platform_filter_rate": 0.80}
+  ],
+  "parameters": [
+    {"name": "architecture_passive_separability_multiplier", "low": 0.6, "high": 1.4},
+    {"name": "architecture_discovery_rate_multiplier", "low": 0.4, "high": 1.8},
+    {"name": "architecture_probe_confirmation_multiplier", "low": 0.5, "high": 1.5},
+    {"name": "architecture_endpoint_pool_multiplier", "low": 0.6, "high": 1.5},
+    {"name": "architecture_rotation_speed_multiplier", "low": 0.5, "high": 2.0},
+    {"name": "architecture_protocol_diversity_multiplier", "low": 0.5, "high": 1.6},
+    {"name": "architecture_transport_overhead_multiplier", "low": 0.9, "high": 1.15},
+    {"name": "censor_false_positive_cap", "low": 0.0005, "high": 0.005, "scale": "log"},
+    {"name": "censor_path_enforcement", "low": 0.75, "high": 0.995},
+    {"name": "censor_budget_multiplier", "low": 0.5, "high": 1.6},
+    {"name": "censor_block_ttl_multiplier", "low": 0.6, "high": 1.5},
+    {"name": "censor_retrain_interval", "low": 2, "high": 9, "scale": "integer"},
+    {"name": "censor_platform_filter_rate", "low": 0.4, "high": 0.98},
+    {"name": "network_latency_multiplier", "low": 0.65, "high": 1.5},
+    {"name": "network_loss_multiplier", "low": 0.5, "high": 2.0},
+    {"name": "network_bandwidth_multiplier", "low": 0.55, "high": 1.6}
+  ]
+}

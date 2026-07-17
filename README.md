@@ -41,6 +41,24 @@ For FSO, the dated search found no prior system jointly applying messaging-funct
 
 That claim is qualified by the structured literature audit in [`docs/novelty-audit.md`](docs/novelty-audit.md). No artifact can guarantee acceptance at a top venue; field validation and independent replication remain necessary for strong external-validity claims.
 
+## Structural model uncertainty
+
+The original seed intervals hold every declared model assumption fixed. The
+additional robustness study crosses 72 stratified parameter points, 16 sampled
+dimensions, four structurally distinct censor models, five architectures, and
+three common seeds: 4,320 synthetic runs in total. It reports model-ensemble
+quantiles, pairwise ordering frequencies, trust-eligible ranks, global partial
+rank sensitivities, and separate model-versus-seed variance components.
+
+Across its 20 model/architecture cells, the declared model component accounts
+for 0.819--0.981 of the decomposed variance. Generated Transport has median
+trust-eligible rank one in all four censor structures, but is first in only
+0.556--0.764 of their parameter draws. This weakens any interpretation of the
+fixed-parameter ranking as universal. The ranges are author-declared and do not
+represent a confidence distribution for a real censor. See
+[`docs/model-uncertainty.md`](docs/model-uncertainty.md) and
+[`results/processed/robustness`](results/processed/robustness).
+
 ## Headline controlled-study result
 
 Under the declared mobile-like scenario, adaptive cross-layer control reduced mean area under the availability curve (AUAC) from 0.827 to 0.266 for Direct E2EE and from 0.735 to 0.113 for a Fixed App Proxy. Generated Transport retained 0.815 AUAC and Ephemeral Relay 0.771. The Permitted Platform archetype retained 0.885 network/service availability, but that value does not imply content confidentiality from its provider.
@@ -112,6 +130,13 @@ Run the small smoke matrix:
 python3 -m capme run --config configs/smoke.json --output results/raw/smoke
 python3 -m capme ablate --config configs/smoke.json --output results/raw/smoke
 python3 analysis/run_analysis.py --raw results/raw/smoke --processed results/processed/smoke
+```
+
+Run the model-uncertainty smoke matrix or the complete frozen design:
+
+```bash
+make robustness-smoke
+make robustness
 ```
 
 Rebuild the complete study:
@@ -193,6 +218,7 @@ The versioned processed results live in [`results/processed/study`](results/proc
 - `tests/`: deterministic unit and invariant tests
 - `analysis/`: analysis, artifact generation, and validation entry points
 - `results/processed/study/`: compact reviewable results
+- `results/processed/robustness/`: structural model-uncertainty results and sensitivity estimates
 - `results/processed/fso/`: confirmation and loopback results with manifests
 - `testbeds/censorlab/`: minimal external-source build and closed-testbed guide
 - `field/`: exact review bundle, independent-review templates, future-study authorization template, local-only manifest, protocol, and stop rules

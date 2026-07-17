@@ -4,7 +4,7 @@ RAW := results/raw/study
 PROCESSED := results/processed/study
 ARTIFACT_GENERATED := artifacts/generated
 
-.PHONY: test smoke study analyze artifacts fso-confirmation-source fso-confirmation fso-deterministic-lab fso-loopback field-check public-boundary validate
+.PHONY: test smoke study analyze robustness-smoke robustness artifacts fso-confirmation-source fso-confirmation fso-deterministic-lab fso-loopback field-check public-boundary validate
 
 test:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) -m unittest discover -s tests -v
@@ -21,9 +21,16 @@ study:
 analyze:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) analysis/run_analysis.py --raw $(RAW) --processed $(PROCESSED)
 
+robustness-smoke:
+	PYTHONPATH=$(PYTHONPATH) $(PYTHON) analysis/run_robustness_study.py --config configs/robustness-smoke.json --output results/raw/robustness-smoke
+
+robustness:
+	PYTHONPATH=$(PYTHONPATH) $(PYTHON) analysis/run_robustness_study.py --config configs/robustness.json --output results/processed/robustness
+
 artifacts:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) analysis/generate_artifacts.py --processed $(PROCESSED) --artifact-generated $(ARTIFACT_GENERATED)
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) analysis/generate_fso_artifacts.py --processed results/processed/fso/confirmation --loopback results/processed/fso/loopback/manifest.json --lab results/processed/fso/deterministic-lab/manifest.json --artifact-generated $(ARTIFACT_GENERATED)
+	PYTHONPATH=$(PYTHONPATH) $(PYTHON) analysis/generate_robustness_artifacts.py --processed results/processed/robustness --artifact-generated $(ARTIFACT_GENERATED)
 
 fso-confirmation-source:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) -m capme run --config configs/fso-confirmation-source.json --output results/raw/fso-confirmation-source

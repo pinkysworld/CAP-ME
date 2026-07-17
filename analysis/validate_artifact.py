@@ -100,6 +100,126 @@ def validate_raw_if_present() -> list[str]:
     return ["raw manifests, synthetic-only flags, and operation conservation"]
 
 
+def validate_robustness() -> list[str]:
+    config_path = ROOT / "configs" / "robustness.json"
+    config = load_json(config_path)
+    directory = ROOT / "results" / "processed" / "robustness"
+    manifest = load_json(directory / "manifest.json")
+    design_points = int(config["design_points"])
+    family_count = len(config["censor_models"])
+    architecture_count = len(config["architectures"])
+    replicate_count = len(config["replicate_seeds"])
+    parameter_count = len(config["parameters"])
+    expected_runs = (
+        design_points * family_count * architecture_count * replicate_count
+    )
+    expected_rows = {
+        "design.csv": design_points,
+        "effective_parameters.csv": design_points
+        * family_count
+        * architecture_count,
+        "run_metrics.csv": expected_runs,
+        "design_metrics.csv": design_points * family_count * architecture_count,
+        "robustness_summary.csv": family_count * architecture_count,
+        "pairwise_ordering.csv": family_count
+        * architecture_count
+        * (architecture_count - 1)
+        // 2,
+        "global_sensitivity_prcc.csv": family_count
+        * architecture_count
+        * parameter_count,
+        "variance_components.csv": family_count * architecture_count,
+    }
+    assert manifest["synthetic_only"] is True
+    assert manifest["design"] == "stratified_latin_hypercube"
+    assert manifest["design_points"] == design_points == 72
+    assert manifest["run_count"] == expected_runs == 4_320
+    assert manifest["replicate_seeds"] == config["replicate_seeds"]
+    assert manifest["config_sha256"] == sha256(config_path)
+    for name, count in expected_rows.items():
+        path = directory / name
+        assert row_count(path) == count, f"robustness {name}: unexpected row count"
+        assert sha256(path) == manifest["files"][name], (
+            f"robustness {name}: hash mismatch"
+        )
+
+    design_ids = {
+        row["design_id"] for row in read_csv_rows(directory / "design.csv")
+    }
+    assert len(design_ids) == design_points
+    seeds = set(config["replicate_seeds"])
+    for row in read_csv_rows(directory / "run_metrics.csv"):
+        assert row["design_id"] in design_ids
+        assert int(row["seed"]) in seeds
+        outcomes = int(row["successes"]) + sum(
+            int(row[name])
+            for name in (
+                "path_failures",
+                "endpoint_failures",
+                "platform_failures",
+                "network_failures",
+            )
+        )
+        assert outcomes == int(row["attempts"])
+
+    for row in read_csv_rows(directory / "robustness_summary.csv"):
+        assert (
+            float(row["auac_q05"])
+            <= float(row["auac_median"])
+            <= float(row["auac_q95"])
+        )
+        assert 0.0 <= float(row["rank_first_fraction_all"]) <= 1.0
+        eligible = row["rank_first_fraction_trust_eligible"]
+        if eligible != "nan":
+            assert 0.0 <= float(eligible) <= 1.0
+
+    for row in read_csv_rows(directory / "global_sensitivity_prcc.csv"):
+        value = float(row["prcc"])
+        if int(row["structurally_active"]):
+            assert -1.0 <= value <= 1.0
+            assert int(row["bootstrap_valid"]) > 0
+        else:
+            assert value != value
+
+    for row in read_csv_rows(directory / "variance_components.csv"):
+        model_fraction = float(row["model_variance_fraction"])
+        seed_fraction = float(row["seed_variance_fraction"])
+        assert abs(model_fraction + seed_fraction - 1.0) < 1e-12
+
+    generated_directory = ROOT / "artifacts" / "generated"
+    generated_manifest = load_json(
+        generated_directory / "robustness_generation_manifest.json"
+    )
+    assert generated_manifest["synthetic_only"] is True
+    assert generated_manifest["source_manifest_sha256"] == sha256(
+        directory / "manifest.json"
+    )
+    for name, digest in generated_manifest["files"].items():
+        assert sha256(generated_directory / name) == digest, (
+            f"robustness generated artifact {name}: hash mismatch"
+        )
+    headline = load_json(
+        generated_directory / "robustness_headline_results.json"
+    )
+    assert headline["synthetic_only"] is True
+    assert headline["run_count"] == expected_runs
+    model_range = headline["model_variance_fraction_range"]
+    assert 0.81 < float(model_range[0]) < float(model_range[1]) < 0.99
+    generated = headline["generated_transport"]
+    assert set(generated) == {
+        item["name"] for item in config["censor_models"]
+    }
+    assert all(
+        0.0 <= float(row["trust_eligible_first_fraction"]) <= 1.0
+        for row in generated.values()
+    )
+    return [
+        "four structural censor models, 72-point global uncertainty design, "
+        "4,320 conserved runs, PRCC bounds, variance decomposition, generated figure, "
+        "and exact hashes"
+    ]
+
+
 def _find_row(rows: list[dict[str, str]], key: str, value: str) -> dict[str, str]:
     matches = [row for row in rows if row[key] == value]
     assert len(matches) == 1, f"expected one {key}={value} row"
@@ -374,6 +494,7 @@ def main() -> int:
     checks: list[str] = []
     checks.extend(validate_processed())
     checks.extend(validate_raw_if_present())
+    checks.extend(validate_robustness())
     checks.extend(validate_fso_processed())
     checks.extend(validate_fso_deterministic_lab())
     checks.extend(validate_censorlab_results())

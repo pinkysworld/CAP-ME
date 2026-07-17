@@ -36,6 +36,10 @@ Review:
 - `results/processed/fso/censorlab/manifest.json`
 - `results/processed/fso/censorlab-campaign/manifest.json`
 - `artifacts/generated/fso_headline_results.json`
+- `results/processed/robustness/manifest.json`
+- `results/processed/robustness/robustness_summary.csv`
+- `results/processed/robustness/global_sensitivity_prcc.csv`
+- `results/processed/robustness/variance_components.csv`
 
 Then run `make validate`. Validation checks those properties plus FSO counts and hashes, seed disjointness, exact headline values, byte-reproducible carrier-lab results, nonce uniqueness, injected-fault counters, both CensorLab result trees and containment invariants, zero provider-controlled attempts, loopback-only execution, receiver and ACK authentication counters, exact review-bundle hashes, and that the pending external authorization fails while the local record cannot authorize external implementation.
 
@@ -44,6 +48,14 @@ Then run `make validate`. Validation checks those properties plus FSO counts and
 `make study analyze artifacts validate`
 
 Expected scale: 1,220 simulation runs and 3,513,600 messaging-operation attempts. Runtime depends on the machine; the reference run completed locally without network access. Raw CSVs occupy about 80 MB and are intentionally excluded from Git.
+
+The distinct structural-uncertainty pipeline is:
+
+`make robustness validate`
+
+Expected scale: 72 parameter-design points, four censor structures, five
+architectures, three common seeds, and 4,320 synthetic runs. Its reported
+quantiles describe the declared model ensemble, not any deployed censor.
 
 The FSO confirmation is a separate pipeline because it requires the disjoint CAP-ME source trace:
 

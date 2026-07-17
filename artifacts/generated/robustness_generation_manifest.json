@@ -1,0 +1,10 @@
+{
+  "files": {
+    "figures/robustness_intervals.pdf": "e99e11aac770004b573c854e01c392c342b908a09144ae9df69f96b4e2e73bb5",
+    "robustness_headline_results.json": "e3c701783f98c0dbd1eab67151edce2efd89439df72d95be2342963bbaae3735",
+    "robustness_headline_results.tex": "2663402f315279cb50ab97512c971bc165da10ac93f0d1e9856a92dc1d7cc288"
+  },
+  "schema_version": 1,
+  "source_manifest_sha256": "7ec6192c7cb76e1d8b7541bc17d90c405c70bf9dfb054d5891e7278efe57064f",
+  "synthetic_only": true
+}

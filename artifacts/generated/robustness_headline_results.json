@@ -1,0 +1,39 @@
+{
+  "architectures": 5,
+  "censor_models": 4,
+  "design_points": 72,
+  "generated_transport": {
+    "adaptive_composed": {
+      "auac_median": 0.7717592592592594,
+      "auac_q05": 0.6053587962962963,
+      "auac_q95": 0.9129166666666667,
+      "trust_eligible_first_fraction": 0.75
+    },
+    "classifier_dominant": {
+      "auac_median": 0.7800925925925926,
+      "auac_q05": 0.6762384259259259,
+      "auac_q95": 0.9167129629629631,
+      "trust_eligible_first_fraction": 0.5555555555555556
+    },
+    "endpoint_discovery_dominant": {
+      "auac_median": 0.8170138888888889,
+      "auac_q05": 0.7033912037037038,
+      "auac_q95": 0.9512615740740742,
+      "trust_eligible_first_fraction": 0.6805555555555556
+    },
+    "resource_bounded_composed": {
+      "auac_median": 0.7798611111111111,
+      "auac_q05": 0.6715393518518519,
+      "auac_q95": 0.9151041666666667,
+      "trust_eligible_first_fraction": 0.7638888888888888
+    }
+  },
+  "model_variance_fraction_range": [
+    0.8189748656204149,
+    0.9814543762944241
+  ],
+  "replicate_seeds": 3,
+  "run_count": 4320,
+  "schema_version": 1,
+  "synthetic_only": true
+}

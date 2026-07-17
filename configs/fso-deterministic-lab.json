@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "synthetic_only": true,
+  "closed_world": true,
+  "seed": 20260717,
+  "strict_trust": true,
+  "correlation_weight": 0.45,
+  "operations_per_phase": 25,
+  "max_fragment_data": 900,
+  "max_inflight_fragments": 4096,
+  "payload_bytes": {
+    "text": 512,
+    "presence": 96,
+    "media": 8192,
+    "file": 24576,
+    "realtime": 768
+  },
+  "phases": [
+    {
+      "name": "nominal",
+      "loss_multiplier": 0.50,
+      "latency_multiplier": 1.00,
+      "burst_probability": 0.00,
+      "duplicate_rate": 0.01,
+      "tamper_rate": 0.00,
+      "ack_loss_rate": 0.00,
+      "ack_tamper_rate": 0.00,
+      "outage_domains": []
+    },
+    {
+      "name": "degradation",
+      "loss_multiplier": 1.40,
+      "loss_additive": 0.01,
+      "latency_multiplier": 1.60,
+      "burst_probability": 0.10,
+      "burst_loss_additive": 0.35,
+      "duplicate_rate": 0.04,
+      "tamper_rate": 0.00,
+      "ack_loss_rate": 0.03,
+      "ack_tamper_rate": 0.00,
+      "outage_domains": []
+    },
+    {
+      "name": "correlated-domain-outage",
+      "loss_multiplier": 1.15,
+      "loss_additive": 0.02,
+      "latency_multiplier": 1.35,
+      "burst_probability": 0.14,
+      "burst_loss_additive": 0.45,
+      "duplicate_rate": 0.02,
+      "tamper_rate": 0.00,
+      "ack_loss_rate": 0.04,
+      "ack_tamper_rate": 0.00,
+      "outage_domains": ["direct", "fixed", "generated"]
+    },
+    {
+      "name": "integrity-and-ack-faults",
+      "loss_multiplier": 0.75,
+      "latency_multiplier": 1.20,
+      "burst_probability": 0.04,
+      "burst_loss_additive": 0.20,
+      "duplicate_rate": 0.08,
+      "tamper_rate": 0.08,
+      "ack_loss_rate": 0.08,
+      "ack_tamper_rate": 0.15,
+      "outage_domains": []
+    },
+    {
+      "name": "recovery",
+      "loss_multiplier": 0.60,
+      "latency_multiplier": 0.90,
+      "burst_probability": 0.01,
+      "burst_loss_additive": 0.10,
+      "duplicate_rate": 0.01,
+      "tamper_rate": 0.00,
+      "ack_loss_rate": 0.01,
+      "ack_tamper_rate": 0.00,
+      "outage_domains": []
+    }
+  ],
+  "lanes": [
+    {
+      "name": "direct-0",
+      "architecture": "direct_e2ee",
+      "failure_domain": "direct",
+      "loss_rate": 0.22,
+      "latency_ms": 45,
+      "jitter_ms": 9,
+      "endpoint_resilience": 0.12,
+      "provider_controls_delivery": false
+    },
+    {
+      "name": "fixed-0",
+      "architecture": "fixed_proxy",
+      "failure_domain": "fixed",
+      "loss_rate": 0.28,
+      "latency_ms": 40,
+      "jitter_ms": 8,
+      "endpoint_resilience": 0.10,
+      "provider_controls_delivery": false
+    },
+    {
+      "name": "generated-0",
+      "architecture": "generated_transport",
+      "failure_domain": "generated",
+      "loss_rate": 0.04,
+      "latency_ms": 65,
+      "jitter_ms": 13,
+      "endpoint_resilience": 0.72,
+      "provider_controls_delivery": false
+    },
+    {
+      "name": "generated-1",
+      "architecture": "generated_transport",
+      "failure_domain": "generated",
+      "loss_rate": 0.05,
+      "latency_ms": 70,
+      "jitter_ms": 15,
+      "endpoint_resilience": 0.74,
+      "provider_controls_delivery": false
+    },
+    {
+      "name": "ephemeral-0",
+      "architecture": "ephemeral_relay",
+      "failure_domain": "ephemeral-a",
+      "loss_rate": 0.06,
+      "latency_ms": 85,
+      "jitter_ms": 18,
+      "endpoint_resilience": 0.92,
+      "provider_controls_delivery": false
+    },
+    {
+      "name": "ephemeral-1",
+      "architecture": "ephemeral_relay",
+      "failure_domain": "ephemeral-b",
+      "loss_rate": 0.08,
+      "latency_ms": 90,
+      "jitter_ms": 20,
+      "endpoint_resilience": 0.92,
+      "provider_controls_delivery": false
+    },
+    {
+      "name": "permitted-0",
+      "architecture": "platform_controlled",
+      "failure_domain": "permitted",
+      "loss_rate": 0.01,
+      "latency_ms": 30,
+      "jitter_ms": 5,
+      "endpoint_resilience": 0.98,
+      "provider_controls_delivery": true
+    }
+  ]
+}

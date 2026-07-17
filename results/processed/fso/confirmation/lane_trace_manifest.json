@@ -1,0 +1,20 @@
+{
+  "output": "results/processed/fso/confirmation/lane_trace_probabilities.csv",
+  "output_sha256": "071d49034bc3b72ce8fe6ee8e64cb23908a1f696af7609e41207c1f368597dac",
+  "rows": 18000,
+  "schema_version": 1,
+  "selection": {
+    "architectures": [
+      "direct_e2ee",
+      "ephemeral_relay",
+      "fixed_proxy",
+      "generated_transport",
+      "platform_controlled"
+    ],
+    "censor": "adaptive_cross_layer",
+    "network": "mobile"
+  },
+  "source": "results/raw/fso-confirmation-source/observations.csv",
+  "source_sha256": "62f59d54e5878ea8830023cfbce1e24817d5a9c247f0dd30f5c02198ccdc7a3e",
+  "synthetic_only": true
+}

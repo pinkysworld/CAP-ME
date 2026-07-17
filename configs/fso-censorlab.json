@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "synthetic_only": true,
+  "closed_world": true,
+  "seed": 20260717,
+  "epochs": 6,
+  "operations_per_epoch": 10,
+  "probe_each_lane": true,
+  "strict_trust": true,
+  "correlation_weight": 0.45,
+  "max_fragment_data": 900,
+  "client_ip": "10.0.0.1",
+  "calibration_blocked_ip": "198.51.100.1",
+  "payload_bytes": {
+    "text": 512,
+    "presence": 96,
+    "media": 4096,
+    "file": 8192,
+    "realtime": 1024
+  },
+  "backend": {
+    "name": "CensorLab",
+    "repository": "https://github.com/SPIN-UMass/censorlab",
+    "commit": "3eb5997face2d897ddb50771189057815880affc",
+    "config": "demos/mega_gfw/censor.toml",
+    "config_origin": "image",
+    "mode": "pcap",
+    "image": "censorlab-capme:3eb5997-pcap"
+  },
+  "lanes": [
+    {
+      "name": "direct-0",
+      "architecture": "direct_e2ee",
+      "failure_domain": "direct",
+      "latency_ms": 45,
+      "survival_prior": 0.78,
+      "endpoint_resilience": 0.12,
+      "provider_controls_delivery": false,
+      "transport": "tcp",
+      "server_ip": "198.51.100.1",
+      "server_port": 8443
+    },
+    {
+      "name": "fixed-0",
+      "architecture": "fixed_proxy",
+      "failure_domain": "fixed",
+      "latency_ms": 40,
+      "survival_prior": 0.72,
+      "endpoint_resilience": 0.10,
+      "provider_controls_delivery": false,
+      "transport": "tcp",
+      "server_ip": "198.51.100.2",
+      "server_port": 8443
+    },
+    {
+      "name": "generated-0",
+      "architecture": "generated_transport",
+      "failure_domain": "generated",
+      "latency_ms": 65,
+      "survival_prior": 0.96,
+      "endpoint_resilience": 0.72,
+      "provider_controls_delivery": false,
+      "transport": "tcp",
+      "server_ip": "203.0.113.10",
+      "server_port": 8443
+    },
+    {
+      "name": "generated-1",
+      "architecture": "generated_transport",
+      "failure_domain": "generated",
+      "latency_ms": 70,
+      "survival_prior": 0.95,
+      "endpoint_resilience": 0.74,
+      "provider_controls_delivery": false,
+      "transport": "tcp",
+      "server_ip": "203.0.113.11",
+      "server_port": 8443
+    },
+    {
+      "name": "ephemeral-0",
+      "architecture": "ephemeral_relay",
+      "failure_domain": "ephemeral-a",
+      "latency_ms": 85,
+      "survival_prior": 0.94,
+      "endpoint_resilience": 0.92,
+      "provider_controls_delivery": false,
+      "transport": "udp",
+      "server_ip": "203.0.113.20",
+      "server_port": 8443
+    },
+    {
+      "name": "ephemeral-1",
+      "architecture": "ephemeral_relay",
+      "failure_domain": "ephemeral-b",
+      "latency_ms": 90,
+      "survival_prior": 0.92,
+      "endpoint_resilience": 0.92,
+      "provider_controls_delivery": false,
+      "transport": "udp",
+      "server_ip": "203.0.113.21",
+      "server_port": 8443
+    },
+    {
+      "name": "permitted-0",
+      "architecture": "platform_controlled",
+      "failure_domain": "permitted",
+      "latency_ms": 30,
+      "survival_prior": 0.99,
+      "endpoint_resilience": 0.98,
+      "provider_controls_delivery": true,
+      "transport": "tcp",
+      "server_ip": "192.0.2.30",
+      "server_port": 443
+    }
+  ]
+}

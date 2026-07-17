@@ -1,0 +1,16 @@
+{
+  "architectures": ["direct_e2ee", "fixed_proxy", "generated_transport", "ephemeral_relay", "platform_controlled"],
+  "censors": ["adaptive_cross_layer"],
+  "networks": ["mobile"],
+  "seeds": [4001, 4127, 4253, 4391, 4513, 4639, 4783, 4903, 5021, 5153, 5279, 5413, 5521, 5651, 5779, 5903, 6037, 6151, 6271, 6397],
+  "simulation": {
+    "epochs": 36,
+    "operations_per_function": 16,
+    "training_positive": 180,
+    "training_benign": 500,
+    "calibration_benign": 2000,
+    "evaluation_positive": 500,
+    "prevalence": 0.001,
+    "sustained_windows": 3
+  }
+}

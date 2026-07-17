@@ -1,0 +1,50 @@
+{
+  "availability": 0.8,
+  "byte_overhead": 2.037399250234302,
+  "closed_world": true,
+  "config": "configs/fso-deterministic-lab.json",
+  "config_sha256": "664d98306a8c8035d3ed54a74dfca1ce0acbc2da3450cb82d3988b5c822a4248",
+  "cryptography": "ChaCha20-Poly1305 envelopes and domain-separated HMAC-SHA-256 acknowledgements; deterministic entropy is laboratory-only",
+  "deterministic": true,
+  "envelopes": 250,
+  "expired_fragment_sets": 51,
+  "expired_shard_sets": 0,
+  "external_destinations": 0,
+  "failure_injection": {
+    "ack_auth_rejections": 6,
+    "ack_drops": 2,
+    "data_auth_rejections": 8,
+    "dropped_fragments": 318,
+    "duplicated_fragments": 57,
+    "tampered_fragments": 39
+  },
+  "fragment_reassembly_evictions": 0,
+  "fragment_reassembly_inflight_at_end": 0,
+  "message_ids": 125,
+  "observations_sha256": "bba7feb29d788c2576492dd7c0145d1deca7708ce063292b3afa411f9c766c80",
+  "operations": 125,
+  "payload_bytes": 853600,
+  "phase_availability": {
+    "correlated-domain-outage": 0.72,
+    "degradation": 0.76,
+    "integrity-and-ack-faults": 0.72,
+    "nominal": 0.92,
+    "recovery": 0.88
+  },
+  "phases": [
+    "nominal",
+    "degradation",
+    "correlated-domain-outage",
+    "integrity-and-ack-faults",
+    "recovery"
+  ],
+  "provider_controlled_attempts": 0,
+  "schema_version": 1,
+  "seed": 20260717,
+  "simulated_carrier_adapters": true,
+  "successful_operations": 100,
+  "synthetic_only": true,
+  "unique_message_ids": 125,
+  "unique_nonces": 250,
+  "wire_bytes": 1739124
+}

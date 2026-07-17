@@ -1,0 +1,41 @@
+architecture,architecture_label,epoch,availability,ci_low,ci_high
+direct_e2ee,Direct E2EE,0,0.8600000000000001,0.8400000000000001,0.8800000000000001
+direct_e2ee,Direct E2EE,1,0.88,0.8,0.96
+direct_e2ee,Direct E2EE,2,0.88,0.8400000000000001,0.9199999999999999
+direct_e2ee,Direct E2EE,3,0.8200000000000001,0.8,0.8400000000000001
+direct_e2ee,Direct E2EE,4,0.9199999999999999,0.8799999999999999,0.96
+direct_e2ee,Direct E2EE,5,0.8600000000000001,0.8400000000000001,0.8800000000000001
+direct_e2ee,Direct E2EE,6,0.88,0.8,0.96
+direct_e2ee,Direct E2EE,7,0.86,0.8400000000000001,0.8799999999999999
+ephemeral_relay,Ephemeral Relay,0,0.76,0.76,0.76
+ephemeral_relay,Ephemeral Relay,1,0.86,0.76,0.96
+ephemeral_relay,Ephemeral Relay,2,0.8400000000000001,0.8,0.8800000000000001
+ephemeral_relay,Ephemeral Relay,3,0.76,0.76,0.76
+ephemeral_relay,Ephemeral Relay,4,0.88,0.8400000000000001,0.9199999999999999
+ephemeral_relay,Ephemeral Relay,5,0.8,0.76,0.8400000000000001
+ephemeral_relay,Ephemeral Relay,6,0.86,0.8,0.9199999999999999
+ephemeral_relay,Ephemeral Relay,7,0.8400000000000001,0.8400000000000001,0.8400000000000001
+fixed_proxy,Fixed App Proxy,0,0.8,0.7999999999999999,0.8
+fixed_proxy,Fixed App Proxy,1,0.88,0.8,0.96
+fixed_proxy,Fixed App Proxy,2,0.76,0.6,0.9199999999999999
+fixed_proxy,Fixed App Proxy,3,0.38,0.0,0.76
+fixed_proxy,Fixed App Proxy,4,0.36000000000000004,0.0,0.7200000000000001
+fixed_proxy,Fixed App Proxy,5,0.02,0.0,0.04
+fixed_proxy,Fixed App Proxy,6,0.0,0.0,0.0
+fixed_proxy,Fixed App Proxy,7,0.0,0.0,0.0
+generated_transport,Generated Transport,0,0.8600000000000001,0.8400000000000001,0.8800000000000001
+generated_transport,Generated Transport,1,0.9,0.8400000000000001,0.96
+generated_transport,Generated Transport,2,0.9,0.8800000000000001,0.9199999999999999
+generated_transport,Generated Transport,3,0.8,0.76,0.8400000000000001
+generated_transport,Generated Transport,4,0.94,0.9199999999999999,0.96
+generated_transport,Generated Transport,5,0.8600000000000001,0.8400000000000001,0.8800000000000001
+generated_transport,Generated Transport,6,0.88,0.8,0.96
+generated_transport,Generated Transport,7,0.86,0.8400000000000001,0.8799999999999999
+platform_controlled,Permitted Platform,0,0.86,0.8,0.9199999999999999
+platform_controlled,Permitted Platform,1,0.9199999999999999,0.9199999999999999,0.9199999999999999
+platform_controlled,Permitted Platform,2,0.96,0.9199999999999999,1.0
+platform_controlled,Permitted Platform,3,0.8,0.76,0.8400000000000001
+platform_controlled,Permitted Platform,4,0.92,0.8800000000000001,0.96
+platform_controlled,Permitted Platform,5,0.8800000000000001,0.8800000000000001,0.8800000000000001
+platform_controlled,Permitted Platform,6,0.9,0.8400000000000001,0.96
+platform_controlled,Permitted Platform,7,0.9199999999999999,0.9199999999999999,0.9199999999999999

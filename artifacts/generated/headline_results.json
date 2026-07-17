@@ -1,0 +1,64 @@
+{
+  "mobile": {
+    "direct_e2ee": {
+      "adaptive_auac": 0.2655902777777778,
+      "adaptive_t50": 2.7,
+      "adaptive_t50_event_fraction": 1.0,
+      "paired_ci": [
+        -0.5890681423611113,
+        -0.5298763020833335
+      ],
+      "paired_difference": -0.5609548611111111,
+      "paired_q": 5.555370376543004e-05,
+      "passive_auac": 0.8265451388888888
+    },
+    "ephemeral_relay": {
+      "adaptive_auac": 0.7709722222222222,
+      "adaptive_t50": 36.0,
+      "adaptive_t50_event_fraction": 0.0,
+      "paired_ci": [
+        -0.01852517361111114,
+        0.02328776041666663
+      ],
+      "paired_difference": 0.002222222222222231,
+      "paired_q": 0.8911369621012633,
+      "passive_auac": 0.76875
+    },
+    "fixed_proxy": {
+      "adaptive_auac": 0.11267361111111111,
+      "adaptive_t50": 1.35,
+      "adaptive_t50_event_fraction": 1.0,
+      "paired_ci": [
+        -0.6481809895833334,
+        -0.5930282118055555
+      ],
+      "paired_difference": -0.6220312499999998,
+      "paired_q": 5.555370376543004e-05,
+      "passive_auac": 0.7347048611111109
+    },
+    "generated_transport": {
+      "adaptive_auac": 0.8145486111111111,
+      "adaptive_t50": 35.15,
+      "adaptive_t50_event_fraction": 0.05,
+      "paired_ci": [
+        -0.030190972222222206,
+        -0.00296788194444442
+      ],
+      "paired_difference": -0.016631944444444442,
+      "paired_q": 0.04154406974312977,
+      "passive_auac": 0.8311805555555557
+    },
+    "platform_controlled": {
+      "adaptive_auac": 0.8847222222222223,
+      "adaptive_t50": 36.0,
+      "adaptive_t50_event_fraction": 0.0,
+      "paired_ci": [
+        -0.033541666666666595,
+        -0.030156249999999975
+      ],
+      "paired_difference": -0.03185763888888885,
+      "paired_q": 5.555370376543004e-05,
+      "passive_auac": 0.9165798611111112
+    }
+  }
+}

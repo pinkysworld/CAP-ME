@@ -1,0 +1,18 @@
+{
+  "architectures": ["direct_e2ee", "fixed_proxy", "generated_transport", "ephemeral_relay", "platform_controlled"],
+  "censors": ["passive_only", "path_endpoint", "adaptive_cross_layer"],
+  "networks": ["stable", "mobile", "impaired"],
+  "seeds": [1103, 1201, 1301, 1429, 1543, 1601, 1741, 1871, 1999, 2081, 2203, 2333, 2441, 2551, 2683, 2791, 2903, 3011, 3137, 3251],
+  "ablation_seeds": [1103, 1201, 1301, 1429, 1543, 1601, 1741, 1871],
+  "ablation_network": "mobile",
+  "simulation": {
+    "epochs": 36,
+    "operations_per_function": 16,
+    "training_positive": 180,
+    "training_benign": 500,
+    "calibration_benign": 2000,
+    "evaluation_positive": 500,
+    "prevalence": 0.001,
+    "sustained_windows": 3
+  }
+}

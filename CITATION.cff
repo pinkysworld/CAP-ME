@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "Please cite the CAP-ME and FSO software artifact."
+title: "CAP-ME and FSO research artifact"
+type: software
+version: 0.3.0
+date-released: 2026-07-17
+authors:
+  - family-names: "Anonymous"
+    given-names: "CAP-ME artifact authors"
+license: Apache-2.0
+repository-code: "https://github.com/pinkysworld/CAP-ME"
+keywords:
+  - internet censorship
+  - secure messaging
+  - survival analysis
+  - censorship circumvention
+  - multipath scheduling
+  - reproducible simulation

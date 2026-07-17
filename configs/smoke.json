@@ -1,0 +1,18 @@
+{
+  "architectures": ["direct_e2ee", "fixed_proxy", "generated_transport", "ephemeral_relay", "platform_controlled"],
+  "censors": ["passive_only", "adaptive_cross_layer"],
+  "networks": ["mobile"],
+  "seeds": [101, 202],
+  "ablation_seeds": [101, 202],
+  "ablation_network": "mobile",
+  "simulation": {
+    "epochs": 8,
+    "operations_per_function": 5,
+    "training_positive": 60,
+    "training_benign": 150,
+    "calibration_benign": 1200,
+    "evaluation_positive": 120,
+    "prevalence": 0.001,
+    "sustained_windows": 2
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "requested_scope": "external-owned-hosts",
+  "status": "pending",
+  "study_id": "REPLACE-WITH-APPROVED-STUDY-ID",
+  "principal_investigator": "REPLACE-WITH-NAME",
+  "institution": "REPLACE-WITH-INSTITUTION",
+  "ethics_review_reference": "REPLACE-WITH-IRB-OR-EXEMPTION",
+  "legal_review_reference": "REPLACE-WITH-LEGAL-REVIEW",
+  "security_review_reference": "REPLACE-WITH-INDEPENDENT-REVIEW",
+  "review_bundle": "field/review-bundle-manifest.json",
+  "review_records": {
+    "security": "field/reviews/security-review.json",
+    "ethics": "field/reviews/ethics-review.json",
+    "legal": "field/reviews/legal-review.json"
+  },
+  "approved_hosts": [],
+  "infrastructure_owner": "REPLACE-WITH-OWNER",
+  "jurisdictions": [],
+  "valid_from": "YYYY-MM-DD",
+  "valid_until": "YYYY-MM-DD",
+  "human_participants": false,
+  "third_party_traffic": false,
+  "active_probing": false,
+  "personal_data_categories": [],
+  "maximum_operations": 0,
+  "maximum_duration_minutes": 0,
+  "stop_contact": "REPLACE-WITH-CONTACT",
+  "approvals_confirmed": false
+}

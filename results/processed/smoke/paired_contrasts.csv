@@ -1,0 +1,6 @@
+architecture,network,contrast,pairs,mean_difference,ci_low,ci_high,p_value,p_value_bh
+direct_e2ee,mobile,adaptive_cross_layer_minus_passive_only,2,-0.0124999999999999,-0.029999999999999916,0.0050000000000001155,1.0,1.0
+fixed_proxy,mobile,adaptive_cross_layer_minus_passive_only,2,-0.44250000000000006,-0.555,-0.33000000000000007,0.5018166061131296,1.0
+generated_transport,mobile,adaptive_cross_layer_minus_passive_only,2,-0.007500000000000007,-0.015000000000000013,0.0,1.0,1.0
+ephemeral_relay,mobile,adaptive_cross_layer_minus_passive_only,2,-0.007500000000000007,-0.015000000000000013,0.0,1.0,1.0
+platform_controlled,mobile,adaptive_cross_layer_minus_passive_only,2,-0.02749999999999997,-0.040000000000000036,-0.014999999999999902,0.5001499950001667,1.0

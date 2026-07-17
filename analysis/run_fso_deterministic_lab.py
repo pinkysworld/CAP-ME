@@ -1,0 +1,5 @@
+from capme.fso.lab import main
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

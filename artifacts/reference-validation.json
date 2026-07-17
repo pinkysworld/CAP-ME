@@ -1,0 +1,224 @@
+{
+  "schema_version": 1,
+  "verified_on": "2026-07-17",
+  "scope": "Bibliographic identity and the specific claims used by the CAP-ME research were checked against primary or official sources. A verified record is not an endorsement of every claim in the cited work.",
+  "records": [
+    {
+      "key": "sheffey2025censorlab",
+      "status": "verified",
+      "source_class": "official project page and arXiv record",
+      "url": "https://arxiv.org/abs/2412.16349",
+      "identifier": "doi:10.48550/arXiv.2412.16349"
+    },
+    {
+      "key": "fares2026game",
+      "status": "verified",
+      "source_class": "official FOCI proceedings",
+      "url": "https://www.petsymposium.org/foci/2026/foci-2026-0003.php",
+      "identifier": "FOCI 2026(1):14-22"
+    },
+    {
+      "key": "nasr2019enemy",
+      "status": "verified",
+      "source_class": "official NDSS proceedings",
+      "url": "https://www.ndss-symposium.org/ndss-paper/enemy-at-the-gateways-censorship-resilient-proxy-distribution-using-game-theory/",
+      "identifier": "doi:10.14722/ndss.2019.23496"
+    },
+    {
+      "key": "tschantz2016grounding",
+      "status": "verified",
+      "source_class": "IEEE paper copy and DOI",
+      "url": "https://oaklandsok.github.io/papers/tschantz2016.pdf",
+      "identifier": "doi:10.1109/SP.2016.59"
+    },
+    {
+      "key": "ensafi2015probing",
+      "status": "verified",
+      "source_class": "ACM DOI proceedings record",
+      "url": "https://doi.org/10.1145/2815675.2815690",
+      "identifier": "doi:10.1145/2815675.2815690"
+    },
+    {
+      "key": "frolov2020probe",
+      "status": "verified",
+      "source_class": "official NDSS proceedings",
+      "url": "https://www.ndss-symposium.org/ndss-paper/detecting-probe-resistant-proxies/",
+      "identifier": "doi:10.14722/ndss.2020.23087"
+    },
+    {
+      "key": "wu2023fullyencrypted",
+      "status": "verified",
+      "source_class": "official USENIX proceedings",
+      "url": "https://www.usenix.org/conference/usenixsecurity23/presentation/wu-mingshi",
+      "identifier": "USENIX Security 2023:2653-2670"
+    },
+    {
+      "key": "xue2024fingerprinting",
+      "status": "verified",
+      "source_class": "official USENIX proceedings",
+      "url": "https://www.usenix.org/conference/usenixsecurity24/presentation/xue-fingerprinting",
+      "identifier": "USENIX Security 2024:2689-2706"
+    },
+    {
+      "key": "bocovich2024snowflake",
+      "status": "verified",
+      "source_class": "official USENIX proceedings",
+      "url": "https://www.usenix.org/conference/usenixsecurity24/presentation/bocovich",
+      "identifier": "USENIX Security 2024:2635-2652"
+    },
+    {
+      "key": "kon2024spotproxy",
+      "status": "verified",
+      "source_class": "official USENIX proceedings",
+      "url": "https://www.usenix.org/conference/usenixsecurity24/presentation/kon",
+      "identifier": "USENIX Security 2024:2653-2670"
+    },
+    {
+      "key": "wails2025upgen",
+      "status": "verified",
+      "source_class": "official USENIX proceedings",
+      "url": "https://www.usenix.org/conference/usenixsecurity25/presentation/wails",
+      "identifier": "USENIX Security 2025:763-782"
+    },
+    {
+      "key": "wails2023proteus",
+      "status": "verified",
+      "source_class": "official author and FOCI paper pages",
+      "url": "https://www.petsymposium.org/foci/2023/foci-2023-0013.pdf",
+      "identifier": "FOCI 2023(1):50-66"
+    },
+    {
+      "key": "rosen2021balboa",
+      "status": "verified",
+      "source_class": "official USENIX proceedings",
+      "url": "https://www.usenix.org/conference/usenixsecurity21/presentation/rosen",
+      "identifier": "USENIX Security 2021:3399-3413"
+    },
+    {
+      "key": "vines2024raceboat",
+      "status": "verified",
+      "source_class": "official PoPETs proceedings",
+      "url": "https://petsymposium.org/popets/2024/popets-2024-0027.php",
+      "identifier": "doi:10.56553/popets-2024-0027"
+    },
+    {
+      "key": "fifield2020turbo",
+      "status": "verified",
+      "source_class": "official USENIX proceedings",
+      "url": "https://www.usenix.org/conference/foci20/presentation/fifield",
+      "identifier": "FOCI 2020"
+    },
+    {
+      "key": "wang2022comps",
+      "status": "verified",
+      "source_class": "publisher DOI record and author-hosted proceedings paper",
+      "url": "https://doi.org/10.56553/popets-2022-0083",
+      "identifier": "doi:10.56553/popets-2022-0083"
+    },
+    {
+      "key": "hu2025storm",
+      "status": "verified",
+      "source_class": "official USENIX proceedings",
+      "url": "https://www.usenix.org/conference/atc25/presentation/hu-liekun",
+      "identifier": "USENIX ATC 2025:851-866"
+    },
+    {
+      "key": "cerf2007dtn",
+      "status": "verified",
+      "source_class": "official RFC Editor record",
+      "url": "https://www.rfc-editor.org/info/rfc4838/",
+      "identifier": "doi:10.17487/RFC4838"
+    },
+    {
+      "key": "reed1960polynomial",
+      "status": "verified",
+      "source_class": "publisher DOI record",
+      "url": "https://doi.org/10.1137/0108018",
+      "identifier": "doi:10.1137/0108018"
+    },
+    {
+      "key": "nir2018chacha",
+      "status": "verified",
+      "source_class": "official RFC Editor record",
+      "url": "https://www.rfc-editor.org/info/rfc8439/",
+      "identifier": "doi:10.17487/RFC8439"
+    },
+    {
+      "key": "krawczyk1997hmac",
+      "status": "verified",
+      "source_class": "official RFC Editor record",
+      "url": "https://www.rfc-editor.org/info/rfc2104",
+      "identifier": "doi:10.17487/RFC2104"
+    },
+    {
+      "key": "sharma2021camoufler",
+      "status": "verified",
+      "source_class": "ACM DOI record and proceedings paper",
+      "url": "https://doi.org/10.1145/3433210.3453080",
+      "identifier": "doi:10.1145/3433210.3453080"
+    },
+    {
+      "key": "marlinspike2016x3dh",
+      "status": "verified",
+      "source_class": "official Signal specification",
+      "url": "https://signal.org/docs/specifications/x3dh/",
+      "identifier": "revision:2016-11-04"
+    },
+    {
+      "key": "perrin2025doubleratchet",
+      "status": "verified",
+      "source_class": "official Signal specification",
+      "url": "https://signal.org/docs/specifications/doubleratchet/",
+      "identifier": "revision:2025-11-04"
+    },
+    {
+      "key": "whatsapp2026proxy",
+      "status": "verified",
+      "source_class": "official WhatsApp software repository",
+      "url": "https://github.com/WhatsApp/proxy",
+      "identifier": "accessed:2026-07-16"
+    },
+    {
+      "key": "knockel2020wechat",
+      "status": "verified",
+      "source_class": "official Citizen Lab report",
+      "url": "https://citizenlab.ca/research/we-chat-they-watch/",
+      "identifier": "Citizen Lab Research Report 127"
+    },
+    {
+      "key": "wang2024mmtls",
+      "status": "verified",
+      "source_class": "official Citizen Lab report",
+      "url": "https://citizenlab.ca/research/should-we-chat-too-security-analysis-of-wechats-mmtls-encryption-protocol/",
+      "identifier": "Citizen Lab Report 178"
+    },
+    {
+      "key": "kaplan1958nonparametric",
+      "status": "verified",
+      "source_class": "publisher record",
+      "url": "https://www.tandfonline.com/doi/abs/10.1080/01621459.1958.10501452",
+      "identifier": "doi:10.1080/01621459.1958.10501452"
+    },
+    {
+      "key": "benjamini1995fdr",
+      "status": "verified",
+      "source_class": "publisher record",
+      "url": "https://academic.oup.com/jrsssb/article/57/1/289/7035855",
+      "identifier": "doi:10.1111/j.2517-6161.1995.tb02031.x"
+    },
+    {
+      "key": "saito2015precision",
+      "status": "verified",
+      "source_class": "publisher record",
+      "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0118432",
+      "identifier": "doi:10.1371/journal.pone.0118432"
+    },
+    {
+      "key": "shapley1953value",
+      "status": "verified",
+      "source_class": "publisher DOI record",
+      "url": "https://doi.org/10.1515/9781400881970-018",
+      "identifier": "doi:10.1515/9781400881970-018"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "counts": {
+    "ablation_runs": 80,
+    "aggregate_cells": 10,
+    "paired_contrasts": 5,
+    "runs": 20
+  },
+  "files": {
+    "aggregate_metrics.csv": "41ab9164ed8676139e4888c090b801115e4d3b89e16e0c99f3bf4ddb086043b9",
+    "paired_contrasts.csv": "5ceb6f112b63436cbb860b6ed307907b677c7e2d29aceb36d3d19ec66aa02d3f",
+    "run_metrics.csv": "cff685e9e4dff29affc6c0051eefc4ad3f2a707f75fbb45c4533fe3421f954c7",
+    "shapley_attribution.csv": "cd822394704cbd1a64503707bdb66c4aefbe5732a8aa8bac818c81d0e7319300",
+    "survival_curves.csv": "cc2fd78e4e541acf7ceb171c54ebaab3e34f34cae3e709c80f287fe602b9cbb6"
+  },
+  "schema_version": 1,
+  "synthetic_only": true,
+  "uncertainty_interpretation": "Intervals quantify simulation-seed variation under declared assumptions, not uncertainty about any real censor."
+}

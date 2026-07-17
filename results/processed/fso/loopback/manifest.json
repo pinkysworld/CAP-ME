@@ -1,0 +1,66 @@
+{
+  "availability": 0.95,
+  "bound_addresses": [
+    "127.0.0.1:62257",
+    "127.0.0.1:58442",
+    "127.0.0.1:51358",
+    "127.0.0.1:62016",
+    "127.0.0.1:51702",
+    "127.0.0.1:65417"
+  ],
+  "byte_overhead": 1.1662460876369327,
+  "cryptography": "ChaCha20-Poly1305 envelopes and domain-separated HMAC-SHA-256 acknowledgements with a laboratory pre-shared session key",
+  "external_destinations": 0,
+  "lane_attempts": {
+    "ephemeral-0": 18,
+    "ephemeral-1": 1,
+    "generated-0": 58
+  },
+  "loopback_only": true,
+  "observations_sha256": "4632ebc0af2c55b195e9075c8561c2a7758dd2c29c2997d0310e8f0f4f8170b3",
+  "operations": 60,
+  "payload_bytes": 204480,
+  "provider_controlled_attempts": 0,
+  "schema_version": 1,
+  "server_counters": {
+    "direct-0": {
+      "ack_auth_failures": 0,
+      "auth_failures": 0,
+      "dropped": 0,
+      "received": 0
+    },
+    "ephemeral-0": {
+      "ack_auth_failures": 0,
+      "auth_failures": 0,
+      "dropped": 4,
+      "received": 19
+    },
+    "ephemeral-1": {
+      "ack_auth_failures": 0,
+      "auth_failures": 0,
+      "dropped": 1,
+      "received": 1
+    },
+    "fixed-0": {
+      "ack_auth_failures": 0,
+      "auth_failures": 0,
+      "dropped": 0,
+      "received": 0
+    },
+    "generated-0": {
+      "ack_auth_failures": 0,
+      "auth_failures": 0,
+      "dropped": 5,
+      "received": 70
+    },
+    "permitted-0": {
+      "ack_auth_failures": 0,
+      "auth_failures": 0,
+      "dropped": 0,
+      "received": 0
+    }
+  },
+  "successful_operations": 57,
+  "synthetic_payloads": true,
+  "wire_bytes": 238474
+}

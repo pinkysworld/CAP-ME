@@ -1,0 +1,14 @@
+{
+  "censorlab_commit": "3eb5997face2d897ddb50771189057815880affc",
+  "censorlab_license": "GPL-3.0-only",
+  "censorlab_license_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+  "censorlab_repository": "https://github.com/SPIN-UMass/censorlab",
+  "container_capabilities": "all dropped",
+  "container_filesystem": "read-only",
+  "container_network": "none",
+  "image": "censorlab-capme:3eb5997-pcap",
+  "image_architecture": "arm64",
+  "image_build_hash": "3eb5997face2d897ddb50771189057815880affc",
+  "image_id": "sha256:197e68a2ed1b7cd0ab2db841a2991d4c07a2b45581f42054eed89427a89e6bfa",
+  "image_os": "linux"
+}

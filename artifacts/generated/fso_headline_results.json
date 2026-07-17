@@ -1,0 +1,52 @@
+{
+  "confirmation_seeds": 20,
+  "deterministic_lab": {
+    "availability": 0.8,
+    "byte_overhead": 2.037399250234302,
+    "external_destinations": 0,
+    "failure_injection": {
+      "ack_auth_rejections": 6,
+      "ack_drops": 2,
+      "data_auth_rejections": 8,
+      "dropped_fragments": 318,
+      "duplicated_fragments": 57,
+      "tampered_fragments": 39
+    },
+    "operations": 125,
+    "phase_availability": {
+      "correlated-domain-outage": 0.72,
+      "degradation": 0.76,
+      "integrity-and-ack-faults": 0.72,
+      "nominal": 0.92,
+      "recovery": 0.88
+    },
+    "provider_controlled_attempts": 0,
+    "successful_operations": 100
+  },
+  "fso_auac": 0.9123177083333334,
+  "fso_auac_ci": [
+    0.9067534722222224,
+    0.9173179253472222
+  ],
+  "fso_byte_overhead": 1.246435542835698,
+  "fso_minus_generated_only": 0.11059895833333336,
+  "fso_minus_no_feedback": -0.002439236111111104,
+  "fso_minus_session_failover": 0.016250000000000004,
+  "fso_minus_session_failover_ci": [
+    0.014227213541666665,
+    0.018480902777777787
+  ],
+  "interpretation": "Intervals quantify variation across synthetic seeds, not a deployed censor, network, or population.",
+  "loopback": {
+    "availability": 0.95,
+    "byte_overhead": 1.1662460876369327,
+    "external_destinations": 0,
+    "operations": 60,
+    "successful_operations": 57
+  },
+  "no_semantics_auac": 0.9270138888888889,
+  "no_semantics_byte_overhead": 2.000061214729795,
+  "provider_controlled_attempts": 0,
+  "schema_version": 1,
+  "scope": "synthetic CAP-ME adaptive-mobile trace replay, deterministic closed-world carrier lab, and loopback-only packet testbed"
+}

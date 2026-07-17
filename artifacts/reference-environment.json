@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-07-17",
+  "system": {
+    "platform": "macOS-26.6-arm64-arm-64bit",
+    "python": "3.12.13"
+  },
+  "python_packages": {
+    "cryptography": "49.0.0",
+    "numpy": "2.3.5",
+    "reportlab": "4.4.9",
+    "pypdf": "6.10.0"
+  },
+  "document_toolchain": {
+    "latexmk": "4.86a",
+    "pdftex": "3.141592653-2.6-1.40.27",
+    "tex_live": "2025"
+  },
+  "execution_boundary": "The complete study ran locally without network access. Versions document the reference build; pyproject.toml states supported dependency ranges."
+}

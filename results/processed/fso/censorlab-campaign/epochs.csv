@@ -1,0 +1,7 @@
+epoch,application_operations,successful_operations,availability,conditional_no_censor_availability,censored_packets,packets,processing_us,total_us,pcap_index_offset
+0,10,1,0.1,1.0,76,109,6950,13304,1
+1,10,1,0.1,1.0,76,109,6462,8956,1
+2,10,3,0.3,1.0,72,109,9193,10350,1
+3,10,1,0.1,1.0,74,109,9712,10548,1
+4,10,5,0.5,1.0,65,109,9069,10318,1
+5,10,2,0.2,1.0,73,109,7771,9650,1

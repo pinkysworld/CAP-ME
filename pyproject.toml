@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cap-me"
+version = "0.3.0"
+description = "Cross-layer survival benchmarking and function-aware messaging under adaptive censorship"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+authors = [{name = "Anonymous research artifact authors"}]
+dependencies = ["numpy>=2.0,<3", "cryptography>=45,<50"]
+
+[project.optional-dependencies]
+artifact = ["reportlab>=4.0", "pypdf>=5.0"]
+dev = ["pytest>=8.0", "build>=1.2"]
+
+[project.scripts]
+capme = "capme.cli:main"
+fso-study = "capme.fso.study:main"
+fso-deterministic-lab = "capme.fso.lab:main"
+fso-loopback = "capme.fso.testbed:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,38 @@
+# Minimal external-source build for CensorLab's offline PCAP engine.
+#
+# Build context must be a pinned CensorLab source checkout.  CAP-ME does not
+# copy or link CensorLab source into its own Apache-2.0 distribution.
+
+FROM rustlang/rust:nightly-bookworm@sha256:5b1baa79e945ad3371ce62da71bc7ed181b1856445ab4e3db63052ce289d5a99 AS builder
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        ca-certificates \
+        clang \
+        git \
+        libffi-dev \
+        pkg-config && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /source
+COPY Cargo.toml Cargo.lock build.rs ./
+COPY src/ src/
+RUN cargo build --locked --release --bin censorlab && \
+    install -D target/release/censorlab /out/censorlab && \
+    rm -rf target
+
+FROM debian:bookworm-slim@sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends ca-certificates libffi8 && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /out/censorlab /usr/local/bin/censorlab
+COPY demos/mega_gfw/ /external-censorlab/demos/mega_gfw/
+
+ARG BUILD_HASH=""
+LABEL censorlab.build_hash="${BUILD_HASH}"
+LABEL org.opencontainers.image.description="Minimal CensorLab offline PCAP runtime for CAP-ME"
+
+WORKDIR /censorlab
+CMD ["censorlab", "--help"]

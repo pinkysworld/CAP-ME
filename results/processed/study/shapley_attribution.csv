@@ -1,0 +1,16 @@
+architecture,architecture_label,layer,replicates,auac_loss_contribution,ci_low,ci_high
+direct_e2ee,Direct E2EE,endpoint,8,0.5846788194444443,0.5221251085069444,0.6451307508680555
+direct_e2ee,Direct E2EE,path,8,0.04600694444444449,0.04379340277777782,0.04826388888888894
+direct_e2ee,Direct E2EE,platform,8,0.0,0.0,0.0
+ephemeral_relay,Ephemeral Relay,endpoint,8,0.015668402777777757,0.014691840277777778,0.016775173611111083
+ephemeral_relay,Ephemeral Relay,path,8,0.08936631944444448,0.08500379774305558,0.09388020833333335
+ephemeral_relay,Ephemeral Relay,platform,8,0.0,0.0,0.0
+fixed_proxy,Fixed App Proxy,endpoint,8,0.6972656249999999,0.6771402994791665,0.7179926215277778
+fixed_proxy,Fixed App Proxy,path,8,0.07986111111111112,0.07682237413194451,0.08307400173611107
+fixed_proxy,Fixed App Proxy,platform,8,0.0,0.0,0.0
+generated_transport,Generated Transport,endpoint,8,0.01877170138888888,0.00978732638888885,0.029991319444444442
+generated_transport,Generated Transport,path,8,0.0460720486111111,0.04270779079861108,0.04986979166666665
+generated_transport,Generated Transport,platform,8,0.0,0.0,0.0
+platform_controlled,Permitted Platform,endpoint,8,0.0,0.0,0.0
+platform_controlled,Permitted Platform,path,8,0.0,0.0,0.0
+platform_controlled,Permitted Platform,platform,8,0.030859374999999953,0.02903645833333332,0.03298611111111109

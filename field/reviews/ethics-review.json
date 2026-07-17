@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "review_kind": "ethics",
+  "status": "pending",
+  "reviewer_name": "REPLACE-WITH-INDEPENDENT-REVIEWER",
+  "organization": "REPLACE-WITH-ORGANIZATION",
+  "independent_of_development": false,
+  "reviewer_is_not_author": false,
+  "conflicts_disclosed": false,
+  "reviewed_bundle_id": "REPLACE-WITH-REVIEW-BUNDLE-ID",
+  "scope": "REPLACE-WITH-REVIEWED-SCOPE",
+  "decision_reference": "REPLACE-WITH-SIGNED-DECISION-REFERENCE",
+  "review_date": "YYYY-MM-DD",
+  "valid_until": "YYYY-MM-DD",
+  "findings_resolved": false,
+  "unresolved_findings": []
+}

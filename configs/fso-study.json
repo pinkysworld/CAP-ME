@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "synthetic_only": true,
+  "source_trace": "results/processed/fso/lane_trace_probabilities.csv",
+  "epochs": 36,
+  "operations_per_function": 32,
+  "correlation_weight": 0.35,
+  "strict_trust": true,
+  "bootstrap_repetitions": 2000,
+  "strategies": [
+    "direct_only",
+    "fixed_only",
+    "generated_only",
+    "ephemeral_only",
+    "random_failover",
+    "performance_only",
+    "session_failover",
+    "fso",
+    "fso_fixed_code",
+    "fso_no_semantics",
+    "fso_no_diversity",
+    "fso_no_feedback",
+    "fso_no_redundancy"
+  ],
+  "lane_instances": [
+    {"name": "direct-0", "architecture": "direct_e2ee", "failure_domain": "direct", "latency_prior_ms": 180, "survival_prior": 0.45, "endpoint_resilience": 0.12, "provider_controls_delivery": false},
+    {"name": "fixed-0", "architecture": "fixed_proxy", "failure_domain": "fixed", "latency_prior_ms": 210, "survival_prior": 0.40, "endpoint_resilience": 0.10, "provider_controls_delivery": false},
+    {"name": "generated-0", "architecture": "generated_transport", "failure_domain": "generated", "latency_prior_ms": 260, "survival_prior": 0.78, "endpoint_resilience": 0.70, "provider_controls_delivery": false},
+    {"name": "generated-1", "architecture": "generated_transport", "failure_domain": "generated", "latency_prior_ms": 285, "survival_prior": 0.75, "endpoint_resilience": 0.72, "provider_controls_delivery": false},
+    {"name": "ephemeral-0", "architecture": "ephemeral_relay", "failure_domain": "ephemeral-a", "latency_prior_ms": 320, "survival_prior": 0.74, "endpoint_resilience": 0.92, "provider_controls_delivery": false},
+    {"name": "ephemeral-1", "architecture": "ephemeral_relay", "failure_domain": "ephemeral-b", "latency_prior_ms": 350, "survival_prior": 0.72, "endpoint_resilience": 0.92, "provider_controls_delivery": false},
+    {"name": "permitted-0", "architecture": "platform_controlled", "failure_domain": "permitted", "latency_prior_ms": 160, "survival_prior": 0.88, "endpoint_resilience": 0.98, "provider_controls_delivery": true}
+  ]
+}

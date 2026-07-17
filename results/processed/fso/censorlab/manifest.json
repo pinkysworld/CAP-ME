@@ -1,0 +1,114 @@
+{
+  "application_operations": 60,
+  "availability": 1.0,
+  "backend": {
+    "commit": "3eb5997face2d897ddb50771189057815880affc",
+    "config": "demos/mega_gfw/censor.toml",
+    "config_origin": "image",
+    "image": "censorlab-capme:3eb5997-pcap",
+    "mode": "pcap",
+    "name": "CensorLab",
+    "repository": "https://github.com/SPIN-UMass/censorlab"
+  },
+  "censored_packets": 127,
+  "closed_world": true,
+  "conditional_no_censor_availability": 1.0,
+  "config": "configs/fso-censorlab.json",
+  "config_sha256": "bb15d5f11c549eb189fa6a3bbf51456366f999b7cd54fb4447fb694b8c05f79d",
+  "environment": {
+    "censorlab_commit": "3eb5997face2d897ddb50771189057815880affc",
+    "censorlab_license": "GPL-3.0-only",
+    "censorlab_license_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "censorlab_repository": "https://github.com/SPIN-UMass/censorlab",
+    "container_capabilities": "all dropped",
+    "container_filesystem": "read-only",
+    "container_network": "none",
+    "environment_sha256": "f28220bb62f73827462d922fcc634fb0bd842eb64f75c0a72b15e539106ba39a",
+    "image": "censorlab-capme:3eb5997-pcap",
+    "image_architecture": "arm64",
+    "image_build_hash": "3eb5997face2d897ddb50771189057815880affc",
+    "image_id": "sha256:197e68a2ed1b7cd0ab2db841a2991d4c07a2b45581f42054eed89427a89e6bfa",
+    "image_os": "linux"
+  },
+  "epochs": 6,
+  "epochs_sha256": "2735f78511cb90ee0568a9560cf58fa046e775c9e62100796eefe3b9d890eb4b",
+  "external_destinations": 0,
+  "function_availability": {
+    "file": 1.0,
+    "media": 1.0,
+    "presence": 1.0,
+    "realtime": 1.0,
+    "text": 1.0
+  },
+  "interpretation": "Results characterize the pinned declared CensorLab configuration on synthetic FSO traces; they are not measurements of China or of the contemporary Great Firewall.",
+  "live_interfaces": 0,
+  "offline_pcap_only": true,
+  "operations_sha256": "355601f34d94c892c93ef109c726934e135d0a747b121c39026a6fdc56f335cb",
+  "packet_decisions_sha256": "0fde46bb631c10d485447991c665cd076db39e518c2f89018555fdf7e083493c",
+  "packets": 654,
+  "pcap_index_offsets": [
+    1
+  ],
+  "probe_operations": 36,
+  "provider_controlled_attempts": 0,
+  "schema_version": 1,
+  "seed": 20260717,
+  "successful_operations": 60,
+  "synthetic_only": true,
+  "traces": [
+    {
+      "epoch": 0,
+      "labels": "traces/epoch-00-labels.csv",
+      "labels_sha256": "a758df8f9a67abdaac3554ee66a81f99c3d682d7ee2e281ec5c5ba95f609d36d",
+      "log": "logs/epoch-00.log",
+      "log_sha256": "a8172db6501b588b89d060e96c2f011d4065946a10737bcdc7c4a4c2d4b7253b",
+      "pcap": "traces/epoch-00.pcap",
+      "pcap_sha256": "d45c72346b7d1011940b798db8daedb8111cce55d8c038b8e4b7f03ddd8e7cac"
+    },
+    {
+      "epoch": 1,
+      "labels": "traces/epoch-01-labels.csv",
+      "labels_sha256": "76d6d63c3b457beea2a9df69e2089a34c08d3f5d9018b149176e4341755689e0",
+      "log": "logs/epoch-01.log",
+      "log_sha256": "fbbd4cb9d555da26c9818c031528015973d30f3ea52a60d72c83f2f38f519f95",
+      "pcap": "traces/epoch-01.pcap",
+      "pcap_sha256": "000aee9d5fa656a15708594d9d89e237b0c8c4f9ae7a0d6d137594e601f30231"
+    },
+    {
+      "epoch": 2,
+      "labels": "traces/epoch-02-labels.csv",
+      "labels_sha256": "f0def3002426dc0e19a19bc364912a0c81277a1a626b26b589acb890269d674e",
+      "log": "logs/epoch-02.log",
+      "log_sha256": "95cd04675c05381b82bce6911aa331a1e5c898d3311845db09f1bb0cb6285fda",
+      "pcap": "traces/epoch-02.pcap",
+      "pcap_sha256": "8a468dfec6daa78ea469be3f6725772e7f798c82ddffb4a14b524d58178c9244"
+    },
+    {
+      "epoch": 3,
+      "labels": "traces/epoch-03-labels.csv",
+      "labels_sha256": "41440443ec7bb74d24e17edd9032ffe7c32709a8a15a4ff6b614dfbc1c5c51ed",
+      "log": "logs/epoch-03.log",
+      "log_sha256": "66b512a862e0243b4ce94732547d12374760c61deab7729dd4fee6b38566c8bb",
+      "pcap": "traces/epoch-03.pcap",
+      "pcap_sha256": "389f946e9f4de0b20b7730160b8e80b8292cf89c279d5d4dff7c3aafe2c63b41"
+    },
+    {
+      "epoch": 4,
+      "labels": "traces/epoch-04-labels.csv",
+      "labels_sha256": "3fb2fdb3cbbddfe02bec4b0dbf48ccc9553959a31051d7bf1bbee035ab41cb3b",
+      "log": "logs/epoch-04.log",
+      "log_sha256": "d7d5b3b5b6ebcda32650ffb7730b3a2c50e57545a7420ddae116d75657a01e68",
+      "pcap": "traces/epoch-04.pcap",
+      "pcap_sha256": "6215d8c3c541586303889985f82a0eafb4b2916c2c04b994b464aadc238a13bc"
+    },
+    {
+      "epoch": 5,
+      "labels": "traces/epoch-05-labels.csv",
+      "labels_sha256": "6c73c9969d606ad51f7a6779bb0c87bc1df54302299d9c13c70ace6bd5560a26",
+      "log": "logs/epoch-05.log",
+      "log_sha256": "9cd23e63c7c123ead2389200653a84df075184a4598df0e285c10271066639be",
+      "pcap": "traces/epoch-05.pcap",
+      "pcap_sha256": "c25ca68ac02c64ded3959c2831c38a6ccb6bb835042131f84a553d1b1b90bc71"
+    }
+  ]
+}

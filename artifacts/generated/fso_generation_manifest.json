@@ -1,0 +1,19 @@
+{
+  "inputs": {
+    "results/processed/fso/confirmation/aggregate_metrics.csv": "a428a93cdc5d536c4f656587a27f6176995788e3bc91d3e1b946356eac79ccba",
+    "results/processed/fso/confirmation/paired_contrasts.csv": "cfe1430b26ff5e759afe986563e9f9faf87cbf042b55fef40e685ce36d20f35c",
+    "results/processed/fso/deterministic-lab/manifest.json": "0d3b4b60be31875e1a070b484ef73b0d383f0506d5981f5164ac4d2eafb0a705",
+    "results/processed/fso/loopback/manifest.json": "c5618a5504540d40f634510fb1cbda95b0c06cfdc307560b87056283ed15a094"
+  },
+  "outputs": {
+    "figures/fso_ablation.pdf": "749cabf9a08d4667b3b167b3e7e5ccf2a38c7fda1eed17af435888ab6186a415",
+    "figures/fso_function_comparison.pdf": "72ee2a984cbaede12cbc296bf91b7ccea73f8a3cacfc10e1e092a2331efd82a5",
+    "figures/fso_tradeoff.pdf": "b0ac438b8749f8ff1fdbbf41fdd66c31e8f849593d58d98453d33ccf8b9f07ca",
+    "fso_ablation_results.tex": "ba7cb6c230ef1d2f4b40e2104613f9705879430ea99a9ba70d67ea072271849b",
+    "fso_function_results.tex": "86203b9922e79f1762762d3d1562ba118a2ad4eb2f2bd095912f3da1796b5a8c",
+    "fso_headline_results.json": "c40a82a25b91b257a664074ab384e9f7f36db32d2b507d29d0bcffdad9a1abea",
+    "fso_lab_results.tex": "4aa29eed1dfd73923e52ac73e6f5c115f6cdb0c32c627e8253d4c87ff80770e1",
+    "fso_main_results.tex": "e5c34d8f7cd25318ec32eb43a9c2bf9a794084ce4a7aebb1693bef9925ef8db0"
+  },
+  "schema_version": 1
+}

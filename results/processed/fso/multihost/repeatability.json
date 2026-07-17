@@ -1,0 +1,41 @@
+{
+  "comparison_scope": "delivery decisions, lane plans, wire counts, impairment counters, concordance values, and recovery state",
+  "excluded_measured_fields": {
+    "manifest": [
+      "client_cpu_seconds",
+      "client_peak_rss_kib",
+      "environment_sha256",
+      "observations_sha256",
+      "phase_summaries.mean_elapsed_ms",
+      "wall_time_seconds"
+    ],
+    "observations": [
+      "client_cpu_ms",
+      "client_peak_rss_kib",
+      "elapsed_ms"
+    ]
+  },
+  "interpretation": "OS timing, CPU, RSS, transient environment identity, and raw-file hashes are observations and are not expected to be byte-identical.",
+  "normalized_manifests_equal": true,
+  "normalized_observations_equal": true,
+  "repeatable_outcomes": true,
+  "runs": [
+    {
+      "environment_sha256": "84eeea3448f04a8d29e80043abdfb84ea9c8c5e55cb6eee8277ec1f53960b52d",
+      "manifest_sha256": "a8ae1f47b38445f02085cdd1d5932d3175aa6ad00007b50d2931d199de501a69",
+      "normalized_manifest_sha256": "7615550d949b2d40b4301fad4cfd8f19dab33618988f15b83dbebc949a1272c1",
+      "normalized_observations_sha256": "a61bcd3bd7bf9b9ee998ff7be7e276a0378cecf11429d1684e9c58a81a390703",
+      "observations_sha256": "662e1a8d5382acec79d2f2a26c016d33c7f8105af76491c05bdfb28d15b33b4f",
+      "path": "results/processed/fso/multihost"
+    },
+    {
+      "environment_sha256": "a9d8fa038d730e000f30b737e6b9dd604b09f4d72fdd1d2190688b8591f28960",
+      "manifest_sha256": "a91e14cfe2feba581686462ae7bd28057f4ae1ef766987cdc4c53ab1179a3d7b",
+      "normalized_manifest_sha256": "7615550d949b2d40b4301fad4cfd8f19dab33618988f15b83dbebc949a1272c1",
+      "normalized_observations_sha256": "a61bcd3bd7bf9b9ee998ff7be7e276a0378cecf11429d1684e9c58a81a390703",
+      "observations_sha256": "462cbcffa03817520a27a2cbf36cefbe82c5e55ff93f382099dfdcb1675f44c5",
+      "path": "results/processed/fso/multihost-repeat"
+    }
+  ],
+  "schema_version": 1
+}

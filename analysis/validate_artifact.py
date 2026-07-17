@@ -410,12 +410,57 @@ def validate_fso_multihost() -> list[str]:
         assert all(is_closed_lab_address(value) for value in container["addresses"])
     assert environment["image"]["id"] == manifest["container_image_id"]
     assert environment["image"]["config_sha256_label"] == sha256(config)
+    assert environment["source_tree_dirty_at_run"] is False
+    expected_sources = {
+        str(path.relative_to(ROOT))
+        for path in (ROOT / "src").rglob("*")
+        if path.is_file()
+        and "__pycache__" not in path.parts
+        and path.suffix not in {".pyc", ".pyo"}
+    }
+    expected_sources.update(
+        {
+            "analysis/run_fso_multihost.py",
+            "configs/fso-multihost.json",
+            "testbeds/multihost/Dockerfile",
+            "testbeds/multihost/requirements.txt",
+            ".dockerignore",
+        }
+    )
+    assert set(environment["source_files"]) == expected_sources
     for relative, digest in environment["source_files"].items():
         assert sha256(ROOT / relative) == digest, f"multi-host source changed: {relative}"
+
+    repeat_directory = ROOT / "results" / "processed" / "fso" / "multihost-repeat"
+    repeat_manifest = load_json(repeat_directory / "manifest.json")
+    repeat_environment = load_json(repeat_directory / "environment.json")
+    repeatability = load_json(directory / "repeatability.json")
+    assert repeat_manifest["successful_operations"] == manifest["successful_operations"]
+    assert repeat_manifest["receiver_completed_operations"] == manifest[
+        "receiver_completed_operations"
+    ]
+    assert repeat_manifest["proxy_stats"] == manifest["proxy_stats"]
+    assert repeat_manifest["receiver_stats"] == manifest["receiver_stats"]
+    assert repeat_manifest["lane_attempts"] == manifest["lane_attempts"]
+    assert repeat_manifest["wire_bytes"] == manifest["wire_bytes"]
+    assert repeat_environment["source_tree_dirty_at_run"] is False
+    assert repeat_environment["image"]["id"] == environment["image"]["id"]
+    assert repeatability["normalized_observations_equal"] is True
+    assert repeatability["normalized_manifests_equal"] is True
+    assert repeatability["repeatable_outcomes"] is True
+    for run in repeatability["runs"]:
+        run_directory = ROOT / str(run["path"])
+        assert sha256(run_directory / "observations.csv") == run[
+            "observations_sha256"
+        ]
+        assert sha256(run_directory / "manifest.json") == run["manifest_sha256"]
+        assert sha256(run_directory / "environment.json") == run[
+            "environment_sha256"
+        ]
     return [
         "closed eight-container packet testbed, internal network, zero ports, "
         "private destinations, exact hashes, packet concordance, resource counters, "
-        "and deadline-bound recovery"
+        "deadline-bound recovery, and repeatable non-timing outcomes"
     ]
 
 

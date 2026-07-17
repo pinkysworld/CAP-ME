@@ -134,6 +134,7 @@ def _source_hashes() -> dict[str, str]:
         for path in sorted((ROOT / "src").rglob("*"))
         if path.is_file()
         and "__pycache__" not in path.parts
+        and not any(part.endswith(".egg-info") for part in path.parts)
         and path.suffix not in {".pyc", ".pyo"}
     ]
     paths.extend(

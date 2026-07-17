@@ -1,11 +1,11 @@
 {
   "artifact": "CAP-ME FSO",
   "artifact_version": "0.3.0",
-  "bundle_id": "68fa4d72ec8710ce4439dae5563693377a91278bc382b053a0f0d83bc3f45988",
+  "bundle_id": "0b3866e7bc9a6ce66324efceb40a9ba685adf521011ab60b365632ff8c9bbb24",
   "files": {
-    ".dockerignore": "1d8620296025555d28ea4db0215aba283cf7fc159cd7ca95d946419e277934df",
+    ".dockerignore": "46662045143f74bcf14b056b0ba5b6ae5d12501b94fc8686443e7cd370045603",
     "analysis/run_censorlab_study.py": "25118f9e62f2c002e3c4c4fdf56efabe01b5ecade11f4e334b4a80934756690d",
-    "analysis/run_fso_multihost.py": "f87c16fe814c6aaf4db7dfd6a476d93151b4e2f7f4a17845adf44ae6fd6d4dfb",
+    "analysis/run_fso_multihost.py": "74cc6a713fbbf10ea2dcd4bcd3f2d3a7c71a9efe51cf77970ff468c780c2cfe8",
     "artifacts/reference-environment.json": "28f17f7086144d3f23475179a05dc3e988837a3bbf419f0d45e74f6865b651e6",
     "configs/fso-censorlab-campaign.json": "a95e61c1f3e32c2f57139c501e9fd013b9052e8da2a6f7ba5a0ec9f04157b524",
     "configs/fso-censorlab.json": "bb15d5f11c549eb189fa6a3bbf51456366f999b7cd54fb4447fb694b8c05f79d",
@@ -38,7 +38,7 @@
     "testbeds/censorlab/campaign/campaign_censor.py": "30cc722c12e73512baaca47e0b70466684352bdee7a6910152993d3e5f82e946",
     "testbeds/censorlab/campaign/censor.toml": "5f68f6aeae272bd9319e7b2a05e6f9fb97bd2d51423979b32ef03329e254f580",
     "testbeds/multihost/Dockerfile": "5dce751b08c9b2107f6aede4b208a062fd5f1162d364e2f29db331c107f6035d",
-    "testbeds/multihost/README.md": "b4e0e2d041d13516e58fe97c676f2763818ee5b6135cdb90c0445720d2eef62a",
+    "testbeds/multihost/README.md": "372218cdbb73a1d03ee0d4198aa93a7854e0a4ef806f10bc83616bbe3e4e1e84",
     "testbeds/multihost/requirements.txt": "069b4bb69c009ba39fcd15999b7c2fa0e3e94cde260505f5e89dd7b18cd6fd7e"
   },
   "schema_version": 1,

@@ -65,9 +65,31 @@ def prepare_lane_traces(source: Path, output: Path) -> dict[str, object]:
             str(row["function"]),
         )
     )
-    expected = 20 * len(TRACE_ARCHITECTURES) * 36 * len(FUNCTIONS)
-    if len(rows) != expected:
-        raise ValueError(f"expected {expected} trace rows, found {len(rows)}")
+    seeds = sorted({int(row["seed"]) for row in rows})
+    epochs = sorted({int(row["epoch"]) for row in rows})
+    if not seeds or epochs != list(range(len(epochs))):
+        raise ValueError("trace selection has no seeds or non-contiguous epochs")
+    expected_keys = {
+        (seed, architecture, epoch, function)
+        for seed in seeds
+        for architecture in TRACE_ARCHITECTURES
+        for epoch in epochs
+        for function in FUNCTIONS
+    }
+    actual_keys = {
+        (
+            int(row["seed"]),
+            str(row["architecture"]),
+            int(row["epoch"]),
+            str(row["function"]),
+        )
+        for row in rows
+    }
+    if len(rows) != len(expected_keys) or actual_keys != expected_keys:
+        raise ValueError(
+            "trace selection is not an exact seed/architecture/epoch/function grid: "
+            f"expected {len(expected_keys)} rows, found {len(rows)}"
+        )
     digest = write_csv(output, rows)
     manifest = {
         "schema_version": 1,
@@ -77,6 +99,8 @@ def prepare_lane_traces(source: Path, output: Path) -> dict[str, object]:
         "output": str(output),
         "output_sha256": digest,
         "rows": len(rows),
+        "seeds": seeds,
+        "epochs": epochs,
         "selection": {
             "censor": "adaptive_cross_layer",
             "network": "mobile",

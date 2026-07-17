@@ -416,6 +416,7 @@ def validate_fso_multihost() -> list[str]:
         for path in (ROOT / "src").rglob("*")
         if path.is_file()
         and "__pycache__" not in path.parts
+        and not any(part.endswith(".egg-info") for part in path.parts)
         and path.suffix not in {".pyc", ".pyo"}
     }
     expected_sources.update(

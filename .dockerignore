@@ -9,3 +9,5 @@
 !testbeds/multihost/requirements.txt
 src/**/__pycache__/
 src/**/*.pyc
+src/*.egg-info/
+src/**/*.egg-info/

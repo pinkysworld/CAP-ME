@@ -1,0 +1,46 @@
+{
+  "common_random_numbers": true,
+  "config": "configs/fso-feedback-evaluation.json",
+  "config_sha256": "eba8749190141c30c453ad7857e9a18b7d09e62ce3db870f22e141972ad5e7f2",
+  "counts": {
+    "cell_rows": 4320,
+    "operation_decisions": 138240,
+    "strategy_seed_runs": 24,
+    "trace_rows": 10800
+  },
+  "interpretation": "Intervals cover replay and resampling variation across the 12 declared synthetic seeds. They are not population intervals for a deployed censor or country.",
+  "processed_files": {
+    "aggregate_metrics.csv": "35ecb66470142bb75147643d129e2a982695882987e8edc173a6da515b7a6924",
+    "lane_selection.csv": "d431aff3c2bf1743e8fb045e7ed12805df5e4ae7f9eb58dd548f0ecba495b997",
+    "paired_contrasts.csv": "eb898615ac10ab07a89569b27b117ea14693adf39e317641a04d61b12b535eed",
+    "run_metrics.csv": "6f3e5b0f4bfa4f52b0f17239e9e55736f7fce58fba9504163b9805d772a4cb74",
+    "survival_curves.csv": "ad6f0497f84050f547221ee8a3fa50d805eca55094f7c73d5cdae5a38ee6644a"
+  },
+  "provider_controlled_attempts": 0,
+  "raw_files": {
+    "observations.csv": "c2598e4b3846fa44077c7338ccce42812ce62cc746d5306adea4673ecb4b5b7e"
+  },
+  "schema_version": 1,
+  "seeds": [
+    9001,
+    9103,
+    9209,
+    9311,
+    9413,
+    9521,
+    9631,
+    9743,
+    9851,
+    9967,
+    10079,
+    10193
+  ],
+  "source_trace": "results/processed/fso/feedback-evaluation/lane_trace_probabilities.csv",
+  "source_trace_sha256": "d940e993c35d77520fb90d63dd46eaa4b805bbbf88ec37df2b5ea112db132c7b",
+  "strategies": [
+    "fso",
+    "fso_no_feedback"
+  ],
+  "strict_trust": true,
+  "synthetic_only": true
+}

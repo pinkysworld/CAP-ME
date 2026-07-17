@@ -1,0 +1,11 @@
+strategy,lane,attempts
+fso,direct-0,434
+fso,ephemeral-0,19283
+fso,ephemeral-1,9159
+fso,fixed-0,106
+fso,generated-0,48033
+fso,generated-1,13431
+fso_no_feedback,ephemeral-0,21178
+fso_no_feedback,ephemeral-1,1811
+fso_no_feedback,generated-0,67837
+fso_no_feedback,generated-1,1283

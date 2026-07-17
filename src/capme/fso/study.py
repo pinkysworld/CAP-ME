@@ -29,6 +29,14 @@ TRACE_ARCHITECTURES = {
 }
 
 
+def _interval_interpretation(seed_count: int) -> str:
+    return (
+        "Intervals cover replay and resampling variation across "
+        f"the {seed_count} declared synthetic seeds. They are not population "
+        "intervals for a deployed censor or country."
+    )
+
+
 def prepare_lane_traces(source: Path, output: Path) -> dict[str, object]:
     """Extract compact adaptive-mobile carrier traces from CAP-ME raw output."""
 
@@ -553,10 +561,7 @@ def run_study(config_path: Path, raw_dir: Path, processed_dir: Path) -> dict[str
         ),
         "raw_files": raw_hashes,
         "processed_files": processed_hashes,
-        "interpretation": (
-            "Intervals cover replay and resampling variation across the 20 CAP-ME synthetic seeds. "
-            "They are not population intervals for a deployed censor or country."
-        ),
+        "interpretation": _interval_interpretation(len(seeds)),
     }
     write_json(raw_dir / "manifest.json", manifest)
     write_json(processed_dir / "study_manifest.json", manifest)

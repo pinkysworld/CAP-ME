@@ -505,6 +505,7 @@ def validate_feedback_evaluation() -> list[str]:
         "strategy_seed_runs": 24,
         "operation_decisions": 138_240,
     }
+    assert "12 declared synthetic seeds" in manifest["interpretation"]
     expected_rows = {
         "lane_trace_probabilities.csv": 10_800,
         "aggregate_metrics.csv": 2,
@@ -517,9 +518,15 @@ def validate_feedback_evaluation() -> list[str]:
     for name, digest in manifest["processed_files"].items():
         assert sha256(directory / name) == digest, f"feedback {name}: hash mismatch"
     assert audit["prospectively_frozen"] is True
+    assert audit["frozen_config_commit"] == (
+        "f4ca7bdb909bdeabbb9b297004846449eab98aa0"
+    )
     assert audit["development_and_evaluation_seeds_disjoint"] is True
     assert audit["seeds"] == seeds
     low, high = [float(value) for value in audit["confidence_interval_95"]]
+    assert abs(float(audit["fso_minus_no_feedback_auac"]) - (-0.0018084490740740515)) < 1e-15
+    assert abs(low - (-0.0033998842592592358)) < 1e-15
+    assert abs(high - (-0.0002170138888888763)) < 1e-15
     if low > 0:
         assert audit["classification"] == "supported_benefit_in_declared_model"
         assert audit["recommended_feedback_default"] == "enabled"

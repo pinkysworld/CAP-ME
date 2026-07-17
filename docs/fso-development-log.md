@@ -73,6 +73,18 @@ Dynamic plan selection, diversity, and redundancy are beneficial within this
 trace; the current feedback rule is not. The next feedback design must be
 developed on new data rather than tuned on these confirmation seeds.
 
+## Prospectively frozen feedback follow-up
+
+Before generating follow-up outcomes, the repository froze 12 new seeds,
+the paired FSO-minus-no-feedback estimand, a two-sided 95% seed-bootstrap
+interval, and its decision rule in commit `f4ca7bdb909bdeabbb9b297004846449eab98aa0`.
+The evaluation produced AUAC 0.91347 for FSO and 0.91528 without feedback. The
+paired difference is -0.00181 with interval [-0.00340, -0.000217]. Its upper
+bound is below zero, meeting the frozen harm rule within this declared
+synthetic model. Feedback is therefore disabled by default, and no benefit
+claim is retained. The result is not evidence about a deployed censor or
+population.
+
 ## FSO 0.3 protocol-path execution
 
 FSO 0.3 does not change the frozen replay, scheduler objective, confirmation

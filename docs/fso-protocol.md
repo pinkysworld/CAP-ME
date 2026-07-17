@@ -28,9 +28,9 @@ key interface with an independently reviewed Double Ratchet or MLS integration.
    predicted availability.
 5. Experimental delivery feedback updates only local estimates. A sender does
    not receive censor-internal labels or future trace values. Feedback is not
-   credited as a benefit: the first frozen evaluation was adverse and a second
-   prospectively frozen audit must meet its stated support rule before any such
-   claim is made.
+   credited as a benefit: the prospectively frozen 12-seed audit classified the
+   current update rule as harmful in its declared synthetic model, so the
+   default is disabled.
 6. Correlated carrier instances are discounted; two endpoints in one failure
    domain are not counted as two independent defenses.
 7. External destinations are rejected by the executable loopback testbed.

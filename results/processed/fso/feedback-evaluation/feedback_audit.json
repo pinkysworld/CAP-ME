@@ -1,0 +1,45 @@
+{
+  "auac": {
+    "fso": 0.9134693287037038,
+    "fso_no_feedback": 0.9152777777777777
+  },
+  "byte_overhead": {
+    "fso": 1.2358244545074129,
+    "fso_no_feedback": 1.2377789870498785
+  },
+  "classification": "harm_in_declared_model",
+  "confidence_interval_95": [
+    -0.0033998842592592358,
+    -0.0002170138888888763
+  ],
+  "development_and_evaluation_seeds_disjoint": true,
+  "evaluation_config": "configs/fso-feedback-evaluation.json",
+  "evaluation_config_sha256": "eba8749190141c30c453ad7857e9a18b7d09e62ce3db870f22e141972ad5e7f2",
+  "frozen_before_execution_utc": "2026-07-17T12:43:35Z",
+  "frozen_config_commit": "f4ca7bdb909bdeabbb9b297004846449eab98aa0",
+  "fso_minus_no_feedback_auac": -0.0018084490740740515,
+  "interpretation": "This decision applies only to the declared synthetic trace model. It is not evidence about a deployed censor or population.",
+  "p_value": 0.051231625612479584,
+  "paired_replicates": 12,
+  "primary_estimand": "Paired seed-level mean AUAC difference: fso minus fso_no_feedback.",
+  "prospectively_frozen": true,
+  "recommended_feedback_default": "disabled",
+  "schema_version": 1,
+  "seeds": [
+    9001,
+    9103,
+    9209,
+    9311,
+    9413,
+    9521,
+    9631,
+    9743,
+    9851,
+    9967,
+    10079,
+    10193
+  ],
+  "source_config": "configs/fso-feedback-source.json",
+  "source_config_sha256": "8b9b3bd2c982ebe788d95a870c4ed44be5d4f70ad47dfe419a0eca19b8a12f94",
+  "synthetic_only": true
+}

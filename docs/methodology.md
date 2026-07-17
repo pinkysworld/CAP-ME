@@ -134,9 +134,12 @@ online feedback was slightly adverse. Before generating any follow-up outcome,
 `configs/fso-feedback-source.json`. The paired comparison and decision rule
 were frozen in `configs/fso-feedback-evaluation.json`: a benefit is supported
 only if the two-sided 95% seed-bootstrap interval for FSO minus no-feedback
-AUAC has a lower bound above zero. If not, the manuscript makes no benefit
-claim and recommends feedback disabled. Secondary resource and
-function-specific metrics are descriptive.
+AUAC has a lower bound above zero, while harm is declared only if its upper
+bound is below zero. The observed difference is -0.00181 with interval
+[-0.00340, -0.000217], so the frozen rule classifies feedback as harmful within
+this synthetic model and recommends it disabled. This is not a population or
+deployment effect. Secondary resource and function-specific metrics are
+descriptive.
 
 ### CensorLab packet-plane execution
 

@@ -117,11 +117,15 @@ efficiency). These are descriptive prototype costs on one machine, not
 production targets or censor measurements.
 
 The earlier confirmation found online feedback slightly adverse. A second,
-prospectively frozen 12-seed evaluation is versioned separately. Its decision
-rule permits a benefit claim only if the paired 95% interval lies wholly above
-zero; otherwise feedback remains uncredited and disabled is the recommended
-default. The frozen plan is in
-[`configs/fso-feedback-evaluation.json`](configs/fso-feedback-evaluation.json).
+prospectively frozen evaluation used 12 new, disjoint seeds. FSO reached AUAC
+0.91347 versus 0.91528 without feedback; the paired difference was -0.00181
+with predeclared 95% seed-bootstrap interval [-0.00340, -0.000217]. Because the
+interval is wholly below zero, the result meets the frozen harm rule for this
+declared synthetic model. The benefit claim is removed and feedback is disabled
+by default. The plan and audit are in
+[`configs/fso-feedback-evaluation.json`](configs/fso-feedback-evaluation.json)
+and
+[`feedback_audit.json`](results/processed/fso/feedback-evaluation/feedback_audit.json).
 
 ## Closed CensorLab result
 

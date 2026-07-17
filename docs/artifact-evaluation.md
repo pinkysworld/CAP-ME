@@ -83,7 +83,10 @@ containment invariants, recovery state, and headline values.
 The prospectively frozen feedback audit is reproduced with
 `make fso-feedback-source fso-feedback-evaluation`. The first command creates
 60 synthetic source runs and a 10,800-cell trace; the second evaluates two
-strategies over 12 paired seeds and applies the precommitted decision rule.
+strategies over 12 paired seeds and applies the precommitted decision rule. The
+versioned result classifies the current feedback rule as harmful in the declared
+model: FSO minus no-feedback AUAC is -0.00181 with 95% seed-bootstrap interval
+[-0.00340, -0.000217]. The default is therefore disabled.
 
 `make fso-scalability` reproduces the host-observed codec/envelope measurements
 from 64 bytes to 1 MiB and the 1/2/4-process scaling cases. Timing and RSS will

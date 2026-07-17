@@ -5,11 +5,21 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from capme.fso.study import TRACE_ARCHITECTURES, _unit_uniform, prepare_lane_traces
+from capme.fso.study import (
+    TRACE_ARCHITECTURES,
+    _interval_interpretation,
+    _unit_uniform,
+    prepare_lane_traces,
+)
 from capme.fso.types import FUNCTIONS
 
 
 class FSOStudyTests(unittest.TestCase):
+    def test_interval_scope_uses_declared_seed_count(self) -> None:
+        interpretation = _interval_interpretation(12)
+        self.assertIn("12 declared synthetic seeds", interpretation)
+        self.assertNotIn("20", interpretation)
+
     def test_common_random_draw_is_stable_and_scoped(self) -> None:
         first = _unit_uniform(4001, 3, "text", 7, "generated-0", "lane")
         second = _unit_uniform(4001, 3, "text", 7, "generated-0", "lane")

@@ -158,6 +158,12 @@ def run(config_path: Path, output_dir: Path, *, docker: str, rebuild: bool) -> d
             "the container image accepts only the reviewed configs/fso-multihost.json"
         )
     config_hash = sha256_file(config_path)
+    source_commit = _run(
+        "git", ["-C", str(ROOT), "rev-parse", "HEAD"], timeout=10.0
+    ).stdout.strip()
+    source_status = _run(
+        "git", ["-C", str(ROOT), "status", "--porcelain"], timeout=10.0
+    ).stdout
     suffix = f"{os.getpid()}-{config_hash[:8]}"
     image = f"capme-multihost:{config_hash[:12]}"
     network = f"capme-internal-{suffix}"
@@ -344,12 +350,6 @@ def run(config_path: Path, output_dir: Path, *, docker: str, rebuild: bool) -> d
             if manifest.get("provider_controlled_attempts") != 0:
                 raise AssertionError("multi-host client violated strict trust")
 
-            source_commit = _run(
-                "git", ["-C", str(ROOT), "rev-parse", "HEAD"], timeout=10.0
-            ).stdout.strip()
-            source_status = _run(
-                "git", ["-C", str(ROOT), "status", "--porcelain"], timeout=10.0
-            ).stdout
             environment = {
                 "schema_version": 1,
                 "closed_world": True,

@@ -1,6 +1,6 @@
 {
   "build_context_policy": "root .dockerignore allowlists only src, the reviewed config, and testbeds/multihost build files",
-  "client_stdout_sha256": "d6923489a296a705c98d2e9595588863172040ea666e6ddb3c9efaf25c8c02c8",
+  "client_stdout_sha256": "808a4fd4eff30c900f55cedc5701de79d68063dd9e078ba2f81104bac1bf6330",
   "closed_world": true,
   "config": "configs/fso-multihost.json",
   "config_sha256": "bc313a75dee6f832544bd65a31b5fb6130c2c3e0185876cfd9bf2ac5fcd53cfb",
@@ -16,9 +16,9 @@
       "capabilities_dropped": [
         "ALL"
       ],
-      "image": "sha256:48aa2a1cd17b2fdedc8fe851f87189f78b750680f9fefae51e9fe872137d0276",
+      "image": "sha256:b4eb01ec34b0f1ec2d248271892258a530dbfc8302b9d2506e0486b77da0adb8",
       "memory_limit_bytes": 268435456,
-      "name": "capme-receiver-89240-bc313a75",
+      "name": "capme-receiver-74153-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -36,9 +36,9 @@
       "capabilities_dropped": [
         "ALL"
       ],
-      "image": "sha256:48aa2a1cd17b2fdedc8fe851f87189f78b750680f9fefae51e9fe872137d0276",
+      "image": "sha256:b4eb01ec34b0f1ec2d248271892258a530dbfc8302b9d2506e0486b77da0adb8",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-direct-0-89240-bc313a75",
+      "name": "capme-proxy-direct-0-74153-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -56,9 +56,9 @@
       "capabilities_dropped": [
         "ALL"
       ],
-      "image": "sha256:48aa2a1cd17b2fdedc8fe851f87189f78b750680f9fefae51e9fe872137d0276",
+      "image": "sha256:b4eb01ec34b0f1ec2d248271892258a530dbfc8302b9d2506e0486b77da0adb8",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-fixed-0-89240-bc313a75",
+      "name": "capme-proxy-fixed-0-74153-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -76,9 +76,9 @@
       "capabilities_dropped": [
         "ALL"
       ],
-      "image": "sha256:48aa2a1cd17b2fdedc8fe851f87189f78b750680f9fefae51e9fe872137d0276",
+      "image": "sha256:b4eb01ec34b0f1ec2d248271892258a530dbfc8302b9d2506e0486b77da0adb8",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-generated-0-89240-bc313a75",
+      "name": "capme-proxy-generated-0-74153-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -96,9 +96,9 @@
       "capabilities_dropped": [
         "ALL"
       ],
-      "image": "sha256:48aa2a1cd17b2fdedc8fe851f87189f78b750680f9fefae51e9fe872137d0276",
+      "image": "sha256:b4eb01ec34b0f1ec2d248271892258a530dbfc8302b9d2506e0486b77da0adb8",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-ephemeral-0-89240-bc313a75",
+      "name": "capme-proxy-ephemeral-0-74153-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -116,9 +116,9 @@
       "capabilities_dropped": [
         "ALL"
       ],
-      "image": "sha256:48aa2a1cd17b2fdedc8fe851f87189f78b750680f9fefae51e9fe872137d0276",
+      "image": "sha256:b4eb01ec34b0f1ec2d248271892258a530dbfc8302b9d2506e0486b77da0adb8",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-ephemeral-1-89240-bc313a75",
+      "name": "capme-proxy-ephemeral-1-74153-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -136,9 +136,9 @@
       "capabilities_dropped": [
         "ALL"
       ],
-      "image": "sha256:48aa2a1cd17b2fdedc8fe851f87189f78b750680f9fefae51e9fe872137d0276",
+      "image": "sha256:b4eb01ec34b0f1ec2d248271892258a530dbfc8302b9d2506e0486b77da0adb8",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-permitted-0-89240-bc313a75",
+      "name": "capme-proxy-permitted-0-74153-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -156,9 +156,9 @@
       "capabilities_dropped": [
         "ALL"
       ],
-      "image": "sha256:48aa2a1cd17b2fdedc8fe851f87189f78b750680f9fefae51e9fe872137d0276",
+      "image": "sha256:b4eb01ec34b0f1ec2d248271892258a530dbfc8302b9d2506e0486b77da0adb8",
       "memory_limit_bytes": 268435456,
-      "name": "capme-client-89240-bc313a75",
+      "name": "capme-client-74153-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -189,7 +189,7 @@
         "Subnet": "172.18.0.0/16"
       }
     ],
-    "name": "capme-internal-89240-bc313a75"
+    "name": "capme-internal-74153-bc313a75"
   },
   "external_destinations": 0,
   "image": {
@@ -197,14 +197,14 @@
     "base": "python:3.12-slim-bookworm",
     "base_digest": "sha256:d50fb7611f86d04a3b0471b46d7557818d88983fc3136726336b2a4c657aa30b",
     "config_sha256_label": "bc313a75dee6f832544bd65a31b5fb6130c2c3e0185876cfd9bf2ac5fcd53cfb",
-    "id": "sha256:48aa2a1cd17b2fdedc8fe851f87189f78b750680f9fefae51e9fe872137d0276",
+    "id": "sha256:b4eb01ec34b0f1ec2d248271892258a530dbfc8302b9d2506e0486b77da0adb8",
     "os": "linux",
     "tag": "capme-multihost:bc313a75dee6"
   },
   "live_interfaces": 0,
   "published_ports": 0,
   "schema_version": 1,
-  "source_commit_at_run": "7da8fcde49bdd29cf226b51692d4223906ec27d1",
+  "source_commit_at_run": "f4ca7bdb909bdeabbb9b297004846449eab98aa0",
   "source_files": {
     ".dockerignore": "1d8620296025555d28ea4db0215aba283cf7fc159cd7ca95d946419e277934df",
     "analysis/run_fso_multihost.py": "0da2aed883524a34518aa2ec9ebe9c746c4df88059acf81743f020c66a94eb2b",
@@ -221,6 +221,7 @@
     "src/capme/cli.py": "eef93586a6a464981ec169afa3193a26d1e8fe963961afddc2f4224230aa47c8",
     "src/capme/detector.py": "080f080fe8fd166f2dffbc70794d9153a4056c95fa6f5e5af37dc8195605c01b",
     "src/capme/fso/__init__.py": "17ed5e18843a77bc07ccd5adb68447b184f48505c2aa118f71de8d668f1a8ded",
+    "src/capme/fso/benchmark.py": "4c2e2ebaf25b8ec83bb7fa7fff8d05baf9ac533919e5a683001373d92ae0f812",
     "src/capme/fso/censorlab.py": "80cdc8a8810dfdb3a5c370bb3691e3ac260b74ef0d309f92beff8b88f4d99835",
     "src/capme/fso/coding.py": "d5d86d7b17b4b361ea66e2f7d71d6a20db2b6b38ebef17dab4ec4d8e7e358b5e",
     "src/capme/fso/crypto.py": "56de1c5885d28c6035cfa699bed4991c6fbcf33216b6eed298ba7ff9939b73c1",

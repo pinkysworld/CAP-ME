@@ -26,8 +26,11 @@ key interface with an independently reviewed Double Ratchet or MLS integration.
 3. No carrier receives a plaintext function label or application payload.
 4. A strict-trust policy excludes provider-controlled carriers regardless of
    predicted availability.
-5. Delivery feedback updates only local estimates. A sender does not receive
-   censor-internal labels or future trace values.
+5. Experimental delivery feedback updates only local estimates. A sender does
+   not receive censor-internal labels or future trace values. Feedback is not
+   credited as a benefit: the first frozen evaluation was adverse and a second
+   prospectively frozen audit must meet its stated support rule before any such
+   claim is made.
 6. Correlated carrier instances are discounted; two endpoints in one failure
    domain are not counted as two independent defenses.
 7. External destinations are rejected by the executable loopback testbed.
@@ -133,6 +136,13 @@ of scope.
   deployment.
 - **Loopback packet testbed:** actual encrypted UDP datagrams traverse only
   `127.0.0.0/8` or `::1` endpoints with controlled loss, jitter, and delay.
+- **Closed multi-host packet testbed:** a sender, six carrier-fault adapters,
+  and receiver run as separate non-root containers on an internal Docker
+  network with no published ports. Each destination must resolve only to
+  loopback, RFC 1918, or IPv6 unique-local addresses. Frozen phases exercise
+  loss, corruption, ACK faults, congestion, recovery, and deadline-bound state
+  expiry; agreement with its analytic packet model is implementation
+  concordance only.
 - **Field package:** a non-networking validator checks authorization, expiry,
   ownership, data minimization, stop rules, exact review-bundle hashes, three
   distinct independent reviewer records, review expiry, and unresolved

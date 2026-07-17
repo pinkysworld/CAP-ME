@@ -1,0 +1,347 @@
+{
+  "ack_auth_failures": 0,
+  "acknowledged_availability": 0.7555555555555555,
+  "brier_score": 0.05938247724716753,
+  "byte_overhead": 1.868222331583552,
+  "client_cpu_seconds": 0.511767207,
+  "client_peak_rss_kib": 34704,
+  "closed_world": true,
+  "config_sha256": "bc313a75dee6f832544bd65a31b5fb6130c2c3e0185876cfd9bf2ac5fcd53cfb",
+  "container_count": 8,
+  "container_image_id": "sha256:48aa2a1cd17b2fdedc8fe851f87189f78b750680f9fefae51e9fe872137d0276",
+  "control_auth_failures": 0,
+  "cryptography": "ChaCha20-Poly1305 shard envelopes, domain-separated HMAC-SHA-256 acknowledgements, and authenticated laboratory control records",
+  "docker_internal_network": true,
+  "docker_internal_network_required": true,
+  "environment_sha256": "f1efad4834af85e331dc9ed53dd19a0d8d3706d2b308c8e9ae6cd92ae049966c",
+  "external_destinations": 0,
+  "lane_attempts": {
+    "ephemeral-0": 48,
+    "ephemeral-1": 1,
+    "generated-0": 90
+  },
+  "live_interfaces": 0,
+  "observations_sha256": "7aa78e3bf9c6c777491672727bf84e801aab937dac220f94955dc8bf0ead5810",
+  "operations": 90,
+  "payload_bytes": 731520,
+  "phase_calibration_mae": 0.07799695777824156,
+  "phase_summaries": [
+    {
+      "availability": 1.0,
+      "brier_score": 0.01828178171977573,
+      "coded_messages_inflight_after_gc": 0,
+      "expired_coded_messages": 0,
+      "expired_fragment_sets": 1,
+      "mean_elapsed_ms": 68.5739348664356,
+      "mean_predicted_success": 0.9324253129513113,
+      "operations": 15,
+      "phase": "clean_start",
+      "reassembly_inflight_after_gc": 0
+    },
+    {
+      "availability": 0.8,
+      "brier_score": 0.014645251096816166,
+      "coded_messages_inflight_after_gc": 0,
+      "expired_coded_messages": 0,
+      "expired_fragment_sets": 7,
+      "mean_elapsed_ms": 261.8618352001552,
+      "mean_predicted_success": 0.7544487494785342,
+      "operations": 15,
+      "phase": "fixed_endpoint_pressure",
+      "reassembly_inflight_after_gc": 0
+    },
+    {
+      "availability": 0.7333333333333333,
+      "brier_score": 0.08412015970953629,
+      "coded_messages_inflight_after_gc": 0,
+      "expired_coded_messages": 0,
+      "expired_fragment_sets": 7,
+      "mean_elapsed_ms": 550.2494950664792,
+      "mean_predicted_success": 0.5644326058288391,
+      "operations": 15,
+      "phase": "generated_classifier_pressure",
+      "reassembly_inflight_after_gc": 0
+    },
+    {
+      "availability": 0.6,
+      "brier_score": 0.10289631719934891,
+      "coded_messages_inflight_after_gc": 0,
+      "expired_coded_messages": 0,
+      "expired_fragment_sets": 12,
+      "mean_elapsed_ms": 362.8791448000508,
+      "mean_predicted_success": 0.6185862289491659,
+      "operations": 15,
+      "phase": "relay_discovery_pressure",
+      "reassembly_inflight_after_gc": 0
+    },
+    {
+      "availability": 0.6666666666666666,
+      "brier_score": 0.06597318415666556,
+      "coded_messages_inflight_after_gc": 0,
+      "expired_coded_messages": 0,
+      "expired_fragment_sets": 5,
+      "mean_elapsed_ms": 366.8715982666375,
+      "mean_predicted_success": 0.5923004702236222,
+      "operations": 15,
+      "phase": "congestion",
+      "reassembly_inflight_after_gc": 0
+    },
+    {
+      "availability": 0.7333333333333333,
+      "brier_score": 0.07037816960086253,
+      "coded_messages_inflight_after_gc": 0,
+      "expired_coded_messages": 0,
+      "expired_fragment_sets": 9,
+      "mean_elapsed_ms": 315.8030121997096,
+      "mean_predicted_success": 0.8263359895359236,
+      "operations": 15,
+      "phase": "recovery",
+      "reassembly_inflight_after_gc": 0
+    }
+  ],
+  "prediction_scope": "implementation-concordance check under declared independent per-datagram loss/corruption and Gaussian-delay approximations; not external validity",
+  "provider_controlled_attempts": 0,
+  "proxy_stats": {
+    "direct-0": {
+      "active_phase": "recovery",
+      "counters": {
+        "phase_changes": 6
+      },
+      "lane": "direct-0",
+      "phase_counters": {
+        "clean_start": {},
+        "congestion": {},
+        "fixed_endpoint_pressure": {},
+        "generated_classifier_pressure": {},
+        "recovery": {},
+        "relay_discovery_pressure": {}
+      }
+    },
+    "ephemeral-0": {
+      "active_phase": "recovery",
+      "counters": {
+        "ack_forwarded": 26,
+        "ack_received": 26,
+        "data_dropped": 134,
+        "data_duplicated": 11,
+        "data_forwarded": 398,
+        "data_received": 532,
+        "phase_changes": 6
+      },
+      "lane": "ephemeral-0",
+      "phase_counters": {
+        "clean_start": {
+          "ack_forwarded": 4,
+          "ack_received": 4,
+          "data_duplicated": 2,
+          "data_forwarded": 34,
+          "data_received": 34
+        },
+        "congestion": {
+          "ack_forwarded": 5,
+          "ack_received": 5,
+          "data_dropped": 7,
+          "data_duplicated": 4,
+          "data_forwarded": 84,
+          "data_received": 91
+        },
+        "fixed_endpoint_pressure": {
+          "ack_forwarded": 3,
+          "ack_received": 3,
+          "data_dropped": 12,
+          "data_duplicated": 1,
+          "data_forwarded": 77,
+          "data_received": 89
+        },
+        "generated_classifier_pressure": {
+          "ack_forwarded": 11,
+          "ack_received": 11,
+          "data_dropped": 18,
+          "data_duplicated": 3,
+          "data_forwarded": 96,
+          "data_received": 114
+        },
+        "recovery": {
+          "ack_forwarded": 3,
+          "ack_received": 3,
+          "data_dropped": 9,
+          "data_forwarded": 93,
+          "data_received": 102
+        },
+        "relay_discovery_pressure": {
+          "data_dropped": 88,
+          "data_duplicated": 1,
+          "data_forwarded": 14,
+          "data_received": 102
+        }
+      }
+    },
+    "ephemeral-1": {
+      "active_phase": "recovery",
+      "counters": {
+        "data_dropped": 1,
+        "data_forwarded": 1,
+        "data_received": 2,
+        "phase_changes": 6
+      },
+      "lane": "ephemeral-1",
+      "phase_counters": {
+        "clean_start": {},
+        "congestion": {},
+        "fixed_endpoint_pressure": {
+          "data_dropped": 1,
+          "data_forwarded": 1,
+          "data_received": 2
+        },
+        "generated_classifier_pressure": {},
+        "recovery": {},
+        "relay_discovery_pressure": {}
+      }
+    },
+    "fixed-0": {
+      "active_phase": "recovery",
+      "counters": {
+        "phase_changes": 6
+      },
+      "lane": "fixed-0",
+      "phase_counters": {
+        "clean_start": {},
+        "congestion": {},
+        "fixed_endpoint_pressure": {},
+        "generated_classifier_pressure": {},
+        "recovery": {},
+        "relay_discovery_pressure": {}
+      }
+    },
+    "generated-0": {
+      "active_phase": "recovery",
+      "counters": {
+        "ack_dropped": 1,
+        "ack_forwarded": 56,
+        "ack_received": 57,
+        "data_dropped": 142,
+        "data_duplicated": 4,
+        "data_forwarded": 542,
+        "data_received": 684,
+        "phase_changes": 6
+      },
+      "lane": "generated-0",
+      "phase_counters": {
+        "clean_start": {
+          "ack_forwarded": 14,
+          "ack_received": 14,
+          "data_dropped": 2,
+          "data_duplicated": 1,
+          "data_forwarded": 112,
+          "data_received": 114
+        },
+        "congestion": {
+          "ack_forwarded": 11,
+          "ack_received": 11,
+          "data_dropped": 9,
+          "data_duplicated": 1,
+          "data_forwarded": 105,
+          "data_received": 114
+        },
+        "fixed_endpoint_pressure": {
+          "ack_forwarded": 11,
+          "ack_received": 11,
+          "data_dropped": 8,
+          "data_duplicated": 2,
+          "data_forwarded": 106,
+          "data_received": 114
+        },
+        "generated_classifier_pressure": {
+          "ack_forwarded": 1,
+          "ack_received": 1,
+          "data_dropped": 107,
+          "data_forwarded": 7,
+          "data_received": 114
+        },
+        "recovery": {
+          "ack_dropped": 1,
+          "ack_forwarded": 10,
+          "ack_received": 11,
+          "data_dropped": 4,
+          "data_forwarded": 110,
+          "data_received": 114
+        },
+        "relay_discovery_pressure": {
+          "ack_forwarded": 9,
+          "ack_received": 9,
+          "data_dropped": 12,
+          "data_forwarded": 102,
+          "data_received": 114
+        }
+      }
+    },
+    "permitted-0": {
+      "active_phase": "recovery",
+      "counters": {
+        "phase_changes": 6
+      },
+      "lane": "permitted-0",
+      "phase_counters": {
+        "clean_start": {},
+        "congestion": {},
+        "fixed_endpoint_pressure": {},
+        "generated_classifier_pressure": {},
+        "recovery": {},
+        "relay_discovery_pressure": {}
+      }
+    }
+  },
+  "published_ports": 0,
+  "receiver_completed_operations": 71,
+  "receiver_stats": {
+    "coded_messages_inflight": 0,
+    "datagrams_received": 963,
+    "envelope_auth_failures": 0,
+    "expired_coded_messages": 0,
+    "expired_fragment_sets": 41,
+    "fragment_failures": 0,
+    "fragments_completed": 83,
+    "function_completions": {
+      "file": 4,
+      "media": 14,
+      "presence": 18,
+      "realtime": 17,
+      "text": 18
+    },
+    "operations_completed": 71,
+    "reassembly_evictions": 0,
+    "reassembly_inflight": 0
+  },
+  "resolved_proxy_addresses": {
+    "direct-0": [
+      "172.18.0.3"
+    ],
+    "ephemeral-0": [
+      "172.18.0.6"
+    ],
+    "ephemeral-1": [
+      "172.18.0.7"
+    ],
+    "fixed-0": [
+      "172.18.0.4"
+    ],
+    "generated-0": [
+      "172.18.0.5"
+    ],
+    "permitted-0": [
+      "172.18.0.8"
+    ]
+  },
+  "roles": {
+    "carrier_fault_adapters": 6,
+    "receiver": 1,
+    "sender": 1
+  },
+  "scheduler_strategy": "fso_no_feedback",
+  "schema_version": 1,
+  "strict_trust": true,
+  "successful_operations": 68,
+  "synthetic_payloads": true,
+  "wall_time_seconds": 32.3620169570022,
+  "wire_bytes": 1366642
+}

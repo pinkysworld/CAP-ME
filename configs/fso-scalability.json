@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "synthetic_only": true,
+  "seed": 55681,
+  "max_fragment_data": 7600,
+  "cases": [
+    {"payload_bytes": 64, "iterations": 200},
+    {"payload_bytes": 1024, "iterations": 150},
+    {"payload_bytes": 16384, "iterations": 40},
+    {"payload_bytes": 262144, "iterations": 10},
+    {"payload_bytes": 1048576, "iterations": 3}
+  ],
+  "plans": [
+    {"name": "single", "threshold": 1, "total_shards": 1},
+    {"name": "duplicate", "threshold": 1, "total_shards": 2},
+    {"name": "coded-2-of-3", "threshold": 2, "total_shards": 3},
+    {"name": "coded-3-of-5", "threshold": 3, "total_shards": 5}
+  ],
+  "parallel_scaling": {
+    "payload_bytes": 65536,
+    "threshold": 2,
+    "total_shards": 3,
+    "total_operations": 32,
+    "workers": [1, 2, 4]
+  }
+}

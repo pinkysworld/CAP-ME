@@ -96,6 +96,48 @@ The loopback test exercises actual UDP datagrams, controlled loss/latency/jitter
 
 Loopback timing and ephemeral port numbers are operating-system observations, so this run validates behavior rather than bit-for-bit determinism. Its manifest hashes the exact recorded observations. The trace replay remains the source for statistical comparisons, while the closed-world lab supplies bit-for-bit protocol-path reproducibility.
 
+### Closed multi-host packet execution
+
+The multi-host test separates one sender, six fault-injection carrier adapters,
+and one receiver into eight non-root containers. Docker marks their bridge
+network internal; no ports are published. Runtime guards reject any carrier or
+receiver alias that resolves outside loopback, RFC 1918, or IPv6 unique-local
+space. The orchestrator records the image ID, pinned base digest, source hashes,
+engine, addresses, containment settings, and zero-port invariant.
+
+Six frozen phases cover a clean start, fixed-endpoint pressure,
+generated-transport classifier pressure, correlated relay discovery,
+congestion, and recovery. The client records delivery, latency, wire overhead,
+CPU time, peak RSS, authenticated ACK outcomes, and an analytic packet-success
+probability. The analytic model uses the declared independent per-datagram
+loss/corruption rates and a Gaussian-delay approximation. Brier score and
+phase-level mean absolute error therefore test implementation concordance, not
+external censor calibration. After each phase, deadline-stale fragment and
+coded-message state is expired and both in-flight counts must be zero.
+The packet-path run uses the no-feedback scheduler so operating-system timing
+noise cannot influence later lane selection; online feedback is evaluated only
+in the separate frozen audit below.
+
+The complementary no-network scalability benchmark measures the complete
+local coding/envelope pipeline over payloads from 64 bytes to 1 MiB and coding
+widths from one to five shards. It records wall time, CPU time, median and 95th
+percentile operation latency, wire overhead, peak RSS, verified recovery, and
+1/2/4-process throughput for a fixed 64-KiB 2-of-3 case. These measurements are
+descriptive observations from the environment recorded in the manifest; they
+are not hardware-independent performance claims.
+
+### Prospectively frozen feedback audit
+
+The original 20-seed confirmation is treated as development evidence because
+online feedback was slightly adverse. Before generating any follow-up outcome,
+12 new seeds disjoint from the main study and confirmation were frozen in
+`configs/fso-feedback-source.json`. The paired comparison and decision rule
+were frozen in `configs/fso-feedback-evaluation.json`: a benefit is supported
+only if the two-sided 95% seed-bootstrap interval for FSO minus no-feedback
+AUAC has a lower bound above zero. If not, the manuscript makes no benefit
+claim and recommends feedback disabled. Secondary resource and
+function-specific metrics are descriptive.
+
 ### CensorLab packet-plane execution
 
 The optional CensorLab bridge generates deterministic Ethernet/IPv4 PCAPs

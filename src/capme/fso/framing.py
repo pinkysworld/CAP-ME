@@ -95,6 +95,13 @@ class FragmentReassembler:
             self._buffers.pop(key, None)
         return len(keys)
 
+    def expire_incomplete(self) -> int:
+        """Expire every incomplete fragment set at a controlled deadline boundary."""
+
+        count = len(self._buffers)
+        self._buffers.clear()
+        return count
+
     def ingest(self, datagram: bytes, *, peer: str) -> ReassemblyResult:
         header = peek_fragment(datagram)
         key = (peer, header.message_id, header.shard_index)

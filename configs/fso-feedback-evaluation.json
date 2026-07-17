@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "synthetic_only": true,
+  "purpose": "Prospectively frozen confirmatory audit of online delivery feedback.",
+  "frozen_before_execution_utc": "2026-07-17T12:43:35Z",
+  "source_trace": "results/processed/fso/feedback-evaluation/lane_trace_probabilities.csv",
+  "source_seed_config": "configs/fso-feedback-source.json",
+  "epochs": 36,
+  "operations_per_function": 32,
+  "correlation_weight": 0.35,
+  "strict_trust": true,
+  "bootstrap_repetitions": 2000,
+  "strategies": [
+    "fso",
+    "fso_no_feedback"
+  ],
+  "frozen_analysis_plan": {
+    "development_evidence": "The earlier disjoint 20-seed confirmation found fso minus fso_no_feedback AUAC = -0.002439236111111104.",
+    "primary_estimand": "Paired seed-level mean AUAC difference: fso minus fso_no_feedback.",
+    "support_rule": "Support an online-feedback benefit only when the two-sided 95 percent seed-bootstrap interval has a lower bound greater than zero.",
+    "harm_rule": "Call online feedback harmful in this declared model only when the interval upper bound is below zero.",
+    "otherwise": "Classify the effect as inconclusive and make no benefit claim.",
+    "default_rule": "Recommend feedback disabled unless the support rule is met.",
+    "secondary_metrics": [
+      "byte overhead",
+      "mean completion time",
+      "function-specific AUAC"
+    ],
+    "multiplicity": "One confirmatory primary contrast; secondary metrics are descriptive."
+  },
+  "lane_instances": [
+    {"name": "direct-0", "architecture": "direct_e2ee", "failure_domain": "direct", "latency_prior_ms": 180, "survival_prior": 0.45, "endpoint_resilience": 0.12, "provider_controls_delivery": false},
+    {"name": "fixed-0", "architecture": "fixed_proxy", "failure_domain": "fixed", "latency_prior_ms": 210, "survival_prior": 0.40, "endpoint_resilience": 0.10, "provider_controls_delivery": false},
+    {"name": "generated-0", "architecture": "generated_transport", "failure_domain": "generated", "latency_prior_ms": 260, "survival_prior": 0.78, "endpoint_resilience": 0.70, "provider_controls_delivery": false},
+    {"name": "generated-1", "architecture": "generated_transport", "failure_domain": "generated", "latency_prior_ms": 285, "survival_prior": 0.75, "endpoint_resilience": 0.72, "provider_controls_delivery": false},
+    {"name": "ephemeral-0", "architecture": "ephemeral_relay", "failure_domain": "ephemeral-a", "latency_prior_ms": 320, "survival_prior": 0.74, "endpoint_resilience": 0.92, "provider_controls_delivery": false},
+    {"name": "ephemeral-1", "architecture": "ephemeral_relay", "failure_domain": "ephemeral-b", "latency_prior_ms": 350, "survival_prior": 0.72, "endpoint_resilience": 0.92, "provider_controls_delivery": false},
+    {"name": "permitted-0", "architecture": "platform_controlled", "failure_domain": "permitted", "latency_prior_ms": 160, "survival_prior": 0.88, "endpoint_resilience": 0.98, "provider_controls_delivery": true}
+  ]
+}

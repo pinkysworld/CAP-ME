@@ -5,13 +5,21 @@
 CAP-ME uses synthetic feature vectors, abstract endpoint identifiers, simulated
 network outcomes, and declared architecture parameters. FSO adds a
 deterministic closed-world carrier lab, synthetic encrypted UDP traffic
-restricted to localhost, and offline PCAP evaluation through a separately
-obtained CensorLab executable. The artifact contains no human-subject data,
+restricted to localhost or an internal-only container network, and offline
+PCAP evaluation through a separately obtained CensorLab executable. The artifact contains no human-subject data,
 user messages, external packet captures, account identifiers, live targets, or
 third-party service interactions. No experiment sends test traffic beyond
-loopback; the CensorLab container has networking disabled.
+loopback or private addresses on that internal network; the CensorLab container
+has networking disabled. The multi-host containers publish no ports, run with
+read-only roots and dropped capabilities, and reject any resolved destination
+outside loopback, RFC 1918, or IPv6 unique-local space.
 
-The code is scoped to research evaluation. It provides a laboratory message overlay but no external carrier connector, production key agreement, scanner, endpoint-discovery tool, traffic impersonator, target list, or instructions for evading a named censor. The testbed rejects non-loopback destinations.
+The code is scoped to research evaluation. It provides a laboratory message
+overlay but no external carrier connector, production key agreement, scanner,
+endpoint-discovery tool, traffic impersonator, target list, or instructions for
+evading a named censor. The loopback test rejects non-loopback destinations;
+the multi-host test additionally requires the orchestrator-verified internal
+network and rejects non-private destinations.
 
 ## Dual-use assessment
 

@@ -18,13 +18,20 @@ This repository contains:
 - a byte-reproducible closed-world carrier-adapter lab with loss, delay,
   reordering, duplication, burst, correlated-outage, tamper, and ACK faults;
 - an encrypted UDP loopback testbed with controlled loss, latency, and jitter;
+- a closed eight-container packet testbed with an internal-only network,
+  per-carrier fault adapters, congestion/recovery phases, and resource metrics;
 - an external-backend CensorLab bridge that maps real FSO envelopes,
   fragmentation, and authenticated ACKs to offline packet decisions and then
   reconstructs longitudinal function-level survival;
 - a gated field-study package with authorization and stop-rule validation; and
 - a verified reference audit and generated evidence ledger.
 
-The executable network test is intentionally restricted to loopback. It does **not** probe live networks, contact third-party services, process user traffic, discover relays, disguise traffic, or connect to an external host. FSO is a laboratory prototype, not a safety-reviewed censorship-circumvention product.
+The executable packet tests are restricted to loopback or an
+orchestrator-created internal Docker network whose destinations are private
+addresses. They do **not** probe live networks, contact third-party services,
+process user traffic, discover relays, disguise traffic, or connect to an
+external host. FSO is a laboratory prototype, not a safety-reviewed
+censorship-circumvention product.
 
 ## Status and claim boundary
 
@@ -86,6 +93,35 @@ ACKs that reach their authenticators are rejected. The 0.800 availability and
 2.037 byte overhead characterize this declared laboratory matrix only.
 
 The actual encrypted UDP implementation completes 57/60 synthetic operations on `127.0.0.1` under declared impairment, with zero external destinations, zero provider-controlled attempts, and zero receiver or acknowledgement authentication failures. This validates the implementation path only; it is not a measurement of censorship resistance.
+
+The separate multi-host implementation runs one sender, six carrier-fault
+adapters, and one receiver on a Docker network marked internal, with no
+published ports. Its frozen 90-operation run records 68 acknowledged
+completions and 71 receiver completions; the three-operation difference is
+explained by lost acknowledgements. Phase-level analytic-versus-observed
+availability has mean absolute error 0.0780 and Brier score 0.0594. All 41
+incomplete fragment sets are expired at phase deadlines, leaving zero fragment
+or coded-message state. These are implementation and recovery measurements
+under declared faults, not censorship-resistance estimates.
+Two independent executions produced identical delivery decisions, lane
+choices, wire counts, injected-fault counters, and recovery counts after
+excluding measured timing, CPU, and RSS fields.
+
+A separate no-network pipeline benchmark spans 64-byte to 1-MiB payloads and
+1-, 2-, 3-, and 5-shard plans on the recorded Apple-arm64 host. At 1 MiB, the
+median local encode/encrypt/fragment/reassemble/decrypt latency is 226 ms for a
+single shard, 373 ms for 2-of-3 coding, and 477 ms for 3-of-5 coding; measured
+wire overheads are 1.003, 1.505, and 1.672. For 64-KiB 2-of-3 operations, four
+worker processes reach 1.94x the one-worker throughput (0.49 parallel
+efficiency). These are descriptive prototype costs on one machine, not
+production targets or censor measurements.
+
+The earlier confirmation found online feedback slightly adverse. A second,
+prospectively frozen 12-seed evaluation is versioned separately. Its decision
+rule permits a benefit claim only if the paired 95% interval lies wholly above
+zero; otherwise feedback remains uncredited and disabled is the recommended
+default. The frozen plan is in
+[`configs/fso-feedback-evaluation.json`](configs/fso-feedback-evaluation.json).
 
 ## Closed CensorLab result
 
@@ -161,6 +197,8 @@ Run the network-restricted packet test and authorization check:
 ```bash
 make fso-deterministic-lab
 make fso-loopback
+make fso-multihost
+make fso-scalability
 make field-check
 ```
 
@@ -221,6 +259,7 @@ The versioned processed results live in [`results/processed/study`](results/proc
 - `results/processed/robustness/`: structural model-uncertainty results and sensitivity estimates
 - `results/processed/fso/`: confirmation and loopback results with manifests
 - `testbeds/censorlab/`: minimal external-source build and closed-testbed guide
+- `testbeds/multihost/`: internal-network Docker testbed and containment guide
 - `field/`: exact review bundle, independent-review templates, future-study authorization template, local-only manifest, protocol, and stop rules
 - `docs/`: methodology, ethics, novelty, and claim ledgers
 - `artifacts/generated/`: generated tables, figures, and evidence manifests

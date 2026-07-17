@@ -83,6 +83,13 @@ class FSOReceiver:
 
         return self.buffers.pop(message_id, None) is not None
 
+    def expire_incomplete(self) -> int:
+        """Expire every incomplete coded message at a controlled deadline boundary."""
+
+        count = len(self.buffers)
+        self.buffers.clear()
+        return count
+
     def ingest(self, packet: bytes) -> ReceiveResult:
         public = self.cipher.peek(packet)
         if public.message_id in self.completed:

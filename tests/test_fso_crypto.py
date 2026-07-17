@@ -82,6 +82,30 @@ class FSOCryptoTests(unittest.TestCase):
         self.assertEqual(result.status, "complete")
         self.assertEqual(result.packet, prepared.packets[0])
 
+    def test_incomplete_state_can_be_expired_at_a_deadline_boundary(self) -> None:
+        prepared = FSOSender(self.cipher).prepare(
+            Operation("text", bytes(range(251)) * 8, 5000), self.decision
+        )
+        datagrams = fragment_envelope(prepared.packets[0], max_fragment_data=113)
+        reassembler = FragmentReassembler()
+        reassembler.ingest(datagrams[0], peer="lane-a")
+        self.assertEqual(reassembler.inflight, 1)
+        self.assertEqual(reassembler.expire_incomplete(), 1)
+        self.assertEqual(reassembler.inflight, 0)
+
+        receiver = FSOReceiver(self.cipher)
+        buffered = receiver.ingest(prepared.packets[0])
+        self.assertEqual(buffered.status, "complete")
+        second = FSOSender(self.cipher).prepare(
+            Operation("media", b"payload", 5000),
+            self.decision.__class__(
+                "fso", "media", 2, 2, self.decision.lanes, "parallel", 0.9, 1.0, "test"
+            ),
+        )
+        receiver.ingest(second.packets[0])
+        self.assertEqual(receiver.expire_incomplete(), 1)
+        self.assertEqual(receiver.buffers, {})
+
 
 if __name__ == "__main__":
     unittest.main()

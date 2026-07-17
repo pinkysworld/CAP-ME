@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "synthetic_only": true,
+  "purpose": "Prospectively frozen source traces for the online-feedback audit only.",
+  "frozen_before_execution_utc": "2026-07-17T12:43:35Z",
+  "architectures": ["direct_e2ee", "fixed_proxy", "generated_transport", "ephemeral_relay", "platform_controlled"],
+  "censors": ["adaptive_cross_layer"],
+  "networks": ["mobile"],
+  "seeds": [9001, 9103, 9209, 9311, 9413, 9521, 9631, 9743, 9851, 9967, 10079, 10193],
+  "simulation": {
+    "epochs": 36,
+    "operations_per_function": 16,
+    "training_positive": 180,
+    "training_benign": 500,
+    "calibration_benign": 2000,
+    "evaluation_positive": 500,
+    "prevalence": 0.001,
+    "sustained_windows": 3
+  }
+}

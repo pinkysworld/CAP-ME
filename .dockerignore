@@ -1,0 +1,11 @@
+**
+!src/
+!src/**
+!configs/
+!configs/fso-multihost.json
+!testbeds/
+!testbeds/multihost/
+!testbeds/multihost/Dockerfile
+!testbeds/multihost/requirements.txt
+src/**/__pycache__/
+src/**/*.pyc

@@ -10,6 +10,7 @@ import re
 from pathlib import Path
 
 from capme.fso.deployment import validate_authorization
+from capme.fso.multihost import is_closed_lab_address
 from capme.fso.reviews import validate_review_bundle
 
 
@@ -335,6 +336,198 @@ def validate_fso_loopback_and_gate() -> list[str]:
     ]
 
 
+def validate_fso_multihost() -> list[str]:
+    directory = ROOT / "results" / "processed" / "fso" / "multihost"
+    manifest = load_json(directory / "manifest.json")
+    environment = load_json(directory / "environment.json")
+    config = ROOT / "configs" / "fso-multihost.json"
+    assert manifest["closed_world"] is True
+    assert manifest["docker_internal_network"] is True
+    assert manifest["docker_internal_network_required"] is True
+    assert manifest["synthetic_payloads"] is True
+    assert manifest["external_destinations"] == 0
+    assert manifest["live_interfaces"] == 0
+    assert manifest["strict_trust"] is True
+    assert manifest["provider_controlled_attempts"] == 0
+    assert manifest["published_ports"] == 0
+    assert manifest["container_count"] == 8
+    assert manifest["roles"] == {
+        "sender": 1,
+        "carrier_fault_adapters": 6,
+        "receiver": 1,
+    }
+    assert manifest["operations"] == 90
+    assert manifest["scheduler_strategy"] == "fso_no_feedback"
+    assert manifest["successful_operations"] == 68
+    assert manifest["receiver_completed_operations"] == 71
+    assert abs(float(manifest["acknowledged_availability"]) - 68 / 90) < 1e-12
+    assert abs(float(manifest["brier_score"]) - 0.05938247724716753) < 1e-12
+    assert abs(float(manifest["phase_calibration_mae"]) - 0.07799695777824156) < 1e-12
+    assert manifest["ack_auth_failures"] == 0
+    assert manifest["control_auth_failures"] == 0
+    assert manifest["config_sha256"] == sha256(config)
+    observations = directory / "observations.csv"
+    assert row_count(observations) == 90
+    assert sha256(observations) == manifest["observations_sha256"]
+    assert sha256(directory / "environment.json") == manifest["environment_sha256"]
+
+    phases = manifest["phase_summaries"]
+    assert [row["phase"] for row in phases] == [
+        "clean_start",
+        "fixed_endpoint_pressure",
+        "generated_classifier_pressure",
+        "relay_discovery_pressure",
+        "congestion",
+        "recovery",
+    ]
+    assert all(int(row["operations"]) == 15 for row in phases)
+    assert all(int(row["reassembly_inflight_after_gc"]) == 0 for row in phases)
+    assert all(int(row["coded_messages_inflight_after_gc"]) == 0 for row in phases)
+    receiver = manifest["receiver_stats"]
+    assert receiver["reassembly_inflight"] == 0
+    assert receiver["coded_messages_inflight"] == 0
+    assert receiver["expired_fragment_sets"] == 41
+    assert receiver["envelope_auth_failures"] == 0
+    assert receiver["fragment_failures"] == 0
+
+    assert environment["closed_world"] is True
+    assert environment["external_destinations"] == 0
+    assert environment["live_interfaces"] == 0
+    assert environment["published_ports"] == 0
+    assert environment["container_count"] == 8
+    network = environment["docker_network"]
+    assert network["internal"] is True
+    assert network["driver"] == "bridge"
+    assert network["ingress"] is False
+    containers = environment["containers"]
+    assert len(containers) == 8
+    for container in containers:
+        assert container["published_ports"] == 0
+        assert container["read_only_rootfs"] is True
+        assert container["capabilities_dropped"] == ["ALL"]
+        assert container["no_new_privileges"] is True
+        assert container["addresses"]
+        assert all(is_closed_lab_address(value) for value in container["addresses"])
+    assert environment["image"]["id"] == manifest["container_image_id"]
+    assert environment["image"]["config_sha256_label"] == sha256(config)
+    for relative, digest in environment["source_files"].items():
+        assert sha256(ROOT / relative) == digest, f"multi-host source changed: {relative}"
+    return [
+        "closed eight-container packet testbed, internal network, zero ports, "
+        "private destinations, exact hashes, packet concordance, resource counters, "
+        "and deadline-bound recovery"
+    ]
+
+
+def validate_feedback_evaluation() -> list[str]:
+    source_config = load_json(ROOT / "configs" / "fso-feedback-source.json")
+    evaluation_config = load_json(
+        ROOT / "configs" / "fso-feedback-evaluation.json"
+    )
+    seeds = [int(value) for value in source_config["seeds"]]
+    development = set(load_json(ROOT / "configs" / "study.json")["seeds"])
+    development.update(
+        load_json(ROOT / "configs" / "fso-confirmation-source.json")["seeds"]
+    )
+    assert len(seeds) == len(set(seeds)) == 12
+    assert not set(seeds) & development
+    assert evaluation_config["strategies"] == ["fso", "fso_no_feedback"]
+    assert evaluation_config["frozen_before_execution_utc"] == source_config[
+        "frozen_before_execution_utc"
+    ]
+    plan = evaluation_config["frozen_analysis_plan"]
+    assert "lower bound greater than zero" in plan["support_rule"]
+    assert "disabled" in plan["default_rule"]
+
+    directory = ROOT / "results" / "processed" / "fso" / "feedback-evaluation"
+    audit_path = directory / "feedback_audit.json"
+    if not audit_path.exists():
+        return [
+            "prospectively frozen 12-seed feedback plan is present; evaluation pending"
+        ]
+    manifest = load_json(directory / "study_manifest.json")
+    audit = load_json(audit_path)
+    assert manifest["synthetic_only"] is True
+    assert manifest["strict_trust"] is True
+    assert manifest["common_random_numbers"] is True
+    assert manifest["provider_controlled_attempts"] == 0
+    assert manifest["seeds"] == seeds
+    assert manifest["strategies"] == ["fso", "fso_no_feedback"]
+    assert manifest["counts"] == {
+        "trace_rows": 10_800,
+        "cell_rows": 4_320,
+        "strategy_seed_runs": 24,
+        "operation_decisions": 138_240,
+    }
+    expected_rows = {
+        "lane_trace_probabilities.csv": 10_800,
+        "aggregate_metrics.csv": 2,
+        "run_metrics.csv": 24,
+        "paired_contrasts.csv": 1,
+        "survival_curves.csv": 72,
+    }
+    for name, expected in expected_rows.items():
+        assert row_count(directory / name) == expected, f"feedback {name}: row count"
+    for name, digest in manifest["processed_files"].items():
+        assert sha256(directory / name) == digest, f"feedback {name}: hash mismatch"
+    assert audit["prospectively_frozen"] is True
+    assert audit["development_and_evaluation_seeds_disjoint"] is True
+    assert audit["seeds"] == seeds
+    low, high = [float(value) for value in audit["confidence_interval_95"]]
+    if low > 0:
+        assert audit["classification"] == "supported_benefit_in_declared_model"
+        assert audit["recommended_feedback_default"] == "enabled"
+    elif high < 0:
+        assert audit["classification"] == "harm_in_declared_model"
+        assert audit["recommended_feedback_default"] == "disabled"
+    else:
+        assert audit["classification"] == "inconclusive_no_benefit_claim"
+        assert audit["recommended_feedback_default"] == "disabled"
+    return [
+        "precommitted feedback decision rule, 12 new disjoint seeds, exact hashes, "
+        "and rule-consistent claim classification"
+    ]
+
+
+def validate_fso_scalability() -> list[str]:
+    directory = ROOT / "results" / "processed" / "fso" / "scalability"
+    manifest = load_json(directory / "manifest.json")
+    config = ROOT / "configs" / "fso-scalability.json"
+    assert manifest["synthetic_only"] is True
+    assert manifest["network_used"] is False
+    assert manifest["external_destinations"] == 0
+    assert manifest["config"] == "configs/fso-scalability.json"
+    assert manifest["config_sha256"] == sha256(config)
+    assert manifest["measurement_rows"] == 20
+    assert manifest["parallel_rows"] == 3
+    assert manifest["payload_range_bytes"] == [64, 1_048_576]
+    assert manifest["coding_width_range"] == [1, 5]
+    assert manifest["recoveries_verified"] == 1_612
+    assert manifest["parallel_recoveries_verified"] == 96
+    assert manifest["environment"]["machine"] == "arm64"
+    assert manifest["environment"]["cryptography"] == "49.0.0"
+    expected = {"measurements.csv": 20, "parallel_scaling.csv": 3}
+    for name, count in expected.items():
+        assert row_count(directory / name) == count
+        assert sha256(directory / name) == manifest["files"][name]
+    measurements = read_csv_rows(directory / "measurements.csv")
+    assert all(int(row["recoveries_verified"]) == int(row["iterations"]) for row in measurements)
+    one_megabyte = [
+        row for row in measurements if int(row["payload_bytes"]) == 1_048_576
+    ]
+    assert len(one_megabyte) == 4
+    assert all(float(row["latency_p50_ms"]) > 0 for row in one_megabyte)
+    assert all(float(row["peak_rss_kib"]) > 0 for row in one_megabyte)
+    parallel = read_csv_rows(directory / "parallel_scaling.csv")
+    assert [int(row["workers"]) for row in parallel] == [1, 2, 4]
+    assert all(int(row["recoveries_verified"]) == 32 for row in parallel)
+    assert float(parallel[-1]["speedup_vs_one_worker"]) > 1.0
+    return [
+        "64-byte to 1-MiB codec/envelope scaling, one-to-five-shard plans, "
+        "1/2/4-worker throughput, CPU/RSS observations, exact hashes, and verified recovery"
+    ]
+
+
 def validate_fso_deterministic_lab() -> list[str]:
     directory = ROOT / "results" / "processed" / "fso" / "deterministic-lab"
     manifest = load_json(directory / "manifest.json")
@@ -499,6 +692,9 @@ def main() -> int:
     checks.extend(validate_fso_deterministic_lab())
     checks.extend(validate_censorlab_results())
     checks.extend(validate_fso_loopback_and_gate())
+    checks.extend(validate_fso_multihost())
+    checks.extend(validate_feedback_evaluation())
+    checks.extend(validate_fso_scalability())
     checks.extend(validate_reference_audit())
     print(json.dumps({"status": "ok", "checks": checks}, indent=2))
     return 0

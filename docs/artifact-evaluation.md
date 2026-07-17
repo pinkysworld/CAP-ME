@@ -33,6 +33,11 @@ Review:
 - `results/processed/fso/confirmation/paired_contrasts.csv`
 - `results/processed/fso/deterministic-lab/manifest.json`
 - `results/processed/fso/loopback/manifest.json`
+- `results/processed/fso/multihost/manifest.json`
+- `results/processed/fso/multihost/environment.json`
+- `results/processed/fso/scalability/manifest.json`
+- `results/processed/fso/scalability/measurements.csv`
+- `results/processed/fso/scalability/parallel_scaling.csv`
 - `results/processed/fso/censorlab/manifest.json`
 - `results/processed/fso/censorlab-campaign/manifest.json`
 - `artifacts/generated/fso_headline_results.json`
@@ -68,6 +73,22 @@ studies add two six-epoch closed runs of offline synthetic PCAP processing; thei
 instructions and pinned dependency are in
 `testbeds/censorlab/README.md`. No study command requires or permits an
 external packet destination.
+
+The Docker-separated packet path is reproduced independently with
+`make fso-multihost`. It adds 90 operations across eight containers. Reviewers
+without a local Docker/Colima engine can inspect the versioned observations,
+manifest, and exact environment record; `make validate` checks their hashes,
+containment invariants, recovery state, and headline values.
+
+The prospectively frozen feedback audit is reproduced with
+`make fso-feedback-source fso-feedback-evaluation`. The first command creates
+60 synthetic source runs and a 10,800-cell trace; the second evaluates two
+strategies over 12 paired seeds and applies the precommitted decision rule.
+
+`make fso-scalability` reproduces the host-observed codec/envelope measurements
+from 64 bytes to 1 MiB and the 1/2/4-process scaling cases. Timing and RSS will
+vary by machine; payload recovery, row counts, plan dimensions, and internal
+hashes are checked exactly.
 
 ## Determinism
 

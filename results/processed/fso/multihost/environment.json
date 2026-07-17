@@ -1,6 +1,6 @@
 {
   "build_context_policy": "root .dockerignore allowlists only src, the reviewed config, and testbeds/multihost build files",
-  "client_stdout_sha256": "808a4fd4eff30c900f55cedc5701de79d68063dd9e078ba2f81104bac1bf6330",
+  "client_stdout_sha256": "73d27042c0826a1474d5025b128e41f11f3552cb768ad2ae5d223082f1d2eb64",
   "closed_world": true,
   "config": "configs/fso-multihost.json",
   "config_sha256": "bc313a75dee6f832544bd65a31b5fb6130c2c3e0185876cfd9bf2ac5fcd53cfb",
@@ -18,7 +18,7 @@
       ],
       "image": "sha256:b4eb01ec34b0f1ec2d248271892258a530dbfc8302b9d2506e0486b77da0adb8",
       "memory_limit_bytes": 268435456,
-      "name": "capme-receiver-74153-bc313a75",
+      "name": "capme-receiver-76667-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -38,7 +38,7 @@
       ],
       "image": "sha256:b4eb01ec34b0f1ec2d248271892258a530dbfc8302b9d2506e0486b77da0adb8",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-direct-0-74153-bc313a75",
+      "name": "capme-proxy-direct-0-76667-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -58,7 +58,7 @@
       ],
       "image": "sha256:b4eb01ec34b0f1ec2d248271892258a530dbfc8302b9d2506e0486b77da0adb8",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-fixed-0-74153-bc313a75",
+      "name": "capme-proxy-fixed-0-76667-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -78,7 +78,7 @@
       ],
       "image": "sha256:b4eb01ec34b0f1ec2d248271892258a530dbfc8302b9d2506e0486b77da0adb8",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-generated-0-74153-bc313a75",
+      "name": "capme-proxy-generated-0-76667-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -98,7 +98,7 @@
       ],
       "image": "sha256:b4eb01ec34b0f1ec2d248271892258a530dbfc8302b9d2506e0486b77da0adb8",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-ephemeral-0-74153-bc313a75",
+      "name": "capme-proxy-ephemeral-0-76667-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -118,7 +118,7 @@
       ],
       "image": "sha256:b4eb01ec34b0f1ec2d248271892258a530dbfc8302b9d2506e0486b77da0adb8",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-ephemeral-1-74153-bc313a75",
+      "name": "capme-proxy-ephemeral-1-76667-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -138,7 +138,7 @@
       ],
       "image": "sha256:b4eb01ec34b0f1ec2d248271892258a530dbfc8302b9d2506e0486b77da0adb8",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-permitted-0-74153-bc313a75",
+      "name": "capme-proxy-permitted-0-76667-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -158,7 +158,7 @@
       ],
       "image": "sha256:b4eb01ec34b0f1ec2d248271892258a530dbfc8302b9d2506e0486b77da0adb8",
       "memory_limit_bytes": 268435456,
-      "name": "capme-client-74153-bc313a75",
+      "name": "capme-client-76667-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -189,7 +189,7 @@
         "Subnet": "172.18.0.0/16"
       }
     ],
-    "name": "capme-internal-74153-bc313a75"
+    "name": "capme-internal-76667-bc313a75"
   },
   "external_destinations": 0,
   "image": {
@@ -204,10 +204,10 @@
   "live_interfaces": 0,
   "published_ports": 0,
   "schema_version": 1,
-  "source_commit_at_run": "f4ca7bdb909bdeabbb9b297004846449eab98aa0",
+  "source_commit_at_run": "af877ca78cc51dedfb114e680353b7c36dbfa4c3",
   "source_files": {
     ".dockerignore": "1d8620296025555d28ea4db0215aba283cf7fc159cd7ca95d946419e277934df",
-    "analysis/run_fso_multihost.py": "0da2aed883524a34518aa2ec9ebe9c746c4df88059acf81743f020c66a94eb2b",
+    "analysis/run_fso_multihost.py": "f87c16fe814c6aaf4db7dfd6a476d93151b4e2f7f4a17845adf44ae6fd6d4dfb",
     "configs/fso-multihost.json": "bc313a75dee6f832544bd65a31b5fb6130c2c3e0185876cfd9bf2ac5fcd53cfb",
     "src/cap_me.egg-info/PKG-INFO": "14670aa9668f286713fe386663d0f474bc7466a704c87575bbaf128e3e1ee25e",
     "src/cap_me.egg-info/SOURCES.txt": "3e45fb60e4a50a528676b678f9e9a8c2f23cbc2c516cca53328dc3283e39f4af",
@@ -246,5 +246,5 @@
     "testbeds/multihost/Dockerfile": "5dce751b08c9b2107f6aede4b208a062fd5f1162d364e2f29db331c107f6035d",
     "testbeds/multihost/requirements.txt": "069b4bb69c009ba39fcd15999b7c2fa0e3e94cde260505f5e89dd7b18cd6fd7e"
   },
-  "source_tree_dirty_at_run": true
+  "source_tree_dirty_at_run": false
 }

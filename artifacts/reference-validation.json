@@ -123,6 +123,20 @@
       "identifier": "USENIX ATC 2025:851-866"
     },
     {
+      "key": "zuo2022dams",
+      "status": "verified",
+      "source_class": "official IEEE proceedings record and author-hosted paper",
+      "url": "https://ieeexplore.ieee.org/document/9796942",
+      "identifier": "doi:10.1109/INFOCOM48880.2022.9796942"
+    },
+    {
+      "key": "torproject2026pt",
+      "status": "verified",
+      "source_class": "official Tor specification",
+      "url": "https://spec.torproject.org/pt-spec/",
+      "identifier": "version:1;accessed:2026-07-17"
+    },
+    {
       "key": "cerf2007dtn",
       "status": "verified",
       "source_class": "official RFC Editor record",

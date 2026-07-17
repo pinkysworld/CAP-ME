@@ -59,6 +59,8 @@ This ledger is the audit trail for the public artifact and the privately maintai
 | Mid-session splitting across heterogeneous paths/protocols is prior art | `wang2022comps` | FSO does not claim multipath or migration novelty |
 | Message overlays over disrupted heterogeneous networks are prior art | `cerf2007dtn` | FSO does not claim general disruption-tolerant messaging novelty |
 | Reliability-aware multipath scheduling for mobile media is prior art | `hu2025storm` | FSO's distinction is censorship-survival/trust constraints |
+| Deadline-aware block scheduling over multiple paths is prior art | `zuo2022dams` | FSO does not claim deadline-aware multipath scheduling novelty |
+| Pluggable Transports provide a generic modular circumvention interface | `torproject2026pt` | FSO does not claim a new carrier interface or wire disguise |
 | Reed-Solomon coding and ChaCha20-Poly1305 are established | `reed1960polynomial`, `nir2018chacha` | Component references, not novelty claims |
 | HMAC is a standardized keyed-hash message-authentication construction and permits truncation | `krawczyk1997hmac` | Supports authenticated ACK component; not a protocol-security proof |
 

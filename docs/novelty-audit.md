@@ -1,6 +1,6 @@
 # CAP-ME novelty audit
 
-- **Search cut-off:** 2026-07-16
+- **Search cut-off:** 2026-07-17
 - **Audit type:** structured scoping review, not a registered systematic review
 - **Claim status:** bounded “to our knowledge” claim; novelty cannot be proven exhaustively
 
@@ -10,7 +10,11 @@ The defensible contribution is not “the first censorship emulator,” “the f
 
 The narrower candidate contribution is:
 
-> To our knowledge through 16 July 2026, CAP-ME is the first reproducible benchmark to jointly model messaging-function survival across path, endpoint, and provider/platform control, while using exact layer interventions under paired randomness to attribute longitudinal availability loss and keeping provider trust separate from reachability.
+> In our structured search through 17 July 2026, we found no prior reproducible
+> benchmark that jointly models messaging-function survival across path,
+> endpoint, and provider/platform control, uses exact layer interventions under
+> paired randomness to attribute longitudinal availability loss, and keeps
+> provider trust separate from reachability.
 
 This sentence is appropriate only with the following qualifications:
 
@@ -50,6 +54,10 @@ Within the searched corpus, no work was found that simultaneously included all f
 4. attribution of AUAC loss to layers while reporting a separate privacy/trust matrix.
 
 This is a negative search result, not proof of absence.
+
+The structural-uncertainty ensemble and closed multi-host packet testbed improve
+the evidence for the implemented benchmark; they do not enlarge this novelty
+claim or establish correspondence to a deployed censor.
 
 ## Pre-submission refresh
 

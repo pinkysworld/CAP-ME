@@ -1,0 +1,20 @@
+name: Public artifact boundary
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  manuscript-boundary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reject manuscript material in reachable Git history
+        env:
+          PYTHONPATH: src
+        run: python3 analysis/validate_public_boundary.py

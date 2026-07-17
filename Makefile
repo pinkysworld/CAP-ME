@@ -4,7 +4,7 @@ RAW := results/raw/study
 PROCESSED := results/processed/study
 ARTIFACT_GENERATED := artifacts/generated
 
-.PHONY: test smoke study analyze artifacts fso-confirmation-source fso-confirmation fso-deterministic-lab fso-loopback field-check validate
+.PHONY: test smoke study analyze artifacts fso-confirmation-source fso-confirmation fso-deterministic-lab fso-loopback field-check public-boundary validate
 
 test:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) -m unittest discover -s tests -v
@@ -41,5 +41,8 @@ fso-loopback:
 field-check:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) analysis/validate_field_authorization.py field/loopback-authorization.json
 
-validate: test
+public-boundary:
+	PYTHONPATH=$(PYTHONPATH) $(PYTHON) analysis/validate_public_boundary.py
+
+validate: public-boundary test
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) analysis/validate_artifact.py

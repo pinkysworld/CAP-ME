@@ -10,3 +10,8 @@ maintained manuscript cannot be committed accidentally. Contributors must not
 attach a manuscript PDF to a GitHub release or add manuscript source to a tag.
 Any later public manuscript deposit must be a deliberate author decision made
 after checking the selected venue's publication and anonymity policies.
+
+`make public-boundary` checks the index and every reachable commit. It rejects
+the private paths above, standalone LaTeX outside the generated result-table
+directory, and PDFs outside the generated figure directory. The same check runs
+on every public push and pull request with full Git history available.

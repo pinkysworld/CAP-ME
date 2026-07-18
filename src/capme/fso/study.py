@@ -369,24 +369,34 @@ def _aggregate_metrics(run_metrics: list[dict[str, object]]) -> list[dict[str, o
     return output
 
 
-def _paired_contrasts(run_metrics: list[dict[str, object]]) -> list[dict[str, object]]:
+def _paired_contrasts(
+    run_metrics: list[dict[str, object]], *, primary_strategy: str = "fso"
+) -> list[dict[str, object]]:
     lookup = {
         (str(row["strategy"]), int(row["seed"])): row for row in run_metrics
     }
-    strategies = sorted({strategy for strategy, _ in lookup if strategy != "fso"})
+    if not any(strategy == primary_strategy for strategy, _ in lookup):
+        raise ValueError(f"primary strategy is absent from run metrics: {primary_strategy}")
+    strategies = sorted(
+        {strategy for strategy, _ in lookup if strategy != primary_strategy}
+    )
     rows: list[dict[str, object]] = []
     for index, strategy in enumerate(strategies):
         seeds = sorted(
-            seed for candidate, seed in lookup if candidate == strategy and ("fso", seed) in lookup
+            seed
+            for candidate, seed in lookup
+            if candidate == strategy and (primary_strategy, seed) in lookup
         )
         differences = [
-            float(lookup[("fso", seed)]["auac"]) - float(lookup[(strategy, seed)]["auac"])
+            float(lookup[(primary_strategy, seed)]["auac"])
+            - float(lookup[(strategy, seed)]["auac"])
             for seed in seeds
         ]
         interval = bootstrap_mean(differences, seed=730_000 + index)
         rows.append(
             {
-                "comparison": f"fso-minus-{strategy}",
+                "comparison": f"{primary_strategy}-minus-{strategy}",
+                "primary_strategy": primary_strategy,
                 "baseline": strategy,
                 "paired_replicates": len(seeds),
                 "mean_difference": interval.estimate,
@@ -432,6 +442,9 @@ def run_study(config_path: Path, raw_dir: Path, processed_dir: Path) -> dict[str
     profiles_list = lane_profiles_from_config(config["lane_instances"])
     profiles = {profile.name: profile for profile in profiles_list}
     strategies = [str(value) for value in config["strategies"]]
+    primary_strategy = str(config.get("primary_strategy", "fso"))
+    if primary_strategy not in strategies:
+        raise ValueError("primary_strategy must be included in strategies")
     epochs = int(config["epochs"])
     operations_per_function = int(config["operations_per_function"])
     correlation_weight = float(config["correlation_weight"])
@@ -519,7 +532,9 @@ def run_study(config_path: Path, raw_dir: Path, processed_dir: Path) -> dict[str
                     )
     run_metrics = _compute_run_metrics(cells)
     aggregates = _aggregate_metrics(run_metrics)
-    contrasts = _paired_contrasts(run_metrics)
+    contrasts = _paired_contrasts(
+        run_metrics, primary_strategy=primary_strategy
+    )
     curves = _survival_curves(cells)
     selection_rows = [
         {"strategy": strategy, "lane": lane, "attempts": count}
@@ -544,6 +559,7 @@ def run_study(config_path: Path, raw_dir: Path, processed_dir: Path) -> dict[str
         "config_sha256": sha256_file(config_path),
         "seeds": seeds,
         "strategies": strategies,
+        "primary_strategy": primary_strategy,
         "counts": {
             "trace_rows": len(trace),
             "cell_rows": len(cells),

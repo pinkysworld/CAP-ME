@@ -4,7 +4,7 @@ RAW := results/raw/study
 PROCESSED := results/processed/study
 ARTIFACT_GENERATED := artifacts/generated
 
-.PHONY: test smoke study analyze robustness-smoke robustness artifacts fso-confirmation-source fso-confirmation fso-feedback-source fso-feedback-evaluation fso-deterministic-lab fso-loopback fso-multihost fso-multihost-repeat fso-scalability field-check public-boundary validate
+.PHONY: test smoke study analyze robustness-smoke robustness artifacts fso-confirmation-source fso-confirmation fso-structure-replay fso-feedback-source fso-feedback-evaluation fso-deterministic-lab fso-loopback fso-multihost fso-multihost-repeat fso-scalability field-check public-boundary validate
 
 test:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) -m unittest discover -s tests -v
@@ -31,6 +31,8 @@ artifacts:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) analysis/generate_artifacts.py --processed $(PROCESSED) --artifact-generated $(ARTIFACT_GENERATED)
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) analysis/generate_fso_artifacts.py --processed results/processed/fso/confirmation --loopback results/processed/fso/loopback/manifest.json --lab results/processed/fso/deterministic-lab/manifest.json --artifact-generated $(ARTIFACT_GENERATED)
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) analysis/generate_robustness_artifacts.py --processed results/processed/robustness --artifact-generated $(ARTIFACT_GENERATED)
+	PYTHONPATH=$(PYTHONPATH) $(PYTHON) analysis/generate_fso_structure_artifacts.py
+	PYTHONPATH=$(PYTHONPATH) $(PYTHON) analysis/generate_evidence_manifest.py
 
 fso-confirmation-source:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) -m capme run --config configs/fso-confirmation-source.json --output results/raw/fso-confirmation-source
@@ -38,6 +40,9 @@ fso-confirmation-source:
 
 fso-confirmation:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) analysis/run_fso_study.py run --config configs/fso-confirmation.json --raw results/raw/fso-confirmation --processed results/processed/fso/confirmation
+
+fso-structure-replay:
+	PYTHONPATH=$(PYTHONPATH) $(PYTHON) analysis/run_fso_structure_replay.py --config configs/fso-structure-replay.json --raw results/raw/fso-structure-replay --processed results/processed/fso/structure-replay
 
 fso-feedback-source:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) -m capme run --config configs/fso-feedback-source.json --output results/raw/fso-feedback-source

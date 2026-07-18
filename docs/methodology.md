@@ -24,7 +24,7 @@ Text, media, file, presence, and real-time workloads differ in payload size, seg
 
 ## Censor layers
 
-- **Path:** a diagonal-Gaussian likelihood-ratio detector scores five bounded synthetic features. Its threshold is calibrated on 2,000 benign examples to a target false-positive cap of 0.001. An adaptive regime retrains every three epochs using the previous protocol generation.
+- **Path:** a diagonal-Gaussian likelihood-ratio detector scores five bounded synthetic features. Its threshold is calibrated on 2,000 benign examples to a target false-positive cap of 0.001. The realized adaptive-model rate is 0.000792--0.000833 across archetypes; the target and observed range are not interchangeable. An adaptive regime retrains every three epochs using the previous protocol generation.
 - **Endpoint:** passive discovery, active probing, accumulated reputation, block budget, time-limited blocks, and endpoint replacement.
 - **Platform:** a provider that controls delivery may suppress declared policy-triggering operations. The permitted architecture is treated as collateral that the path/endpoint censor will not block.
 
@@ -46,7 +46,7 @@ The processed survival curves average functions within each run and epoch before
 - Adaptive-minus-passive comparisons use paired seed differences.
 - Two-sided random sign-flip tests use 30,000 draws.
 - Fifteen main comparisons are adjusted with Benjamini-Hochberg.
-- The eight possible path/endpoint/platform layer subsets are evaluated for every attribution seed. Exact three-player Shapley values allocate total AUAC loss.
+- The eight possible path/endpoint/platform layer subsets are evaluated for every attribution seed. Exact three-player Shapley values allocate total AUAC loss. Eight attribution seeds were fixed to keep the complete coalition design bounded at 320 runs (921,600 operations), rather than sampling coalitions. Because this is a small replicate set, both seed-level values and seed-bootstrap intervals are published. Zeros for layers disabled by an archetype are structural, not effect estimates.
 
 Intervals quantify Monte Carlo variation under this model only. They are not population intervals for a country, app, or deployed censor.
 
@@ -58,20 +58,31 @@ Intervals quantify Monte Carlo variation under this model only. They are not pop
 
 ### Development split
 
-The fixed-code FSO 0.1 pilot reused the original CAP-ME seeds. It was inferior to session failover and is retained in `docs/fso-development-log.md`. FSO 0.2 changed only the local plan selector to choose among predeclared function-specific plans. Twenty new seeds were frozen before generating the second source trace; they are disjoint from the pilot/main-study seeds. FSO 0.3 leaves those statistical results unchanged and adds authenticated acknowledgements, bounded reusable fragmentation, deterministic full-protocol carrier adapters, and a stronger independent-review gate.
+The fixed-code pilot reused the original CAP-ME seeds. It was inferior to session failover and is retained in `docs/fso-development-log.md`. The next design changed only the local plan selector to choose among predeclared function-specific plans. Twenty new seeds were frozen before generating the second source trace; they are disjoint from the pilot/main-study seeds. The current laboratory prototype adds authenticated acknowledgements, bounded reusable fragmentation, deterministic full-protocol carrier adapters, and a stronger independent-review gate. The canonical policy disables online feedback; the feedback-enabled policy remains an ablation under its historical internal strategy label.
 
 The final replay has:
 
 - 5 adaptive-mobile architecture traces × 20 seeds × 36 epochs × 5 functions = 18,000 trace cells;
 - 13 strategies × 20 seeds = 260 strategy-seed runs;
 - 32 operations per function and epoch = 1,497,600 operation decisions; and
-- 5 mechanism ablations: fixed coding, no semantics, no diversity, no feedback, and no redundancy.
+- 5 mechanism variants relative to canonical feedback-off FSO: feedback enabled, fixed coding, no semantics, no diversity, and no redundancy.
 
-For each `(seed, epoch, function, operation index, lane)`, a stable keyed draw determines the potential lane outcome. Any strategy attempting that lane receives the same draw. A scheduler observes only outcomes for its past attempts; the trace probability, future values, and unattempted-lane outcomes remain hidden.
+For each `(seed, epoch, function, operation index, lane)`, a stable keyed draw determines the potential lane outcome. Any strategy attempting that lane receives the same draw. A scheduler observes only outcomes for its past attempts; the trace probability, future values, and unattempted-lane outcomes remain hidden. These potential outcomes do not react to the number, timing, or byte volume of a strategy's other attempts. Consequently, the replay prices duplication in bytes but cannot represent a traffic-volume-reactive censor; this can favor redundant strategies and is an explicit validity limit.
 
 The CAP-ME trace probability is already the probability of completion under the workload deadline. The final FSO replay therefore samples it once and does not apply another hard deadline. An intermediate confirmation run did apply the deadline twice; the final pipeline corrected that modeling error and regenerated every output with the frozen seeds. The change is disclosed because it occurred after intermediate output was inspected.
 
 FSO uncertainty uses 2,000 seed bootstraps. Paired FSO-minus-baseline contrasts use 30,000 sign flips and Benjamini-Hochberg adjustment across 12 baselines. Intervals again cover only synthetic seed variation.
+
+### Four-structure all-strategy replay
+
+The same 13-strategy comparison is repeated at the unperturbed base parameters
+of each declared censor structure: classifier-dominant, endpoint-discovery,
+resource-bounded composed, and adaptive composed. Twenty paired seeds produce
+400 source simulations, 72,000 trace cells, 1,040 strategy-seed runs, and
+5,990,400 operation decisions. FSO is the feedback-off policy in all four
+structures. This check asks whether the primary ordering survives changes in
+model composition; it is distinct from the 72-point Latin-hypercube uncertainty
+study and does not add traffic-volume coupling.
 
 ### Deterministic carrier-adapter execution
 
@@ -132,14 +143,16 @@ The original 20-seed confirmation is treated as development evidence because
 online feedback was slightly adverse. Before generating any follow-up outcome,
 12 new seeds disjoint from the main study and confirmation were frozen in
 `configs/fso-feedback-source.json`. The paired comparison and decision rule
-were frozen in `configs/fso-feedback-evaluation.json`: a benefit is supported
-only if the two-sided 95% seed-bootstrap interval for FSO minus no-feedback
+were frozen in `configs/fso-feedback-evaluation.json`. The frozen file retains
+legacy internal labels in which “FSO” means feedback-enabled. A benefit is supported
+only if the two-sided 95% seed-bootstrap interval for feedback-enabled minus no-feedback
 AUAC has a lower bound above zero, while harm is declared only if its upper
 bound is below zero. The observed difference is -0.00181 with interval
-[-0.00340, -0.000217], so the frozen rule classifies feedback as harmful within
-this synthetic model and recommends it disabled. This is not a population or
-deployment effect. Secondary resource and function-specific metrics are
-descriptive.
+[-0.00340, -0.000217], so the frozen directional rule classifies the sign as
+adverse within this synthetic model. The magnitude is negligible and a secondary
+random sign-flip diagnostic is p=0.0512. The supported operational conclusion is
+no benefit and a disabled default, not a population, deployment, or general
+feedback-harm effect. Secondary resource and function-specific metrics are descriptive.
 
 ### CensorLab packet-plane execution
 

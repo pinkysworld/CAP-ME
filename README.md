@@ -15,6 +15,8 @@ This repository contains:
 - 900 main runs, 320 ablation runs, processed data, figures, and statistical analyses;
 - a working FSO envelope, MDS codec, scheduler, receiver, authenticated acknowledgements, and comparison baselines;
 - a 1,497,600-decision independent replay with five FSO ablations;
+- a 5,990,400-decision replay of all 13 strategies under four declared censor
+  structures, with the traffic-volume-reactivity boundary made explicit;
 - a byte-reproducible closed-world carrier-adapter lab with loss, delay,
   reordering, duplication, burst, correlated-outage, tamper, and ACK faults;
 - an encrypted UDP loopback testbed with controlled loss, latency, and jitter;
@@ -70,20 +72,44 @@ represent a confidence distribution for a real censor. See
 
 Under the declared mobile-like scenario, adaptive cross-layer control reduced mean area under the availability curve (AUAC) from 0.827 to 0.266 for Direct E2EE and from 0.735 to 0.113 for a Fixed App Proxy. Generated Transport retained 0.815 AUAC and Ephemeral Relay 0.771. The Permitted Platform archetype retained 0.885 network/service availability, but that value does not imply content confidentiality from its provider.
 
-Exact three-layer ablations attributed 0.585 AUAC loss to endpoint control for Direct E2EE and 0.697 for Fixed App Proxy. For Ephemeral Relay, path control (0.089) exceeded endpoint control (0.016). The rich-media hypothesis was only partly supported: real-time and file operations were most fragile, while media was not uniformly worse than text.
+Exact three-layer ablations over eight paired seeds attributed 0.585 AUAC loss
+to endpoint control for Direct E2EE (95% seed-bootstrap CI [0.522, 0.645]) and
+0.697 for Fixed App Proxy [0.677, 0.718]. For Ephemeral Relay, path control
+(0.089 [0.085, 0.094]) exceeded endpoint control (0.016 [0.015, 0.017]). Zero
+platform entries for non-platform archetypes, and zero path/endpoint entries for
+the Permitted Platform, are structural inapplicability under the declared masks,
+not estimated evidence of no real-world effect. The rich-media hypothesis was
+only partly supported: real-time and file operations were most fragile, while
+media was not uniformly worse than text.
 
 All values above are simulation estimates. Confidence intervals quantify variation across declared random seeds, not uncertainty about a national network.
 
 ## FSO confirmation result
 
-On 20 disjoint synthetic seeds, FSO reaches AUAC 0.912 (95% seed-bootstrap CI [0.907, 0.917]) at 1.246 transmitted bytes per payload byte. Transport-independent session failover reaches 0.896 [0.890, 0.902] at overhead 1.212; the paired difference is 0.016 [0.014, 0.018]. Generated-only delivery reaches 0.802.
+The canonical FSO policy has online feedback disabled. On 20 disjoint synthetic
+seeds it reaches AUAC 0.915 (95% seed-bootstrap CI [0.909, 0.920]) at 1.238
+transmitted bytes per payload byte. Transport-independent session failover
+reaches 0.896 [0.890, 0.902] at overhead 1.212; the paired difference is 0.019
+[0.016, 0.021]. Generated-only delivery reaches 0.802.
 
 The ablations are part of the result, including findings unfavorable to the mechanism:
 
-- unconditional two-lane duplication reaches higher AUAC (0.927) but costs 2.000 bytes per payload byte, 60.5% more than FSO;
-- disabling feedback reaches 0.915 AUAC, slightly above full FSO;
+- unconditional two-lane duplication reaches higher AUAC (0.927) but costs
+  2.000 bytes per payload byte, 61.5% more than FSO;
+- enabling the evaluated feedback rule lowers AUAC to 0.912; the paired
+  canonical-minus-feedback difference is 0.0024 [0.0008, 0.0042];
 - fixed coding reaches 0.857 at overhead 1.649; and
-- removing failure-domain diversity reduces AUAC to 0.888.
+- removing failure-domain diversity reduces AUAC to 0.888, a paired loss of
+  0.027 [0.014, 0.040].
+
+The all-strategy replay was then repeated under classifier-dominant,
+endpoint-discovery, resource-bounded-composed, and adaptive-composed censor
+structures. Mean FSO AUAC is 0.922, 0.936, 0.928, and 0.915, respectively; its
+paired advantage over session failover is 0.015--0.019 and has a positive 95%
+seed-bootstrap interval in every structure. The seed-level ordering FSO ≥
+session failover ≥ generated-only holds for 90%--100% of seeds. This is a
+bounded structural check at the declared base parameters, not the 72-point
+parameter-uncertainty study and not evidence about a deployed censor.
 
 The deterministic full-protocol lab completes 100/125 operations across five
 failure phases. Its two clean rebuilds produce identical observation and
@@ -116,13 +142,16 @@ worker processes reach 1.94x the one-worker throughput (0.49 parallel
 efficiency). These are descriptive prototype costs on one machine, not
 production targets or censor measurements.
 
-The earlier confirmation found online feedback slightly adverse. A second,
-prospectively frozen evaluation used 12 new, disjoint seeds. FSO reached AUAC
-0.91347 versus 0.91528 without feedback; the paired difference was -0.00181
+The earlier feedback-enabled policy was evaluated a second time under a
+prospectively frozen plan using 12 new, disjoint seeds. The legacy plan labels
+the feedback-enabled strategy “FSO”; it reached AUAC 0.91347 versus 0.91528
+without feedback, for a paired difference of -0.00181
 with predeclared 95% seed-bootstrap interval [-0.00340, -0.000217]. Because the
-interval is wholly below zero, the result meets the frozen harm rule for this
-declared synthetic model. The benefit claim is removed and feedback is disabled
-by default. The plan and audit are in
+interval is wholly below zero, the result meets the frozen directional rule,
+but the magnitude is negligible and a secondary random sign-flip diagnostic is
+borderline (p=0.0512). The operative conclusion is therefore only that no
+benefit was established and feedback remains disabled; this is not a general
+feedback-harm claim. The plan and audit are in
 [`configs/fso-feedback-evaluation.json`](configs/fso-feedback-evaluation.json)
 and
 [`feedback_audit.json`](results/processed/fso/feedback-evaluation/feedback_audit.json).
@@ -193,6 +222,7 @@ Rebuild the FSO confirmation sample after generating its disjoint source trace:
 ```bash
 make fso-confirmation-source
 make fso-confirmation
+make fso-structure-replay
 python3 analysis/generate_fso_artifacts.py
 ```
 
@@ -250,6 +280,11 @@ Validate the public artifact:
 make validate
 ```
 
+`artifacts/generated/tdsc_evidence_manifest.json` is the reviewer-facing digest
+index: it links the principal configurations, processed manifests, seed-level
+attribution, four-structure replay, implementation studies, and generated-output
+manifests with exact SHA-256 values.
+
 The versioned processed results live in [`results/processed/study`](results/processed/study). Full raw CSVs are about 80 MB and are deliberately ignored by Git; the commands above regenerate them deterministically from the recorded configuration and seeds.
 
 ## Repository map
@@ -261,7 +296,8 @@ The versioned processed results live in [`results/processed/study`](results/proc
 - `analysis/`: analysis, artifact generation, and validation entry points
 - `results/processed/study/`: compact reviewable results
 - `results/processed/robustness/`: structural model-uncertainty results and sensitivity estimates
-- `results/processed/fso/`: confirmation and loopback results with manifests
+- `results/processed/fso/`: confirmation, four-structure replay, packet-testbed,
+  and loopback results with manifests
 - `testbeds/censorlab/`: minimal external-source build and closed-testbed guide
 - `testbeds/multihost/`: internal-network Docker testbed and containment guide
 - `field/`: exact review bundle, independent-review templates, future-study authorization template, local-only manifest, protocol, and stop rules

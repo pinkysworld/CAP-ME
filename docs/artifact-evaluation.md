@@ -27,10 +27,13 @@ Review:
 - `results/processed/study/aggregate_metrics.csv`
 - `results/processed/study/paired_contrasts.csv`
 - `results/processed/study/shapley_attribution.csv`
+- `results/processed/study/shapley_seed_attribution.csv`
 - `artifacts/generated/headline_results.json`
 - `results/processed/fso/confirmation/study_manifest.json`
 - `results/processed/fso/confirmation/aggregate_metrics.csv`
 - `results/processed/fso/confirmation/paired_contrasts.csv`
+- `results/processed/fso/structure-replay/manifest.json`
+- `results/processed/fso/structure-replay/structure_summary.csv`
 - `results/processed/fso/deterministic-lab/manifest.json`
 - `results/processed/fso/loopback/manifest.json`
 - `results/processed/fso/multihost/manifest.json`
@@ -45,6 +48,7 @@ Review:
 - `results/processed/robustness/robustness_summary.csv`
 - `results/processed/robustness/global_sensitivity_prcc.csv`
 - `results/processed/robustness/variance_components.csv`
+- `artifacts/generated/tdsc_evidence_manifest.json`
 
 Then run `make validate`. Validation checks those properties plus FSO counts and hashes, seed disjointness, exact headline values, byte-reproducible carrier-lab results, nonce uniqueness, injected-fault counters, both CensorLab result trees and containment invariants, zero provider-controlled attempts, loopback-only execution, receiver and ACK authentication counters, exact review-bundle hashes, and that the pending external authorization fails while the local record cannot authorize external implementation.
 
@@ -80,13 +84,22 @@ without a local Docker/Colima engine can inspect the versioned observations,
 manifest, and exact environment record; `make validate` checks their hashes,
 containment invariants, recovery state, and headline values.
 
+The four-structure all-strategy check is reproduced with
+`make fso-structure-replay`. It regenerates 400 source simulations and replays
+all 13 strategies over 20 paired seeds in each structure, for 5,990,400
+decisions. It deliberately holds each structure at its declared base parameters
+and does not model censor reactions to strategy traffic volume; it complements
+rather than replaces the 72-point uncertainty ensemble.
+
 The prospectively frozen feedback audit is reproduced with
 `make fso-feedback-source fso-feedback-evaluation`. The first command creates
 60 synthetic source runs and a 10,800-cell trace; the second evaluates two
 strategies over 12 paired seeds and applies the precommitted decision rule. The
-versioned result classifies the current feedback rule as harmful in the declared
-model: FSO minus no-feedback AUAC is -0.00181 with 95% seed-bootstrap interval
-[-0.00340, -0.000217]. The default is therefore disabled.
+versioned result applies legacy strategy labels and puts feedback-enabled minus
+no-feedback AUAC at -0.00181 with 95% seed-bootstrap interval
+[-0.00340, -0.000217]. The effect is tiny and its secondary random sign-flip
+diagnostic is p=0.0512, so the supported operational conclusion is no benefit
+and a disabled default, not general feedback harm.
 
 `make fso-scalability` reproduces the host-observed codec/envelope measurements
 from 64 bytes to 1 MiB and the 1/2/4-process scaling cases. Timing and RSS will

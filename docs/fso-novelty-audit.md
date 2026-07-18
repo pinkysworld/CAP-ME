@@ -1,6 +1,6 @@
 # FSO mechanism novelty audit
 
-- **Search cut-off:** 2026-07-17
+- **Search cut-off:** 2026-07-18
 - **Status:** candidate contribution; negative searches do not prove novelty
 - **Claim scope:** mechanism-level composition, not novelty of its components
 
@@ -24,6 +24,9 @@ statement must not be shortened to “first multipath circumvention system,”
 |---|---|---|
 | [CensorLab](https://censorlab.cs.umass.edu/) | Generic packet-level emulation of past and hypothetical censor mechanisms | CAP-ME supplies longitudinal function outcomes, layer interventions, and trust separation; the bridge uses rather than replaces CensorLab |
 | [Tor Pluggable Transports](https://spec.torproject.org/pt-spec/) | Standard interface for modular traffic-transforming circumvention subprocesses | FSO consumes abstract carrier instances; it does not define a new pluggable-transport interface or wire disguise |
+| [Format-Transforming Encryption](https://doi.org/10.1145/2508859.2516657) | Ciphertexts can be generated to match chosen regular-language formats and induce protocol misclassification | FSO does not transform ciphertext format or claim protocol mimicry |
+| [Marionette](https://www.usenix.org/conference/usenixsecurity15/technical-sessions/presentation/dyer) | Programmable control over ciphertext formats, stateful protocol semantics, and traffic properties | FSO schedules declared carrier instances; it does not claim programmable traffic obfuscation |
+| [Geneva](https://doi.org/10.1145/3319535.3363189) | Genetic search composes packet-manipulation primitives into censor-evasion strategies | FSO neither trains against live censors nor claims automated evasion discovery |
 | [Turbo Tunnel](https://www.usenix.org/conference/foci20/presentation/fifield) | Reliable inner session survives changes in transient outer carriers | Function-specific plan selection, hard provider-control constraints, and explicit failure-domain discounting |
 | [Raceboat](https://petsymposium.org/popets/2024/popets-2024-0027.php) | Modular application-tunneling and signaling-channel framework | Native messaging-operation deadlines and adaptive multi-carrier scheduling |
 | [CoMPS](https://doi.org/10.56553/popets-2022-0083) | Mid-session splitting across heterogeneous paths and protocols | Resource-bounded censor survival rather than single-vantage traffic-analysis resistance |
@@ -42,7 +45,7 @@ The searched primary literature did not reveal a system containing all of:
 2. replaceable generated, ephemeral, fixed, and provider-controlled carrier
    families under one encrypted session;
 3. sender-local delivery history (evaluated separately and disabled by default
-   after the frozen adverse result);
+   after the frozen no-benefit result);
 4. explicit failure-domain correlation penalties; and
 5. a hard provider-control policy distinct from availability.
 

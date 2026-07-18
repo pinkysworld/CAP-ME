@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "verified_on": "2026-07-17",
+  "verified_on": "2026-07-18",
   "scope": "Bibliographic identity and the specific claims used by the CAP-ME research were checked against primary or official sources. A verified record is not an endorsement of every claim in the cited work.",
   "records": [
     {
@@ -30,6 +30,27 @@
       "source_class": "IEEE paper copy and DOI",
       "url": "https://oaklandsok.github.io/papers/tschantz2016.pdf",
       "identifier": "doi:10.1109/SP.2016.59"
+    },
+    {
+      "key": "dyer2013fte",
+      "status": "verified",
+      "source_class": "ACM DOI proceedings record",
+      "url": "https://doi.org/10.1145/2508859.2516657",
+      "identifier": "doi:10.1145/2508859.2516657"
+    },
+    {
+      "key": "dyer2015marionette",
+      "status": "verified",
+      "source_class": "official USENIX proceedings",
+      "url": "https://www.usenix.org/conference/usenixsecurity15/technical-sessions/presentation/dyer",
+      "identifier": "USENIX Security 2015:367-382"
+    },
+    {
+      "key": "bock2019geneva",
+      "status": "verified",
+      "source_class": "official project paper and ACM DOI",
+      "url": "https://geneva.cs.umd.edu/papers/geneva_ccs19.pdf",
+      "identifier": "doi:10.1145/3319535.3363189"
     },
     {
       "key": "ensafi2015probing",

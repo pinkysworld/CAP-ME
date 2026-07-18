@@ -1,0 +1,13 @@
+{
+  "inputs": {
+    "results/processed/fso/structure-replay/adaptive_composed/aggregate_metrics.csv": "a428a93cdc5d536c4f656587a27f6176995788e3bc91d3e1b946356eac79ccba",
+    "results/processed/fso/structure-replay/classifier_dominant/aggregate_metrics.csv": "a3af73bf339f045a046a83ab94c57f62277dc899142f942cdafa375ad102c94d",
+    "results/processed/fso/structure-replay/endpoint_discovery_dominant/aggregate_metrics.csv": "8f13ea4ef06ec10683480c69a22df3cb47c6e2cae1cf107b24b446ab22e9433c",
+    "results/processed/fso/structure-replay/resource_bounded_composed/aggregate_metrics.csv": "a7012ef7d859d47d8d8b942ee93e13304801ce19a4ac0fbdf15cb4572abecc50"
+  },
+  "outputs": {
+    "fso_structure_results.tex": "4c047c31f7c8f979a6c66d441dcdabd1c3523a14d9110e25cd51299c651db57d"
+  },
+  "schema_version": 1,
+  "synthetic_only": true
+}

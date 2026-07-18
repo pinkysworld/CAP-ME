@@ -12,15 +12,16 @@ This ledger is the audit trail for the public artifact and the privately maintai
 | Generated Transport adaptive mobile AUAC is 0.815 | `aggregate_metrics.csv` | Parameterized archetype only |
 | Ephemeral Relay adaptive mobile AUAC is 0.771 | Same | Parameterized archetype only |
 | Permitted Platform adaptive mobile AUAC is 0.885 | Same | Availability does not imply provider confidentiality |
-| Endpoint attribution is 0.585 for Direct E2EE and 0.697 for Fixed App Proxy | `shapley_attribution.csv` | Exact three-layer model, eight paired seeds |
+| Endpoint attribution is 0.585 [0.522, 0.645] for Direct E2EE and 0.697 [0.677, 0.718] for Fixed App Proxy | `shapley_attribution.csv`; `shapley_seed_attribution.csv` | Exact within each of eight paired seeds; intervals describe seed dispersion only |
 | Path attribution exceeds endpoint attribution for Ephemeral Relay | Same | 0.089 versus 0.016 in this model |
 | Media is not uniformly worse than text | `aggregate_metrics.csv`; generated function table | H6 is only partly supported |
-| FSO confirmation AUAC is 0.912 [0.907, 0.917] | `results/processed/fso/confirmation/aggregate_metrics.csv` | Synthetic adaptive-mobile trace replay; 20 disjoint seeds |
-| FSO exceeds session failover by 0.016 [0.014, 0.018] | `results/processed/fso/confirmation/paired_contrasts.csv` | Paired synthetic seeds; not a deployment effect |
-| FSO byte overhead is 1.246 versus 1.212 for session failover | FSO aggregate metrics | Payload-normalized encoded/envelope bytes in replay |
-| No-semantics duplication reaches 0.927 AUAC at overhead 2.000 | FSO aggregate metrics | Higher availability with 60.5% more bytes than FSO |
-| Full FSO is 0.0024 AUAC below no-feedback | FSO paired contrasts | Retained adverse result; current feedback not credited |
-| Failure-domain diversity adds 0.024 AUAC | FSO paired contrasts | Specific declared correlation model and trace |
+| Canonical feedback-off FSO AUAC is 0.915 [0.909, 0.920] | `results/processed/fso/confirmation/aggregate_metrics.csv` | Synthetic adaptive-mobile trace replay; 20 disjoint seeds |
+| Canonical FSO exceeds session failover by 0.019 [0.016, 0.021] | `results/processed/fso/confirmation/paired_contrasts.csv` | Paired synthetic seeds; not a deployment effect |
+| Canonical FSO byte overhead is 1.238 versus 1.212 for session failover | FSO aggregate metrics | Payload-normalized encoded/envelope bytes in replay |
+| No-semantics duplication reaches 0.927 AUAC at overhead 2.000 | FSO aggregate metrics | Higher availability with 61.5% more bytes than canonical FSO |
+| Canonical FSO is 0.0024 [0.0008, 0.0042] above the feedback-enabled variant | FSO paired contrasts | Retained adverse result; feedback is not credited |
+| Failure-domain diversity adds 0.027 [0.014, 0.040] AUAC | FSO paired contrasts | Specific declared correlation model and trace |
+| FSO ≥ session failover ≥ generated-only in mean under all four declared censor structures | `results/processed/fso/structure-replay/structure_summary.csv` | 5,990,400 fixed-parameter decisions; seed-level ordering fraction 0.90--1.00; no traffic-volume-reactive censor |
 | Strict-trust FSO assigns zero provider-controlled attempts | FSO study and loopback manifests | Policy invariant, not empirical confidentiality measurement |
 | Deterministic full-protocol lab completes 100/125 operations | `results/processed/fso/deterministic-lab/manifest.json` | One frozen descriptive failure matrix; not an inferential or field result |
 | Two deterministic-lab executions produce identical CSV and manifest bytes | `tests/test_fso_lab.py`; deterministic-lab manifest | Laboratory-only deterministic entropy; prohibited for deployment |
@@ -33,7 +34,7 @@ This ledger is the audit trail for the public artifact and the privately maintai
 | Multi-host execution has zero published ports, external destinations, provider-controlled attempts, and authentication failures | Multi-host manifest and environment | Containment and policy invariants only |
 | At 1 MiB, local pipeline median latency is 226 ms for one shard, 373 ms for 2-of-3, and 477 ms for 3-of-5 | `results/processed/fso/scalability/measurements.csv` | One Apple-arm64 host; pure-Python prototype; descriptive system observation |
 | Four workers provide 1.94x one-worker throughput for the frozen 64-KiB 2-of-3 case | `results/processed/fso/scalability/parallel_scaling.csv` | Includes process startup and has 0.49 measured parallel efficiency; not a general scaling law |
-| The frozen feedback follow-up gives FSO minus no-feedback AUAC -0.00181 [-0.00340, -0.000217] | `configs/fso-feedback-evaluation.json`; `results/processed/fso/feedback-evaluation/feedback_audit.json` | Twelve new disjoint seeds; precommitted rule classifies harm only in the declared synthetic model; feedback disabled by default |
+| The frozen feedback follow-up gives feedback-enabled minus no-feedback AUAC -0.00181 [-0.00340, -0.000217] | `configs/fso-feedback-evaluation.json`; `results/processed/fso/feedback-evaluation/feedback_audit.json` | Twelve new disjoint seeds; legacy labels retained; magnitude negligible, secondary sign-flip p=0.0512, and feedback remains disabled |
 | The pinned official CensorLab `mega_gfw` composite censors 127/654 packets while the bridge reconstructs 60/60 successful application operations | `results/processed/fso/censorlab/manifest.json`; packet and operation CSVs | Declared synthetic rules and lane mappings only; not evidence about China or a deployed GFW |
 | In the official composite, application choices move to the two declared UDP lanes after two feedback epochs | `results/processed/fso/censorlab/operations.csv` | Demonstrates scheduler response to this rule set; does not establish durable evasion |
 | The transparent cross-transport campaign censors 436/654 packets and permits 13/60 application operations | `results/processed/fso/censorlab-campaign/manifest.json` | Original synthetic stress scenario, not a measurement or faithful censor replica |
@@ -61,6 +62,9 @@ This ledger is the audit trail for the public artifact and the privately maintai
 | Reliability-aware multipath scheduling for mobile media is prior art | `hu2025storm` | FSO's distinction is censorship-survival/trust constraints |
 | Deadline-aware block scheduling over multiple paths is prior art | `zuo2022dams` | FSO does not claim deadline-aware multipath scheduling novelty |
 | Pluggable Transports provide a generic modular circumvention interface | `torproject2026pt` | FSO does not claim a new carrier interface or wire disguise |
+| FTE makes ciphertext match chosen formats | `dyer2013fte` | FSO does not claim format-transforming encryption or protocol mimicry |
+| Marionette programmably controls ciphertext formats, protocol semantics, and traffic properties | `dyer2015marionette` | FSO does not claim programmable traffic obfuscation |
+| Geneva evolves packet-manipulation evasion strategies | `bock2019geneva` | FSO does not claim automated discovery or live censor training |
 | Reed-Solomon coding and ChaCha20-Poly1305 are established | `reed1960polynomial`, `nir2018chacha` | Component references, not novelty claims |
 | HMAC is a standardized keyed-hash message-authentication construction and permits truncation | `krawczyk1997hmac` | Supports authenticated ACK component; not a protocol-security proof |
 

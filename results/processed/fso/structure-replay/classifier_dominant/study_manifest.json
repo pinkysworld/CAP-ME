@@ -1,0 +1,66 @@
+{
+  "common_random_numbers": true,
+  "config": "results/processed/fso/structure-replay/classifier_dominant/replay_config.json",
+  "config_sha256": "8778ee9161742aea6ce3c2ff1697a3758a0a80d8e174e7f5a54a2a0dc829eb8e",
+  "counts": {
+    "cell_rows": 46800,
+    "operation_decisions": 1497600,
+    "strategy_seed_runs": 260,
+    "trace_rows": 18000
+  },
+  "interpretation": "Intervals cover replay and resampling variation across the 20 declared synthetic seeds. They are not population intervals for a deployed censor or country.",
+  "primary_strategy": "fso_no_feedback",
+  "processed_files": {
+    "aggregate_metrics.csv": "a3af73bf339f045a046a83ab94c57f62277dc899142f942cdafa375ad102c94d",
+    "lane_selection.csv": "3ec6f5ea4f873fb2f865cb2592898432a071b15f05e4701f95c1d7eeee98197d",
+    "paired_contrasts.csv": "bd46d145ff300812a592d69884e2345fc5db316ea0405db5368d9c4dc9e03ca0",
+    "run_metrics.csv": "7fa8cda1dbd2ddcd264f3b52da82e25655c0adf12d4ce6e1caf979bf20f17c5a",
+    "survival_curves.csv": "efb60ed949b183abdfeb076fd5b941543569825b7eb4f263d0bf97f48c9cf4a9"
+  },
+  "provider_controlled_attempts": 0,
+  "raw_files": {
+    "observations.csv": "5340ec51e3e173b3bbde988da6f7545f1d4cb0ad994d0e6e750f8288ae59b76f"
+  },
+  "schema_version": 1,
+  "seeds": [
+    4001,
+    4127,
+    4253,
+    4391,
+    4513,
+    4639,
+    4783,
+    4903,
+    5021,
+    5153,
+    5279,
+    5413,
+    5521,
+    5651,
+    5779,
+    5903,
+    6037,
+    6151,
+    6271,
+    6397
+  ],
+  "source_trace": "results/processed/fso/structure-replay/classifier_dominant/lane_trace_probabilities.csv",
+  "source_trace_sha256": "d022bc28d3db2735729813f0fcdac0861c0204aaf51622c867f2d08eae84ae55",
+  "strategies": [
+    "direct_only",
+    "fixed_only",
+    "generated_only",
+    "ephemeral_only",
+    "random_failover",
+    "performance_only",
+    "session_failover",
+    "fso",
+    "fso_fixed_code",
+    "fso_no_semantics",
+    "fso_no_diversity",
+    "fso_no_feedback",
+    "fso_no_redundancy"
+  ],
+  "strict_trust": true,
+  "synthetic_only": true
+}

@@ -1,7 +1,7 @@
 # Function-Survival Overlay protocol specification
 
 **Working name:** FSO
-**Protocol version:** 0.3 laboratory prototype
+**Protocol status:** laboratory prototype
 **Scope:** researcher-controlled evaluation only
 
 ## Purpose
@@ -28,9 +28,9 @@ key interface with an independently reviewed Double Ratchet or MLS integration.
    predicted availability.
 5. Experimental delivery feedback updates only local estimates. A sender does
    not receive censor-internal labels or future trace values. Feedback is not
-   credited as a benefit: the prospectively frozen 12-seed audit classified the
-   current update rule as harmful in its declared synthetic model, so the
-   default is disabled.
+   credited as a benefit: the prospectively frozen 12-seed audit found a tiny
+   adverse difference under its directional rule and a borderline secondary
+   diagnostic, so the default is disabled without a general harm claim.
 6. Correlated carrier instances are discounted; two endpoints in one failure
    domain are not counted as two independent defenses.
 7. External destinations are rejected by the executable loopback testbed.
@@ -45,7 +45,7 @@ key interface with an independently reviewed Double Ratchet or MLS integration.
 | File | 1-of-1, 1-of-2, 2-of-3, 3-of-5 | single, failover, or coded | Bulk transfer tolerates coding delay only when useful |
 | Real-time | 1-of-1, 1-of-2 | single, parallel, or timed hot standby | Striping across unequal paths can add jitter |
 
-FSO 0.3 selects among these predeclared plans instead of assuming maximum
+FSO selects among these predeclared plans instead of assuming maximum
 redundancy is always beneficial. The fixed-policy 0.1 result is retained in
 `docs/fso-development-log.md` as an exploratory negative result. The operation
 class is an input to the local scheduler. It is serialized only
@@ -146,11 +146,11 @@ of scope.
 - **Field package:** a non-networking validator checks authorization, expiry,
   ownership, data minimization, stop rules, exact review-bundle hashes, three
   distinct independent reviewer records, review expiry, and unresolved
-  findings. No external transport is implemented in version 0.3.
+  findings. No external transport is implemented.
 
 ## Security and deployment status
 
-FSO 0.3 is a research prototype, not a safety-reviewed circumvention product.
+FSO is a research prototype, not a safety-reviewed circumvention product.
 Before any external implementation, the protocol needs an independent
 cryptographic review, abuse analysis, jurisdiction-specific legal review,
 institutional ethics review or documented exemption, owned infrastructure,

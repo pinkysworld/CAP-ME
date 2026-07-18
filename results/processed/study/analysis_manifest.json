@@ -3,13 +3,15 @@
     "ablation_runs": 320,
     "aggregate_cells": 45,
     "paired_contrasts": 15,
-    "runs": 900
+    "runs": 900,
+    "shapley_seed_rows": 120
   },
   "files": {
     "aggregate_metrics.csv": "70e39999d861bd7e505a6c942ab2d9685241f34c9062d5146227fcf89ebfd5a8",
     "paired_contrasts.csv": "2a3373acbebd5f5a1768f13b809ad263a62117e0d701c3413a795e5d950bb460",
     "run_metrics.csv": "64e98511bde757a229487ddc1fb21c7820e2a43bc96e816fbacdec73108d7597",
     "shapley_attribution.csv": "8d440de2edbdb68e82845a6cad7feebd134a32ca881c0a0e94c31dda5431ed48",
+    "shapley_seed_attribution.csv": "4069808f27bc73e1c0b3d970af9cbbdc4f9613c2cffd5cf6b6523df0d6bc8443",
     "survival_curves.csv": "f6e8ca7750e9a3dc47620617872f2dccd820a3b80e2da1327e7f91973cc44d67"
   },
   "schema_version": 1,

@@ -1,0 +1,93 @@
+{
+  "bootstrap_repetitions": 2000,
+  "censor_structure": "adaptive_composed",
+  "correlation_weight": 0.35,
+  "epochs": 36,
+  "lane_instances": [
+    {
+      "architecture": "direct_e2ee",
+      "endpoint_resilience": 0.12,
+      "failure_domain": "direct",
+      "latency_prior_ms": 180,
+      "name": "direct-0",
+      "provider_controls_delivery": false,
+      "survival_prior": 0.45
+    },
+    {
+      "architecture": "fixed_proxy",
+      "endpoint_resilience": 0.1,
+      "failure_domain": "fixed",
+      "latency_prior_ms": 210,
+      "name": "fixed-0",
+      "provider_controls_delivery": false,
+      "survival_prior": 0.4
+    },
+    {
+      "architecture": "generated_transport",
+      "endpoint_resilience": 0.7,
+      "failure_domain": "generated",
+      "latency_prior_ms": 260,
+      "name": "generated-0",
+      "provider_controls_delivery": false,
+      "survival_prior": 0.78
+    },
+    {
+      "architecture": "generated_transport",
+      "endpoint_resilience": 0.72,
+      "failure_domain": "generated",
+      "latency_prior_ms": 285,
+      "name": "generated-1",
+      "provider_controls_delivery": false,
+      "survival_prior": 0.75
+    },
+    {
+      "architecture": "ephemeral_relay",
+      "endpoint_resilience": 0.92,
+      "failure_domain": "ephemeral-a",
+      "latency_prior_ms": 320,
+      "name": "ephemeral-0",
+      "provider_controls_delivery": false,
+      "survival_prior": 0.74
+    },
+    {
+      "architecture": "ephemeral_relay",
+      "endpoint_resilience": 0.92,
+      "failure_domain": "ephemeral-b",
+      "latency_prior_ms": 350,
+      "name": "ephemeral-1",
+      "provider_controls_delivery": false,
+      "survival_prior": 0.72
+    },
+    {
+      "architecture": "platform_controlled",
+      "endpoint_resilience": 0.98,
+      "failure_domain": "permitted",
+      "latency_prior_ms": 160,
+      "name": "permitted-0",
+      "provider_controls_delivery": true,
+      "survival_prior": 0.88
+    }
+  ],
+  "operations_per_function": 32,
+  "primary_strategy": "fso_no_feedback",
+  "schema_version": 1,
+  "source_trace": "results/processed/fso/structure-replay/adaptive_composed/lane_trace_probabilities.csv",
+  "strategies": [
+    "direct_only",
+    "fixed_only",
+    "generated_only",
+    "ephemeral_only",
+    "random_failover",
+    "performance_only",
+    "session_failover",
+    "fso",
+    "fso_fixed_code",
+    "fso_no_semantics",
+    "fso_no_diversity",
+    "fso_no_feedback",
+    "fso_no_redundancy"
+  ],
+  "strict_trust": true,
+  "synthetic_only": true,
+  "traffic_volume_coupling": false
+}

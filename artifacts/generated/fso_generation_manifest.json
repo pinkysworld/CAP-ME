@@ -1,19 +1,19 @@
 {
   "inputs": {
     "results/processed/fso/confirmation/aggregate_metrics.csv": "a428a93cdc5d536c4f656587a27f6176995788e3bc91d3e1b946356eac79ccba",
-    "results/processed/fso/confirmation/paired_contrasts.csv": "cfe1430b26ff5e759afe986563e9f9faf87cbf042b55fef40e685ce36d20f35c",
+    "results/processed/fso/confirmation/paired_contrasts.csv": "deb349a9126c82fcd17645af4cc6a5f2f745a9574b1321d476c5956183381380",
     "results/processed/fso/deterministic-lab/manifest.json": "0d3b4b60be31875e1a070b484ef73b0d383f0506d5981f5164ac4d2eafb0a705",
     "results/processed/fso/loopback/manifest.json": "c5618a5504540d40f634510fb1cbda95b0c06cfdc307560b87056283ed15a094"
   },
   "outputs": {
-    "figures/fso_ablation.pdf": "749cabf9a08d4667b3b167b3e7e5ccf2a38c7fda1eed17af435888ab6186a415",
-    "figures/fso_function_comparison.pdf": "72ee2a984cbaede12cbc296bf91b7ccea73f8a3cacfc10e1e092a2331efd82a5",
-    "figures/fso_tradeoff.pdf": "b0ac438b8749f8ff1fdbbf41fdd66c31e8f849593d58d98453d33ccf8b9f07ca",
-    "fso_ablation_results.tex": "ba7cb6c230ef1d2f4b40e2104613f9705879430ea99a9ba70d67ea072271849b",
-    "fso_function_results.tex": "86203b9922e79f1762762d3d1562ba118a2ad4eb2f2bd095912f3da1796b5a8c",
-    "fso_headline_results.json": "c40a82a25b91b257a664074ab384e9f7f36db32d2b507d29d0bcffdad9a1abea",
+    "figures/fso_ablation.pdf": "e20e6ad4d4d406e196b742192c506fea622c7e8567189840506ca6791ccd6b1a",
+    "figures/fso_function_comparison.pdf": "56dc91bf99cb264fd419b569a1651bd784b97c770a1393cc060a8d57d57c2d7f",
+    "figures/fso_tradeoff.pdf": "e5f524a6bb5fa17abc2d7bd72928fde35e206ed71a334abd507e6e4c6ebb5c73",
+    "fso_ablation_results.tex": "c3ff0441aef4e46476ef16a5e189732b8d3dce76903a34b57bd012c19bfc2621",
+    "fso_function_results.tex": "2122330b5212ed5fd5f68d6ad790e91179c256e1eda0c3b87441e372b3079b6b",
+    "fso_headline_results.json": "794040072730ca19e4f46ac98bfb37e17783ac4592828f9f2c16216723f5dc1c",
     "fso_lab_results.tex": "4aa29eed1dfd73923e52ac73e6f5c115f6cdb0c32c627e8253d4c87ff80770e1",
-    "fso_main_results.tex": "e5c34d8f7cd25318ec32eb43a9c2bf9a794084ce4a7aebb1693bef9925ef8db0"
+    "fso_main_results.tex": "784cd169eb94fb72970f3307d3e66c4a4350b4a757f0ad09dbac16132c312a63"
   },
   "schema_version": 1
 }

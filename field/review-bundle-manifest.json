@@ -1,7 +1,7 @@
 {
   "artifact": "CAP-ME FSO",
   "artifact_version": "0.3.0",
-  "bundle_id": "4ca9da754c3c3597f6238f41d7e42e23f491c09877fc788eb78330bf1438dfed",
+  "bundle_id": "31e0875533cf01dedb47b03483f23609df8be06f51b0e80589c391351e2c4ed8",
   "files": {
     ".dockerignore": "46662045143f74bcf14b056b0ba5b6ae5d12501b94fc8686443e7cd370045603",
     "analysis/run_censorlab_study.py": "25118f9e62f2c002e3c4c4fdf56efabe01b5ecade11f4e334b4a80934756690d",
@@ -12,7 +12,7 @@
     "configs/fso-deterministic-lab.json": "664d98306a8c8035d3ed54a74dfca1ce0acbc2da3450cb82d3988b5c822a4248",
     "configs/fso-multihost.json": "bc313a75dee6f832544bd65a31b5fb6130c2c3e0185876cfd9bf2ac5fcd53cfb",
     "docs/ethics.md": "c6a71de95a17fe9de3e833eda2f778ccd4c81d9b8089dfeb8d6d2a09bf56fd1c",
-    "docs/fso-protocol.md": "d8cd7150d10a071431cc4a7ed1ce27e228426afde3916582adc61f82ea9b0ab4",
+    "docs/fso-protocol.md": "a5aa3b9305ba33ad998a036cff9c7cd2e513fa86ea74b374e4d746183cb716e4",
     "field/stop-rules.md": "1a99f88b39bc4615203d6669a1a38d423ca2add09fd740a515a669c01bd41675",
     "field/study-protocol.md": "5b6386542c343572d543aa05aea0f22f5a88df4a1f260b9b607d94ff83221c74",
     "pyproject.toml": "31873f5d65d3b6b3fa573cf1820f949a4117836cf79b06f31909cbd8047c5665",

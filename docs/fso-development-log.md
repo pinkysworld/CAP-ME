@@ -55,19 +55,21 @@ all strategies with the same frozen seeds. The correction changes the replay's
 semantics, not a tuned model parameter, but it was made after intermediate
 output was inspected and is therefore disclosed here and in the manuscript.
 
-## Final independent-sample result
+## Final independent-sample result and canonical policy
 
-The versioned final replay contains 1,497,600 operation decisions. Full FSO
-reaches AUAC 0.9123 (95% seed-bootstrap CI [0.9068, 0.9173]) and byte overhead
-1.246. Session failover reaches 0.8961 [0.8902, 0.9016] at overhead 1.212; the
-paired FSO-minus-session difference is 0.0163 [0.0142, 0.0185].
+The versioned final replay contains 1,497,600 operation decisions. The original
+feedback-enabled policy reaches AUAC 0.9123 (95% seed-bootstrap CI
+[0.9068, 0.9173]) and byte overhead 1.246. The feedback-off policy reaches
+0.9148 [0.9091, 0.9199] at overhead 1.238 and is now canonical FSO. Session
+failover reaches 0.8961 [0.8902, 0.9016] at overhead 1.212; canonical FSO minus
+session failover is 0.0187 [0.0164, 0.0214].
 
 The ablations retain two results unfavorable to the full mechanism:
 
 - non-semantic two-lane duplication reaches AUAC 0.9270 but overhead 2.000,
-  60.5% above FSO; and
-- no-feedback reaches 0.9148, with paired FSO-minus-no-feedback difference
-  -0.0024 [-0.0042, -0.0008].
+  61.5% above canonical FSO; and
+- enabling feedback reaches 0.9123, with paired canonical-minus-feedback
+  difference 0.0024 [0.0008, 0.0042].
 
 Dynamic plan selection, diversity, and redundancy are beneficial within this
 trace; the current feedback rule is not. The next feedback design must be
@@ -76,18 +78,19 @@ developed on new data rather than tuned on these confirmation seeds.
 ## Prospectively frozen feedback follow-up
 
 Before generating follow-up outcomes, the repository froze 12 new seeds,
-the paired FSO-minus-no-feedback estimand, a two-sided 95% seed-bootstrap
+the paired feedback-enabled-minus-no-feedback estimand (under the legacy labels), a two-sided 95% seed-bootstrap
 interval, and its decision rule in commit `f4ca7bdb909bdeabbb9b297004846449eab98aa0`.
 The evaluation produced AUAC 0.91347 for FSO and 0.91528 without feedback. The
 paired difference is -0.00181 with interval [-0.00340, -0.000217]. Its upper
-bound is below zero, meeting the frozen harm rule within this declared
-synthetic model. Feedback is therefore disabled by default, and no benefit
-claim is retained. The result is not evidence about a deployed censor or
-population.
+bound is below zero, meeting the frozen directional rule within this declared
+synthetic model. The magnitude is negligible and the secondary random sign-flip
+diagnostic is p=0.0512. Feedback is therefore disabled by default, and no benefit
+claim is retained. The result is not evidence about a deployed censor, population,
+or feedback mechanisms generally.
 
-## FSO 0.3 protocol-path execution
+## Current protocol-path execution
 
-FSO 0.3 does not change the frozen replay, scheduler objective, confirmation
+The current laboratory prototype does not change the frozen replay, scheduler objective, confirmation
 seeds, or reported inferential results. It adds reusable bounded fragmentation,
 authenticated ACKs, deadline expiry for incomplete state, and a deterministic
 closed-world carrier-adapter harness that executes the actual encrypted

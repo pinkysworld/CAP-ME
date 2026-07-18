@@ -1,18 +1,19 @@
 {
   "common_random_numbers": true,
   "config": "configs/fso-confirmation.json",
-  "config_sha256": "735ab0c4cb664ef489b3f70b5385e890321979b818cb38e85c582cf033f83d0b",
+  "config_sha256": "e89e33c6f3094b65c057ad4ee5d6bf13b6559d402dbb817009a2e03a6c6cf101",
   "counts": {
     "cell_rows": 46800,
     "operation_decisions": 1497600,
     "strategy_seed_runs": 260,
     "trace_rows": 18000
   },
-  "interpretation": "Intervals cover replay and resampling variation across the 20 CAP-ME synthetic seeds. They are not population intervals for a deployed censor or country.",
+  "interpretation": "Intervals cover replay and resampling variation across the 20 declared synthetic seeds. They are not population intervals for a deployed censor or country.",
+  "primary_strategy": "fso_no_feedback",
   "processed_files": {
     "aggregate_metrics.csv": "a428a93cdc5d536c4f656587a27f6176995788e3bc91d3e1b946356eac79ccba",
     "lane_selection.csv": "aa53dedd79788b36f78e2af61afd3145fdff3adb9ddc18acfb98ae4a3b001c6e",
-    "paired_contrasts.csv": "cfe1430b26ff5e759afe986563e9f9faf87cbf042b55fef40e685ce36d20f35c",
+    "paired_contrasts.csv": "deb349a9126c82fcd17645af4cc6a5f2f745a9574b1321d476c5956183381380",
     "run_metrics.csv": "3cd97ac3403afadafd358e7073adb284c1eb7c319cfaa3578199be4408c628c2",
     "survival_curves.csv": "b365784d49150ca8e7eb70d535616dfd951328518655f986548ff7d4c7dd4d1e"
   },

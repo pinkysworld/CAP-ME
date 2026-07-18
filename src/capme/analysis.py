@@ -246,15 +246,19 @@ def _mask_to_set(mask: str) -> frozenset[str]:
     )
 
 
-def shapley_attribution(ablation_run_metrics: list[dict[str, object]]) -> list[dict[str, object]]:
+def shapley_seed_attribution(
+    ablation_run_metrics: list[dict[str, object]],
+) -> list[dict[str, object]]:
+    """Return exact three-layer contributions for every paired simulation seed."""
+
     by_unit: dict[tuple[str, int], dict[frozenset[str], float]] = defaultdict(dict)
     for row in ablation_run_metrics:
         by_unit[(str(row["architecture"]), int(row["seed"]))][
             _mask_to_set(str(row["layer_mask"]))
         ] = float(row["auac"])
     layers = ("path", "endpoint", "platform")
-    records: dict[tuple[str, str], list[float]] = defaultdict(list)
-    for (architecture, _seed), values in by_unit.items():
+    output: list[dict[str, object]] = []
+    for (architecture, seed), values in sorted(by_unit.items()):
         if len(values) != 8 or frozenset() not in values:
             continue
         baseline = values[frozenset()]
@@ -273,7 +277,25 @@ def shapley_attribution(ablation_run_metrics: list[dict[str, object]]) -> list[d
                     contribution += weight * (
                         loss[subset | {layer}] - loss[subset]
                     )
-            records[(architecture, layer)].append(contribution)
+            output.append(
+                {
+                    "architecture": architecture,
+                    "architecture_label": ARCHITECTURES[architecture].label,
+                    "seed": seed,
+                    "layer": layer,
+                    "auac_loss_contribution": contribution,
+                }
+            )
+    return output
+
+
+def shapley_attribution(ablation_run_metrics: list[dict[str, object]]) -> list[dict[str, object]]:
+    seed_rows = shapley_seed_attribution(ablation_run_metrics)
+    records: dict[tuple[str, str], list[float]] = defaultdict(list)
+    for row in seed_rows:
+        records[(str(row["architecture"]), str(row["layer"]))].append(
+            float(row["auac_loss_contribution"])
+        )
     output: list[dict[str, object]] = []
     for index, ((architecture, layer), values) in enumerate(sorted(records.items())):
         interval = bootstrap_mean(values, seed=70_000 + index)
@@ -329,6 +351,7 @@ def analyze(raw_dir: Path, processed_dir: Path) -> dict[str, object]:
     aggregates = aggregate_run_metrics(run_metrics)
     contrasts = paired_contrasts(run_metrics)
     shapley = shapley_attribution(ablation_run_metrics)
+    shapley_by_seed = shapley_seed_attribution(ablation_run_metrics)
     curves = aggregate_survival_curves(observations)
     hashes = {
         "run_metrics.csv": write_csv(processed_dir / "run_metrics.csv", run_metrics),
@@ -340,6 +363,9 @@ def analyze(raw_dir: Path, processed_dir: Path) -> dict[str, object]:
         ),
         "shapley_attribution.csv": write_csv(
             processed_dir / "shapley_attribution.csv", shapley
+        ),
+        "shapley_seed_attribution.csv": write_csv(
+            processed_dir / "shapley_seed_attribution.csv", shapley_by_seed
         ),
         "survival_curves.csv": write_csv(
             processed_dir / "survival_curves.csv", curves
@@ -357,6 +383,7 @@ def analyze(raw_dir: Path, processed_dir: Path) -> dict[str, object]:
             "ablation_runs": len(ablation_run_metrics),
             "aggregate_cells": len(aggregates),
             "paired_contrasts": len(contrasts),
+            "shapley_seed_rows": len(shapley_by_seed),
         },
         "files": hashes,
     }

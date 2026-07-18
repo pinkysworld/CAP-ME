@@ -1,0 +1,32 @@
+{
+  "artifact_boundary": "public code and reproducibility evidence; no manuscript source or PDF",
+  "artifact_repository": "https://github.com/pinkysworld/CAP-ME",
+  "files": {
+    "artifacts/generated/fso_generation_manifest.json": "31ff768d8b563c8b1b7249167be084edf740c937d9303cadf1b312be0b9c64c7",
+    "artifacts/generated/fso_structure_generation_manifest.json": "ffe47cc4322ae3a43ed5ca36760084e8e4a5eda1d124639cc22ba0f7c906be93",
+    "artifacts/generated/generation_manifest.json": "b81d6978dc58019bc38bed7bf3f2b8d51d162e05e26a8a9c270239a12a4c837b",
+    "artifacts/generated/robustness_generation_manifest.json": "9593531c82d7afdb9af3f35a49bf248aab3a3155d0c4d1bfe876b37a57c31737",
+    "configs/fso-confirmation.json": "e89e33c6f3094b65c057ad4ee5d6bf13b6559d402dbb817009a2e03a6c6cf101",
+    "configs/fso-structure-replay.json": "110283d4c3a3811d9d36d5a5e97ddcc232dae6563c0742b85a8cb73452d4cafa",
+    "configs/robustness.json": "ed75ed13d933d8ba6808353def32e0acead66b51b392190e5d819acf91d1868a",
+    "configs/study.json": "e97af93bb817ff7d872b3dcfd5606d62587c8f835044a6a4d8e000223ee1d71b",
+    "results/processed/fso/censorlab-campaign/manifest.json": "e46416a9ad9ec289c48d273adc85d9fc8d97f17c26683e7b8e04d17036e61d7e",
+    "results/processed/fso/censorlab/manifest.json": "34710186e3eb4ce52a3a1d793c03c52478881911f8db280d11152ce97a9fa65d",
+    "results/processed/fso/confirmation/study_manifest.json": "3f96583d4fc627fdf1ac7f58e72f64c3f09bf33a275cef862eb750042020e2a0",
+    "results/processed/fso/deterministic-lab/manifest.json": "0d3b4b60be31875e1a070b484ef73b0d383f0506d5981f5164ac4d2eafb0a705",
+    "results/processed/fso/feedback-evaluation/feedback_audit.json": "d141b1b64bf74aecb661e02ca9fd63c7ba7e7f7e7fdbb3f80cbae9fcce753028",
+    "results/processed/fso/feedback-evaluation/study_manifest.json": "21ad7c309c49a1ff7451a852a272871236f53c9bd7b5c54fd60a901f31131149",
+    "results/processed/fso/loopback/manifest.json": "c5618a5504540d40f634510fb1cbda95b0c06cfdc307560b87056283ed15a094",
+    "results/processed/fso/multihost/manifest.json": "a428d653672d578836e00cec73a35e05548cba7923ddb54c9e3fbd81dc734950",
+    "results/processed/fso/multihost/repeatability.json": "2008d4a2572f0bd781729f634d4772614c9a91f254126e0ee06c7794d19e8fdb",
+    "results/processed/fso/scalability/manifest.json": "70043374cacf46220a2db7f14801679ba0161bee8f583abbd6badfa28a4eb6c0",
+    "results/processed/fso/structure-replay/manifest.json": "22d3648ae020a9389c190409cb40d110cd782d5f1af12eac5c9d32d4578458f4",
+    "results/processed/fso/structure-replay/structure_summary.csv": "b9d660553019971e0ed426d08915e49b8790df54fa364224b6156f645f870aab",
+    "results/processed/robustness/manifest.json": "7ec6192c7cb76e1d8b7541bc17d90c405c70bf9dfb054d5891e7278efe57064f",
+    "results/processed/study/analysis_manifest.json": "06b380a0fa24d0c0933482f9d94964a66fd530b557ae1bb8f8141a1bd809977c",
+    "results/processed/study/shapley_seed_attribution.csv": "4069808f27bc73e1c0b3d970af9cbbdc4f9613c2cffd5cf6b6523df0d6bc8443"
+  },
+  "frozen_feedback_plan_commit": "f4ca7bdb909bdeabbb9b297004846449eab98aa0",
+  "schema_version": 1,
+  "synthetic_or_closed_lab_only": true
+}

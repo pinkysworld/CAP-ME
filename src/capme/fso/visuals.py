@@ -11,6 +11,9 @@ from reportlab.lib import colors
 from reportlab.pdfgen import canvas
 
 
+CANONICAL_FSO = "fso_no_feedback"
+FEEDBACK_ENABLED_FSO = "fso"
+
 STRATEGY_LABELS = {
     "direct_only": "Direct only",
     "fixed_only": "Fixed proxy only",
@@ -19,11 +22,11 @@ STRATEGY_LABELS = {
     "random_failover": "Random failover",
     "performance_only": "Performance only",
     "session_failover": "Session failover",
-    "fso": "FSO 0.3",
+    "fso": "Feedback enabled",
     "fso_fixed_code": "FSO fixed code",
     "fso_no_semantics": "No semantics",
     "fso_no_diversity": "No diversity",
-    "fso_no_feedback": "No feedback",
+    "fso_no_feedback": "FSO",
     "fso_no_redundancy": "No redundancy",
 }
 
@@ -80,7 +83,7 @@ def tradeoff_figure(rows: list[dict[str, str]], output: Path) -> None:
         "ephemeral_only",
         "random_failover",
         "session_failover",
-        "fso",
+        CANONICAL_FSO,
         "fso_fixed_code",
         "fso_no_semantics",
         "fso_no_redundancy",
@@ -119,7 +122,7 @@ def tradeoff_figure(rows: list[dict[str, str]], output: Path) -> None:
 
     c.setFont("Helvetica", 7.2)
     label_offsets = {
-        "fso": (8, 6),
+        CANONICAL_FSO: (8, 6),
         "session_failover": (8, -11),
         "fso_no_semantics": (-84, 7),
         "fso_fixed_code": (8, 6),
@@ -134,8 +137,8 @@ def tradeoff_figure(rows: list[dict[str, str]], output: Path) -> None:
         auac = float(row["auac"])
         x = _linear(overhead, x_low, x_high, left, plot_width)
         y = _linear(auac, y_low, y_high, bottom, plot_height)
-        fill = BLUE if strategy == "fso" else (ORANGE if strategy == "fso_no_semantics" else GREY)
-        radius = 5.4 if strategy == "fso" else 3.8
+        fill = BLUE if strategy == CANONICAL_FSO else (ORANGE if strategy == "fso_no_semantics" else GREY)
+        radius = 5.4 if strategy == CANONICAL_FSO else 3.8
         c.setFillColor(fill)
         c.setStrokeColor(DARK)
         c.circle(x, y, radius, fill=1, stroke=1)
@@ -180,7 +183,7 @@ def function_figure(rows: list[dict[str, str]], output: Path) -> None:
         c.setFont("Helvetica", 7.5)
         c.drawRightString(left - 5, y - 2.5, f"{tick:.1f}")
 
-    strategies = ("fso", "session_failover", "generated_only")
+    strategies = (CANONICAL_FSO, "session_failover", "generated_only")
     fills = (BLUE, GREEN, GREY)
     functions = tuple(FUNCTION_LABELS)
     group_width = plot_width / len(functions)
@@ -223,10 +226,10 @@ def ablation_figure(rows: list[dict[str, str]], output: Path) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     by_strategy = {row["strategy"]: row for row in rows}
     order = (
-        "fso",
+        CANONICAL_FSO,
+        FEEDBACK_ENABLED_FSO,
         "fso_fixed_code",
         "fso_no_diversity",
-        "fso_no_feedback",
         "fso_no_redundancy",
         "fso_no_semantics",
     )
@@ -258,7 +261,7 @@ def ablation_figure(rows: list[dict[str, str]], output: Path) -> None:
         center = left + group_width * (index + 0.5)
         auac = float(row["auac"])
         overhead = float(row["byte_overhead"])
-        fill = BLUE if strategy == "fso" else GREY
+        fill = BLUE if strategy == CANONICAL_FSO else GREY
         c.setFillColor(fill)
         c.setStrokeColor(DARK)
         c.setLineWidth(0.35)
@@ -269,10 +272,10 @@ def ablation_figure(rows: list[dict[str, str]], output: Path) -> None:
         c.setFillColor(DARK)
         c.setFont("Helvetica", 6.4)
         short_label = {
-            "fso": "FSO",
+            CANONICAL_FSO: "FSO",
+            FEEDBACK_ENABLED_FSO: "Feedback on",
             "fso_fixed_code": "Fixed code",
             "fso_no_diversity": "No diversity",
-            "fso_no_feedback": "No feedback",
             "fso_no_redundancy": "No redundancy",
             "fso_no_semantics": "No semantics",
         }[strategy]
@@ -310,7 +313,7 @@ def write_tables(rows: list[dict[str, str]], contrasts: list[dict[str, str]], ou
     by_strategy = {row["strategy"]: row for row in rows}
     by_baseline = {row["baseline"]: row for row in contrasts}
 
-    main_order = ("fso", "session_failover", "generated_only", "ephemeral_only", "random_failover")
+    main_order = (CANONICAL_FSO, "session_failover", "generated_only", "ephemeral_only", "random_failover")
     main_lines = [
         r"\begin{tabular}{lrrrr}",
         r"\toprule",
@@ -335,7 +338,7 @@ def write_tables(rows: list[dict[str, str]], contrasts: list[dict[str, str]], ou
     ]
     for function, label in FUNCTION_LABELS.items():
         function_lines.append(
-            f"{label} & {float(by_strategy['fso'][f'auac_{function}']):.3f} & "
+            f"{label} & {float(by_strategy[CANONICAL_FSO][f'auac_{function}']):.3f} & "
             f"{float(by_strategy['session_failover'][f'auac_{function}']):.3f} & "
             f"{float(by_strategy['generated_only'][f'auac_{function}']):.3f} \\\\"
         )
@@ -345,10 +348,10 @@ def write_tables(rows: list[dict[str, str]], contrasts: list[dict[str, str]], ou
     )
 
     ablation_order = (
-        "fso",
+        CANONICAL_FSO,
+        FEEDBACK_ENABLED_FSO,
         "fso_fixed_code",
         "fso_no_diversity",
-        "fso_no_feedback",
         "fso_no_redundancy",
         "fso_no_semantics",
     )
@@ -360,7 +363,11 @@ def write_tables(rows: list[dict[str, str]], contrasts: list[dict[str, str]], ou
     ]
     for strategy in ablation_order:
         row = by_strategy[strategy]
-        difference = 0.0 if strategy == "fso" else float(by_baseline[strategy]["mean_difference"])
+        difference = (
+            0.0
+            if strategy == CANONICAL_FSO
+            else float(by_baseline[strategy]["mean_difference"])
+        )
         ablation_lines.append(
             f"{_tex_label(STRATEGY_LABELS[strategy])} & {_ci(row, 'auac')} & "
             f"{difference:+.3f} & {float(row['byte_overhead']):.3f} \\\\"
@@ -412,7 +419,7 @@ def generate(
 
     by_strategy = {row["strategy"]: row for row in rows}
     by_baseline = {row["baseline"]: row for row in contrasts}
-    fso = by_strategy["fso"]
+    fso = by_strategy[CANONICAL_FSO]
     headline = {
         "schema_version": 1,
         "scope": (
@@ -437,8 +444,8 @@ def generate(
         "no_semantics_byte_overhead": float(
             by_strategy["fso_no_semantics"]["byte_overhead"]
         ),
-        "fso_minus_no_feedback": float(
-            by_baseline["fso_no_feedback"]["mean_difference"]
+        "fso_minus_feedback_enabled": float(
+            by_baseline[FEEDBACK_ENABLED_FSO]["mean_difference"]
         ),
         "provider_controlled_attempts": 0,
         "loopback": {

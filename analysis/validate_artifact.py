@@ -57,6 +57,7 @@ def validate_processed() -> list[str]:
         "aggregate_metrics.csv": 45,
         "paired_contrasts.csv": 15,
         "shapley_attribution.csv": 15,
+        "shapley_seed_attribution.csv": 120,
         "survival_curves.csv": 180,
     }
     for name, count in expected_rows.items():
@@ -233,6 +234,7 @@ def validate_fso_processed() -> list[str]:
     assert manifest["synthetic_only"] is True
     assert manifest["strict_trust"] is True
     assert manifest["common_random_numbers"] is True
+    assert manifest["primary_strategy"] == "fso_no_feedback"
     assert manifest["provider_controlled_attempts"] == 0
     assert manifest["counts"] == {
         "cell_rows": 46_800,
@@ -263,19 +265,21 @@ def validate_fso_processed() -> list[str]:
     assert original_seeds.isdisjoint(confirmation_seeds)
 
     aggregates = read_csv_rows(processed / "aggregate_metrics.csv")
-    fso = _find_row(aggregates, "strategy", "fso")
+    fso = _find_row(aggregates, "strategy", "fso_no_feedback")
+    feedback_enabled = _find_row(aggregates, "strategy", "fso")
     session = _find_row(aggregates, "strategy", "session_failover")
     no_semantics = _find_row(aggregates, "strategy", "fso_no_semantics")
-    assert abs(float(fso["auac"]) - 0.9123177083333334) < 1e-12
+    assert abs(float(fso["auac"]) - 0.9147569444444443) < 1e-12
     assert abs(float(session["auac"]) - 0.8960677083333332) < 1e-12
-    assert abs(float(fso["byte_overhead"]) - 1.246435542835698) < 1e-12
+    assert abs(float(fso["byte_overhead"]) - 1.2384499731322065) < 1e-12
+    assert float(fso["auac"]) > float(feedback_enabled["auac"])
     assert abs(float(no_semantics["byte_overhead"]) - 2.000061214729795) < 1e-12
     contrasts = read_csv_rows(processed / "paired_contrasts.csv")
     session_contrast = _find_row(contrasts, "baseline", "session_failover")
-    feedback_contrast = _find_row(contrasts, "baseline", "fso_no_feedback")
-    assert abs(float(session_contrast["mean_difference"]) - 0.01625) < 1e-12
+    feedback_contrast = _find_row(contrasts, "baseline", "fso")
+    assert abs(float(session_contrast["mean_difference"]) - 0.018689236111111108) < 1e-12
     assert float(session_contrast["ci_low"]) > 0
-    assert float(feedback_contrast["mean_difference"]) < 0
+    assert float(feedback_contrast["mean_difference"]) > 0
 
     raw = ROOT / "results" / "raw" / "fso-confirmation" / "observations.csv"
     if raw.exists():
@@ -284,8 +288,62 @@ def validate_fso_processed() -> list[str]:
     else:
         raw_status = "raw observations absent but regenerable"
     return [
-        "FSO counts, disjoint seeds, hashes, trust invariant, and headline values "
+        "canonical feedback-off FSO counts, disjoint seeds, hashes, trust invariant, and headline values "
         f"({raw_status})"
+    ]
+
+
+def validate_fso_structure_replay() -> list[str]:
+    config_path = ROOT / "configs" / "fso-structure-replay.json"
+    config = load_json(config_path)
+    directory = ROOT / "results" / "processed" / "fso" / "structure-replay"
+    manifest = load_json(directory / "manifest.json")
+    structures = [str(value) for value in config["censor_structures"]]
+    assert manifest["synthetic_only"] is True
+    assert manifest["config_sha256"] == sha256(config_path)
+    assert manifest["structures"] == structures
+    assert manifest["primary_strategy"] == "fso_no_feedback"
+    assert manifest["traffic_volume_coupling"] is False
+    assert manifest["counts"] == {
+        "operation_decisions": 5_990_400,
+        "source_simulation_runs": 400,
+        "source_trace_rows": 72_000,
+        "strategy_seed_runs": 1_040,
+    }
+    for name, digest in manifest["files"].items():
+        path = directory / name
+        assert path.is_file(), f"structure replay file missing: {name}"
+        assert sha256(path) == digest, f"structure replay hash mismatch: {name}"
+
+    summary = read_csv_rows(directory / "structure_summary.csv")
+    assert len(summary) == len(structures) == 4
+    assert {row["censor_structure"] for row in summary} == set(structures)
+    for row in summary:
+        assert int(row["seeds"]) == 20
+        assert int(row["mean_ordering_fso_ge_session_ge_generated"]) == 1
+        assert float(row["fso_minus_session_ci_low"]) > 0
+        assert float(row["session_minus_generated_ci_low"]) > 0
+        assert float(row["seed_ordering_fraction"]) >= 0.90
+        structure = row["censor_structure"]
+        trace = directory / structure / "lane_trace_probabilities.csv"
+        assert row_count(trace) == 18_000
+        study_manifest = load_json(directory / structure / "study_manifest.json")
+        assert study_manifest["primary_strategy"] == "fso_no_feedback"
+        assert study_manifest["counts"]["operation_decisions"] == 1_497_600
+        assert row_count(directory / structure / "aggregate_metrics.csv") == 13
+        assert row_count(directory / structure / "run_metrics.csv") == 260
+        assert row_count(directory / structure / "paired_contrasts.csv") == 12
+    generated = load_json(
+        ROOT / "artifacts" / "generated" / "fso_structure_generation_manifest.json"
+    )
+    assert generated["synthetic_only"] is True
+    for relative, digest in generated["inputs"].items():
+        assert sha256(ROOT / relative) == digest
+    for relative, digest in generated["outputs"].items():
+        assert sha256(ROOT / "artifacts" / "generated" / relative) == digest
+    return [
+        "four-structure 13-strategy replay, 5,990,400 decisions, exact hashes, "
+        "stable mean ordering, and explicit no-volume-coupling boundary"
     ]
 
 
@@ -736,12 +794,35 @@ def validate_reference_audit() -> list[str]:
     return [f"{len(available)} bibliography keys independently logged"]
 
 
+def validate_evidence_manifest() -> list[str]:
+    path = ROOT / "artifacts" / "generated" / "tdsc_evidence_manifest.json"
+    manifest = load_json(path)
+    assert manifest["schema_version"] == 1
+    assert manifest["synthetic_or_closed_lab_only"] is True
+    assert manifest["artifact_repository"] == "https://github.com/pinkysworld/CAP-ME"
+    assert "no manuscript" in str(manifest["artifact_boundary"])
+    assert manifest["frozen_feedback_plan_commit"] == (
+        "f4ca7bdb909bdeabbb9b297004846449eab98aa0"
+    )
+    files = manifest["files"]
+    assert len(files) == 23
+    for relative, digest in files.items():
+        evidence = ROOT / str(relative)
+        assert evidence.is_file(), f"evidence manifest file missing: {relative}"
+        assert sha256(evidence) == digest, f"evidence manifest hash mismatch: {relative}"
+    return [
+        f"reviewer evidence index with {len(files)} exact SHA-256 links "
+        f"(manifest digest {sha256(path)})"
+    ]
+
+
 def main() -> int:
     checks: list[str] = []
     checks.extend(validate_processed())
     checks.extend(validate_raw_if_present())
     checks.extend(validate_robustness())
     checks.extend(validate_fso_processed())
+    checks.extend(validate_fso_structure_replay())
     checks.extend(validate_fso_deterministic_lab())
     checks.extend(validate_censorlab_results())
     checks.extend(validate_fso_loopback_and_gate())
@@ -749,6 +830,7 @@ def main() -> int:
     checks.extend(validate_feedback_evaluation())
     checks.extend(validate_fso_scalability())
     checks.extend(validate_reference_audit())
+    checks.extend(validate_evidence_manifest())
     print(json.dumps({"status": "ok", "checks": checks}, indent=2))
     return 0
 

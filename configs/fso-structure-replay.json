@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "synthetic_only": true,
+  "source_config": "configs/fso-confirmation-source.json",
+  "replay_config": "configs/fso-confirmation.json",
+  "robustness_config": "configs/robustness.json",
+  "censor_structures": [
+    "classifier_dominant",
+    "endpoint_discovery_dominant",
+    "resource_bounded_composed",
+    "adaptive_composed"
+  ],
+  "primary_strategy": "fso_no_feedback",
+  "structure_parameterization": "unperturbed declared structure",
+  "traffic_volume_coupling": false,
+  "interpretation": "This replay changes the declared censor structure while holding the base mobile network, architecture parameters, lane priors, strategy code, and 20 confirmation seeds fixed. It does not sample the Latin-hypercube parameter ranges and does not model a censor reaction to strategy-induced traffic volume."
+}

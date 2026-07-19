@@ -888,7 +888,7 @@ def validate_evidence_manifest() -> list[str]:
         "f4ca7bdb909bdeabbb9b297004846449eab98aa0"
     )
     files = manifest["files"]
-    assert len(files) == 29
+    assert len(files) == 30
     for relative, digest in files.items():
         evidence = ROOT / str(relative)
         assert evidence.is_file(), f"evidence manifest file missing: {relative}"

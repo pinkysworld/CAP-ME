@@ -1,7 +1,7 @@
 {
   "artifact": "CAP-ME FSO",
   "artifact_version": "0.3.0",
-  "bundle_id": "408d267654f4c895efaa807788c4215901b21bd0fd1e1f72b65ca6c655441591",
+  "bundle_id": "cb875c35d8d8a9980c5d6e27fe12127eb6d967b30734788a7a66c28c9df241fa",
   "files": {
     ".dockerignore": "46662045143f74bcf14b056b0ba5b6ae5d12501b94fc8686443e7cd370045603",
     "analysis/run_censorlab_study.py": "25118f9e62f2c002e3c4c4fdf56efabe01b5ecade11f4e334b4a80934756690d",
@@ -19,8 +19,8 @@
     "results/processed/fso/censorlab-campaign/manifest.json": "e46416a9ad9ec289c48d273adc85d9fc8d97f17c26683e7b8e04d17036e61d7e",
     "results/processed/fso/censorlab/manifest.json": "34710186e3eb4ce52a3a1d793c03c52478881911f8db280d11152ce97a9fa65d",
     "results/processed/fso/deterministic-lab/manifest.json": "0d3b4b60be31875e1a070b484ef73b0d383f0506d5981f5164ac4d2eafb0a705",
-    "results/processed/fso/multihost/environment.json": "79bce29f5dd0783b459f68bad71510086cd455ff890d260b8b575d6ce75948db",
-    "results/processed/fso/multihost/manifest.json": "70d04ea9a8e3dd4d918513a9644dd344ad5b7d0a254f9ebffc949ddee0140c07",
+    "results/processed/fso/multihost/environment.json": "db5a561f52213f6922738ade94e4c6d84e07555ba1b8fea91f3bde60e30a664f",
+    "results/processed/fso/multihost/manifest.json": "d9ddc87e39aa88ba70f4ec91e1e899cb51a470e21ef9091c79ef8e0a730765b2",
     "src/capme/fso/censorlab.py": "80cdc8a8810dfdb3a5c370bb3691e3ac260b74ef0d309f92beff8b88f4d99835",
     "src/capme/fso/coding.py": "d5d86d7b17b4b361ea66e2f7d71d6a20db2b6b38ebef17dab4ec4d8e7e358b5e",
     "src/capme/fso/crypto.py": "56de1c5885d28c6035cfa699bed4991c6fbcf33216b6eed298ba7ff9939b73c1",

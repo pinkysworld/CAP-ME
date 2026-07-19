@@ -1,0 +1,112 @@
+{
+  "bootstrap_repetitions": 2000,
+  "epochs": 36,
+  "independent_trace_model": "configs/fso-independent-replay.json",
+  "lane_instances": [
+    {
+      "architecture": "direct_e2ee",
+      "endpoint_resilience": 0.12,
+      "failure_domain": "direct",
+      "latency_prior_ms": 180,
+      "name": "direct-0",
+      "provider_controls_delivery": false,
+      "survival_prior": 0.45
+    },
+    {
+      "architecture": "fixed_proxy",
+      "endpoint_resilience": 0.1,
+      "failure_domain": "fixed",
+      "latency_prior_ms": 210,
+      "name": "fixed-0",
+      "provider_controls_delivery": false,
+      "survival_prior": 0.4
+    },
+    {
+      "architecture": "generated_transport",
+      "endpoint_resilience": 0.7,
+      "failure_domain": "generated",
+      "latency_prior_ms": 260,
+      "name": "generated-0",
+      "provider_controls_delivery": false,
+      "survival_prior": 0.78
+    },
+    {
+      "architecture": "generated_transport",
+      "endpoint_resilience": 0.72,
+      "failure_domain": "generated",
+      "latency_prior_ms": 285,
+      "name": "generated-1",
+      "provider_controls_delivery": false,
+      "survival_prior": 0.75
+    },
+    {
+      "architecture": "ephemeral_relay",
+      "endpoint_resilience": 0.92,
+      "failure_domain": "ephemeral-a",
+      "latency_prior_ms": 320,
+      "name": "ephemeral-0",
+      "provider_controls_delivery": false,
+      "survival_prior": 0.74
+    },
+    {
+      "architecture": "ephemeral_relay",
+      "endpoint_resilience": 0.92,
+      "failure_domain": "ephemeral-b",
+      "latency_prior_ms": 350,
+      "name": "ephemeral-1",
+      "provider_controls_delivery": false,
+      "survival_prior": 0.72
+    },
+    {
+      "architecture": "platform_controlled",
+      "endpoint_resilience": 0.98,
+      "failure_domain": "permitted",
+      "latency_prior_ms": 160,
+      "name": "permitted-0",
+      "provider_controls_delivery": true,
+      "survival_prior": 0.88
+    }
+  ],
+  "operations_per_function": 32,
+  "outcome_correlation_weight": 0.35,
+  "primary_strategy": "fso_no_feedback",
+  "scheduler_correlation_weight": 0.35,
+  "scheduler_parameters": {
+    "burn_weight": 0.16,
+    "correlation_penalty_weight": 0.1,
+    "cost_weights": {
+      "file": 0.045,
+      "media": 0.035,
+      "presence": 0.09,
+      "realtime": 0.015,
+      "text": 0.02
+    },
+    "latency_weights": {
+      "file": 0.02,
+      "media": 0.03,
+      "presence": 0.04,
+      "realtime": 0.18,
+      "text": 0.025
+    }
+  },
+  "schema_version": 2,
+  "source_trace": "/Users/michelpicker/Library/Mobile Documents/com~apple~CloudDocs/Projekte/cap-me/results/processed/fso/independent-replay/independent_trace.csv",
+  "strategies": [
+    "direct_only",
+    "fixed_only",
+    "generated_only",
+    "ephemeral_only",
+    "random_failover",
+    "performance_only",
+    "session_failover",
+    "deadline_cost_failover",
+    "fso",
+    "fso_fixed_code",
+    "fso_no_semantics",
+    "fso_no_diversity",
+    "fso_no_feedback",
+    "fso_no_redundancy"
+  ],
+  "strict_trust": true,
+  "synthetic_only": true
+}

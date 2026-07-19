@@ -10,6 +10,16 @@ from pathlib import Path
 from reportlab.lib import colors
 from reportlab.pdfgen import canvas
 
+from capme.pdf_fonts import (
+    PDF_FONT_BOLD,
+    PDF_FONT_ITALIC,
+    PDF_FONT_REGULAR,
+    register_pdf_fonts,
+)
+
+
+register_pdf_fonts()
+
 from .io import read_csv, write_json
 from .model import ARCHITECTURES, WORKLOADS
 
@@ -32,7 +42,7 @@ def _axis(c: canvas.Canvas, left: float, bottom: float, width: float, height: fl
     c.setLineWidth(0.8)
     c.line(left, bottom, left, bottom + height)
     c.line(left, bottom, left + width, bottom)
-    c.setFont("Helvetica", 7.5)
+    c.setFont(PDF_FONT_REGULAR, 7.5)
     for tick in range(0, 6):
         value = tick / 5
         y = bottom + height * value
@@ -49,9 +59,9 @@ def survival_figure(curves: list[dict[str, str]], output: Path) -> None:
     c = canvas.Canvas(str(output), pagesize=(width, height), invariant=1)
     c.setTitle("CAP-ME service availability over adaptive epochs")
     c.setFillColor(colors.HexColor("#111111"))
-    c.setFont("Helvetica-Bold", 11)
+    c.setFont(PDF_FONT_BOLD, 11)
     c.drawString(48, 290, "Service availability over adaptive censor-defender epochs")
-    c.setFont("Helvetica", 7.5)
+    c.setFont(PDF_FONT_REGULAR, 7.5)
     c.setFillColor(colors.HexColor("#555555"))
     c.drawString(48, 278, "Mobile-like network; mean across functions and 20 simulation seeds; bands are 95% bootstrap CIs")
     left, bottom, plot_width, plot_height = 48, 48, 448, 198
@@ -101,7 +111,7 @@ def survival_figure(curves: list[dict[str, str]], output: Path) -> None:
         c.setLineWidth(1.8)
         c.drawPath(line, fill=0, stroke=1)
     c.setFillColor(colors.HexColor("#333333"))
-    c.setFont("Helvetica", 8)
+    c.setFont(PDF_FONT_REGULAR, 8)
     for epoch in range(0, maximum_epoch + 1, 5):
         x = left + plot_width * epoch / maximum_epoch
         c.drawCentredString(x, bottom - 13, str(epoch))
@@ -120,7 +130,7 @@ def survival_figure(curves: list[dict[str, str]], output: Path) -> None:
         c.setLineWidth(2)
         c.line(x, y + 2, x + 16, y + 2)
         c.setFillColor(colors.HexColor("#333333"))
-        c.setFont("Helvetica", 7.5)
+        c.setFont(PDF_FONT_REGULAR, 7.5)
         c.drawString(x + 21, y, ARCHITECTURES[architecture].label)
     c.showPage()
     c.save()
@@ -136,9 +146,9 @@ def auac_figure(aggregates: list[dict[str, str]], output: Path) -> None:
     c = canvas.Canvas(str(output), pagesize=(width, height), invariant=1)
     c.setTitle("CAP-ME lifecycle availability")
     c.setFillColor(colors.HexColor("#111111"))
-    c.setFont("Helvetica-Bold", 11)
+    c.setFont(PDF_FONT_BOLD, 11)
     c.drawString(48, 280, "Lifecycle availability changes when censor layers are composed")
-    c.setFont("Helvetica", 7.5)
+    c.setFont(PDF_FONT_REGULAR, 7.5)
     c.setFillColor(colors.HexColor("#555555"))
     c.drawString(48, 268, "AUAC over 36 epochs; mobile-like network; error bars are 95% bootstrap CIs across 20 seeds")
     left, bottom, plot_width, plot_height = 48, 72, 448, 172
@@ -170,7 +180,7 @@ def auac_figure(aggregates: list[dict[str, str]], output: Path) -> None:
         c.saveState()
         c.translate(center + 4, bottom - 7)
         c.rotate(-28)
-        c.setFont("Helvetica", 7.2)
+        c.setFont(PDF_FONT_REGULAR, 7.2)
         c.setFillColor(colors.HexColor("#333333"))
         c.drawRightString(0, 0, ARCHITECTURES[architecture].label)
         c.restoreState()
@@ -178,13 +188,13 @@ def auac_figure(aggregates: list[dict[str, str]], output: Path) -> None:
     c.translate(14, bottom + plot_height / 2)
     c.rotate(90)
     c.setFillColor(colors.HexColor("#333333"))
-    c.setFont("Helvetica", 8)
+    c.setFont(PDF_FONT_REGULAR, 8)
     c.drawCentredString(0, 0, "Area under availability curve (AUAC)")
     c.restoreState()
     c.setFillColor(colors.HexColor("#B8C7D9"))
     c.rect(350, 259, 10, 7, fill=1, stroke=0)
     c.setFillColor(colors.HexColor("#333333"))
-    c.setFont("Helvetica", 7.5)
+    c.setFont(PDF_FONT_REGULAR, 7.5)
     c.drawString(364, 259, "Passive only")
     c.setFillColor(colors.HexColor("#4D4D4D"))
     c.rect(425, 259, 10, 7, fill=1, stroke=0)
@@ -203,9 +213,9 @@ def attribution_figure(shapley: list[dict[str, str]], output: Path) -> None:
     c = canvas.Canvas(str(output), pagesize=(width, height), invariant=1)
     c.setTitle("CAP-ME interventional layer attribution")
     c.setFillColor(colors.HexColor("#111111"))
-    c.setFont("Helvetica-Bold", 11)
+    c.setFont(PDF_FONT_BOLD, 11)
     c.drawString(48, 272, "Endpoint control dominates lifecycle loss for stable services")
-    c.setFont("Helvetica", 7.5)
+    c.setFont(PDF_FONT_REGULAR, 7.5)
     c.setFillColor(colors.HexColor("#555555"))
     c.drawString(48, 260, "Exact three-layer Shapley allocation on mobile-like conditions; means across 8 paired seeds")
     left, bottom, plot_width, plot_height = 48, 68, 448, 166
@@ -227,7 +237,7 @@ def attribution_figure(shapley: list[dict[str, str]], output: Path) -> None:
         c.saveState()
         c.translate(x + bar_width / 2 + 7, bottom - 7)
         c.rotate(-28)
-        c.setFont("Helvetica", 7.2)
+        c.setFont(PDF_FONT_REGULAR, 7.2)
         c.setFillColor(colors.HexColor("#333333"))
         c.drawRightString(0, 0, ARCHITECTURES[architecture].label)
         c.restoreState()
@@ -235,7 +245,7 @@ def attribution_figure(shapley: list[dict[str, str]], output: Path) -> None:
     c.translate(14, bottom + plot_height / 2)
     c.rotate(90)
     c.setFillColor(colors.HexColor("#333333"))
-    c.setFont("Helvetica", 8)
+    c.setFont(PDF_FONT_REGULAR, 8)
     c.drawCentredString(0, 0, "Attributed AUAC loss")
     c.restoreState()
     legend_x = 290
@@ -243,7 +253,7 @@ def attribution_figure(shapley: list[dict[str, str]], output: Path) -> None:
         c.setFillColor(LAYER_COLORS[layer])
         c.rect(legend_x, 250, 10, 7, fill=1, stroke=0)
         c.setFillColor(colors.HexColor("#333333"))
-        c.setFont("Helvetica", 7.5)
+        c.setFont(PDF_FONT_REGULAR, 7.5)
         c.drawString(legend_x + 14, 250, layer.title())
         legend_x += 69
     c.showPage()
@@ -260,9 +270,9 @@ def function_heatmap(aggregates: list[dict[str, str]], output: Path) -> None:
     c = canvas.Canvas(str(output), pagesize=(width, height), invariant=1)
     c.setTitle("CAP-ME function-specific lifecycle availability")
     c.setFillColor(colors.HexColor("#111111"))
-    c.setFont("Helvetica-Bold", 11)
+    c.setFont(PDF_FONT_BOLD, 11)
     c.drawString(48, 235, "Function-specific lifecycle availability is not a single scalar")
-    c.setFont("Helvetica", 7.5)
+    c.setFont(PDF_FONT_REGULAR, 7.5)
     c.setFillColor(colors.HexColor("#555555"))
     c.drawString(48, 223, "Adaptive cross-layer censor; mobile-like network; AUAC means across 20 seeds")
     functions = ("text", "presence", "media", "file", "realtime")
@@ -271,12 +281,12 @@ def function_heatmap(aggregates: list[dict[str, str]], output: Path) -> None:
     cell_w, cell_h = 66, 28
     for column, function in enumerate(functions):
         c.setFillColor(colors.HexColor("#333333"))
-        c.setFont("Helvetica-Bold", 7.5)
+        c.setFont(PDF_FONT_BOLD, 7.5)
         c.drawCentredString(left + cell_w * (column + 0.5), bottom + cell_h * 5 + 10, function.title())
     for row_index, architecture in enumerate(architectures):
         y = bottom + cell_h * (len(architectures) - row_index - 1)
         c.setFillColor(colors.HexColor("#333333"))
-        c.setFont("Helvetica", 7.5)
+        c.setFont(PDF_FONT_REGULAR, 7.5)
         c.drawRightString(left - 8, y + 9, ARCHITECTURES[architecture].label)
         for column, function in enumerate(functions):
             value = float(selected[architecture][f"auac_{function}"])
@@ -286,10 +296,10 @@ def function_heatmap(aggregates: list[dict[str, str]], output: Path) -> None:
             c.setStrokeColor(colors.white)
             c.rect(x, y, cell_w, cell_h, fill=1, stroke=1)
             c.setFillColor(colors.HexColor("#111111") if value < 0.70 else colors.white)
-            c.setFont("Helvetica-Bold", 8)
+            c.setFont(PDF_FONT_BOLD, 8)
             c.drawCentredString(x + cell_w / 2, y + 9, f"{value:.2f}")
     c.setFillColor(colors.HexColor("#555555"))
-    c.setFont("Helvetica-Oblique", 7)
+    c.setFont(PDF_FONT_ITALIC, 7)
     c.drawString(150, 24, "Values are synthetic-model outcomes, not measurements of named services.")
     c.showPage()
     c.save()
@@ -327,9 +337,9 @@ def robustness_interval_figure(
     c = canvas.Canvas(str(output), pagesize=(width, height), invariant=1)
     c.setTitle("CAP-ME structural model uncertainty")
     c.setFillColor(colors.HexColor("#111111"))
-    c.setFont("Helvetica-Bold", 11)
+    c.setFont(PDF_FONT_BOLD, 11)
     c.drawString(32, 340, "Architecture rankings widen under model uncertainty")
-    c.setFont("Helvetica", 7.5)
+    c.setFont(PDF_FONT_REGULAR, 7.5)
     c.setFillColor(colors.HexColor("#555555"))
     c.drawString(
         32,
@@ -342,7 +352,7 @@ def robustness_interval_figure(
         family_order, panel_positions, strict=True
     ):
         c.setFillColor(colors.HexColor("#222222"))
-        c.setFont("Helvetica-Bold", 8)
+        c.setFont(PDF_FONT_BOLD, 8)
         c.drawString(panel_x, panel_y + 124, family_labels[family])
         plot_left = panel_x + 82
         plot_width = 140
@@ -354,7 +364,7 @@ def robustness_interval_figure(
             x = plot_left + plot_width * tick
             c.line(x, plot_bottom, x, plot_bottom + plot_height)
             c.setFillColor(colors.HexColor("#555555"))
-            c.setFont("Helvetica", 6.5)
+            c.setFont(PDF_FONT_REGULAR, 6.5)
             c.drawCentredString(x, plot_bottom - 9, f"{tick:.1f}")
         for index, architecture in enumerate(architectures):
             row = lookup[(family, architecture)]
@@ -368,7 +378,7 @@ def robustness_interval_figure(
             q95 = float(row["auac_q95"])
             color = PALETTE[architecture]
             c.setFillColor(colors.HexColor("#333333"))
-            c.setFont("Helvetica", 6.7)
+            c.setFont(PDF_FONT_REGULAR, 6.7)
             c.drawRightString(plot_left - 5, y - 2.2, short_labels[architecture])
             c.setStrokeColor(color)
             c.setLineWidth(0.8)
@@ -378,10 +388,10 @@ def robustness_interval_figure(
             c.setFillColor(color)
             c.circle(plot_left + plot_width * median, y, 2.2, fill=1, stroke=0)
         c.setFillColor(colors.HexColor("#444444"))
-        c.setFont("Helvetica", 6.5)
+        c.setFont(PDF_FONT_REGULAR, 6.5)
         c.drawCentredString(plot_left + plot_width / 2, panel_y + 2, "AUAC")
     c.setFillColor(colors.HexColor("#555555"))
-    c.setFont("Helvetica-Oblique", 6.7)
+    c.setFont(PDF_FONT_ITALIC, 6.7)
     c.drawString(
         32,
         18,

@@ -1,7 +1,6 @@
 {
   "bootstrap_repetitions": 2000,
   "censor_structure": "endpoint_discovery_dominant",
-  "correlation_weight": 0.35,
   "epochs": 36,
   "lane_instances": [
     {
@@ -69,8 +68,28 @@
     }
   ],
   "operations_per_function": 32,
+  "outcome_correlation_weight": 0.35,
   "primary_strategy": "fso_no_feedback",
-  "schema_version": 1,
+  "scheduler_correlation_weight": 0.35,
+  "scheduler_parameters": {
+    "burn_weight": 0.16,
+    "correlation_penalty_weight": 0.1,
+    "cost_weights": {
+      "file": 0.045,
+      "media": 0.035,
+      "presence": 0.09,
+      "realtime": 0.015,
+      "text": 0.02
+    },
+    "latency_weights": {
+      "file": 0.02,
+      "media": 0.03,
+      "presence": 0.04,
+      "realtime": 0.18,
+      "text": 0.025
+    }
+  },
+  "schema_version": 2,
   "source_trace": "results/processed/fso/structure-replay/endpoint_discovery_dominant/lane_trace_probabilities.csv",
   "strategies": [
     "direct_only",
@@ -80,6 +99,7 @@
     "random_failover",
     "performance_only",
     "session_failover",
+    "deadline_cost_failover",
     "fso",
     "fso_fixed_code",
     "fso_no_semantics",

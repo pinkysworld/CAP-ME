@@ -254,6 +254,27 @@
       "source_class": "publisher DOI record",
       "url": "https://doi.org/10.1515/9781400881970-018",
       "identifier": "doi:10.1515/9781400881970-018"
+    },
+    {
+      "key": "lee2026quicstep",
+      "status": "verified",
+      "source_class": "official PoPETs proceedings",
+      "url": "https://petsymposium.org/popets/2026/popets-2026-0014.php",
+      "identifier": "doi:10.56553/popets-2026-0014"
+    },
+    {
+      "key": "avizienis2004dependability",
+      "status": "verified",
+      "source_class": "IEEE DOI record",
+      "url": "https://doi.org/10.1109/TDSC.2004.2",
+      "identifier": "doi:10.1109/TDSC.2004.2"
+    },
+    {
+      "key": "meyer1980performability",
+      "status": "verified",
+      "source_class": "IEEE DOI record",
+      "url": "https://doi.org/10.1109/TC.1980.1675654",
+      "identifier": "doi:10.1109/TC.1980.1675654"
     }
   ]
 }

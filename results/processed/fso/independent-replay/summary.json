@@ -1,0 +1,24 @@
+{
+  "deadline_cost_failover_auac": 0.969548611111111,
+  "fso_minus_deadline_cost_failover": 0.0025868055555555492,
+  "fso_minus_deadline_cost_failover_ci": [
+    0.0006510416666666628,
+    0.004791883680555554
+  ],
+  "fso_minus_no_diversity": 0.00025173611111110606,
+  "fso_minus_no_diversity_ci": [
+    -0.0006336805555555492,
+    0.001293619791666651
+  ],
+  "fso_minus_session_failover": 0.015199652777777777,
+  "fso_minus_session_failover_ci": [
+    0.013142361111111129,
+    0.01734375
+  ],
+  "interpretation": "This author-designed state process shares neither detector, endpoint-discovery, block-budget, nor network implementation with the original simulator. It still shares the FSO replay and analysis code and is not empirical censor calibration.",
+  "primary_auac": 0.9721354166666668,
+  "primary_strategy": "fso_no_feedback",
+  "schema_version": 1,
+  "session_failover_auac": 0.9569357638888889,
+  "synthetic_only": true
+}

@@ -1,0 +1,80 @@
+{
+  "common_random_numbers": true,
+  "config": "/Users/michelpicker/Library/Mobile Documents/com~apple~CloudDocs/Projekte/cap-me/results/processed/fso/sensitivity/design-0004/replay_config.json",
+  "config_sha256": "20811827d95ffd765f0dccbe9d6bb3cae90f7d7a26007be68742b1f09c69d43a",
+  "counts": {
+    "cell_rows": 7200,
+    "operation_decisions": 230400,
+    "strategy_seed_runs": 40,
+    "trace_rows": 18000
+  },
+  "information_policy": "Each scheduler updates only from the lanes that its own plan attempted.",
+  "interpretation": "Intervals cover replay and resampling variation across the 20 declared synthetic seeds. They are not population intervals for a deployed censor or country.",
+  "outcome_model": {
+    "failure_domain_correlation_weight": 0.3430054755478703
+  },
+  "paired_contrast_family_size": 1,
+  "potential_outcome_sharing": "Strategies receive the same keyed potential outcome only when they select the same seed/epoch/function/operation/lane cell.",
+  "primary_strategy": "fso_no_feedback",
+  "processed_files": {
+    "aggregate_metrics.csv": "7ff8c4ec786e0588a25f53c2249eddb62ea1067c1aaeee80a8d1573273e8745b",
+    "lane_selection.csv": "5e1fabe5486298d8eda8a6dfa642b905e42fbf3173feccae3e1f17a1a95e2ff3",
+    "paired_contrasts.csv": "6359b9629c5fc4e4d172196535960557d752059a979490adabf7b53bce6f855f",
+    "run_metrics.csv": "5ede9c7d2220f297deda467231b9ee9bd252d3defd006d36c0371bc3e7cf009b",
+    "survival_curves.csv": "42b9a3e0939396f229620da85805bea11ee29d97f656cfa4b8db1f6d8af893bc"
+  },
+  "provider_controlled_attempts": 0,
+  "raw_files": {
+    "observations.csv": "ecde24d648710f73bc465b3a05e132d0dca4e2c2928d570d8381d875518826f4"
+  },
+  "scheduler_parameters": {
+    "burn_weight": 0.22560488846468618,
+    "correlation_penalty_weight": 0.13395281467288242,
+    "cost_weights": {
+      "file": 0.03850671117306075,
+      "media": 0.029949664245713922,
+      "presence": 0.0770134223461215,
+      "realtime": 0.01283557039102025,
+      "text": 0.01711409385469367
+    },
+    "failure_domain_correlation_weight": 0.14946490674507132,
+    "latency_weights": {
+      "file": 0.022977996855737134,
+      "media": 0.034466995283605695,
+      "presence": 0.04595599371147427,
+      "realtime": 0.2068019717016342,
+      "text": 0.028722496069671418
+    }
+  },
+  "schema_version": 2,
+  "seeds": [
+    4001,
+    4127,
+    4253,
+    4391,
+    4513,
+    4639,
+    4783,
+    4903,
+    5021,
+    5153,
+    5279,
+    5413,
+    5521,
+    5651,
+    5779,
+    5903,
+    6037,
+    6151,
+    6271,
+    6397
+  ],
+  "source_trace": "/Users/michelpicker/Library/Mobile Documents/com~apple~CloudDocs/Projekte/cap-me/results/processed/fso/confirmation/lane_trace_probabilities.csv",
+  "source_trace_sha256": "071d49034bc3b72ce8fe6ee8e64cb23908a1f696af7609e41207c1f368597dac",
+  "strategies": [
+    "fso_no_feedback",
+    "deadline_cost_failover"
+  ],
+  "strict_trust": true,
+  "synthetic_only": true
+}

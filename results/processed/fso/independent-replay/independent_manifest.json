@@ -1,0 +1,47 @@
+{
+  "base_replay_config": "configs/fso-confirmation.json",
+  "base_replay_config_sha256": "faeb326e16fae8a7e9d410c75fc3f8af387d2ccff816b24f707099941cce1711",
+  "config": "configs/fso-independent-replay.json",
+  "config_sha256": "fb0929909306fa41859f4471230547f0a1d410a8e28b58425940be881dd6e763",
+  "counts": {
+    "cell_rows": 50400,
+    "operation_decisions": 1612800,
+    "strategy_seed_runs": 280,
+    "trace_rows": 18000
+  },
+  "earlier_seeds_disjoint": true,
+  "files": {
+    "independent_trace.csv": "34dfdab59b0449dcbd37f0f9c62ab4c8c6da9cfe517a006819a2ef0ca7f97c7b",
+    "replay_config.json": "8b5bb9a8e8706d92f4f6fda0e06cd0a74503ee9c3fcf4bff2a1c3bb22e7324e3",
+    "study_manifest.json": "f3913c5e014cf4be72bd75d68e730a570ff7abdfae20c22e01edd328bdb8a631",
+    "summary.json": "ca3ab22a1ecffac310e60f8415f1c587b53d43b0300b1bc359d95e2ecf74e487"
+  },
+  "imports_original_simulator": false,
+  "interpretation": "This author-designed state process shares neither detector, endpoint-discovery, block-budget, nor network implementation with the original simulator. It still shares the FSO replay and analysis code and is not empirical censor calibration.",
+  "schema_version": 1,
+  "seeds": [
+    12007,
+    12101,
+    12203,
+    12301,
+    12409,
+    12503,
+    12601,
+    12703,
+    12809,
+    12907,
+    13001,
+    13103,
+    13207,
+    13309,
+    13411,
+    13513,
+    13613,
+    13709,
+    13807,
+    13901
+  ],
+  "separately_coded_trace_generator": true,
+  "shares_fso_replay_and_analysis": true,
+  "synthetic_only": true
+}

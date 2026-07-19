@@ -21,6 +21,7 @@ STRUCTURES = (
 )
 STRATEGIES = (
     ("fso_no_feedback", "FSO"),
+    ("deadline_cost_failover", "Deadline/cost"),
     ("session_failover", "Session failover"),
     ("generated_only", "Generated only"),
     ("fso", "Feedback enabled"),
@@ -60,7 +61,7 @@ def main() -> int:
 
     expected = {strategy for strategy, _ in STRATEGIES}
     if any(set(rows) != expected for rows in by_structure.values()):
-        raise ValueError("structure replay strategy set differs from the declared 13")
+        raise ValueError("structure replay strategy set differs from the declared 14")
 
     lines = [
         r"\begin{tabular}{lrrrr}",

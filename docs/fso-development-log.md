@@ -55,25 +55,43 @@ all strategies with the same frozen seeds. The correction changes the replay's
 semantics, not a tuned model parameter, but it was made after intermediate
 output was inspected and is therefore disclosed here and in the manuscript.
 
-## Final independent-sample result and canonical policy
+## Superseded pre-audit analysis
 
-The versioned final replay contains 1,497,600 operation decisions. The original
-feedback-enabled policy reaches AUAC 0.9123 (95% seed-bootstrap CI
-[0.9068, 0.9173]) and byte overhead 1.246. The feedback-off policy reaches
-0.9148 [0.9091, 0.9199] at overhead 1.238 and is now canonical FSO. Session
-failover reaches 0.8961 [0.8902, 0.9016] at overhead 1.212; canonical FSO minus
-session failover is 0.0187 [0.0164, 0.0214].
+The first versioned analysis replayed 13 strategies over 1,497,600 decisions.
+It reported canonical feedback-off FSO at AUAC 0.9148, session failover at
+0.8961, and a 0.027 contribution from failure-domain diversity. The FSO and
+session values were correctly computed for those implementations, but the
+mechanism interpretation was incomplete: it lacked a deadline-and-cost-matched
+baseline, the `no diversity` variant forced portfolios into the minimum number
+of domains, and the remaining component ablations inherited the historical
+feedback-enabled default. The 0.027 diversity claim and any inference of FSO-
+specific scheduler superiority are therefore superseded.
 
-The ablations retain two results unfavorable to the full mechanism:
+## July 2026 post-audit correction and final analysis
 
-- non-semantic two-lane duplication reaches AUAC 0.9270 but overhead 2.000,
-  61.5% above canonical FSO; and
-- enabling feedback reaches 0.9123, with paired canonical-minus-feedback
-  difference 0.0024 [0.0008, 0.0042].
+The correction retained the frozen source trace, seeds, outcome generator, and
+canonical FSO definition. It added a matched baseline, made all component
+ablations feedback-off, and defined `no diversity` by removing only the domain
+discount, penalty, and tie-break. The complete 14-strategy rerun contains
+1,612,800 decisions.
 
-Dynamic plan selection, diversity, and redundancy are beneficial within this
-trace; the current feedback rule is not. The next feedback design must be
-developed on new data rather than tuned on these confirmation seeds.
+Canonical FSO reaches AUAC 0.91476 [0.90946, 0.91971] at byte overhead 1.238.
+The deadline-and-cost-matched failover baseline reaches 0.91457 [0.90911,
+0.91929] at 1.241; paired FSO minus baseline is +0.00018 [-0.00064, +0.00114].
+The older session failover reaches 0.89607, leaving the +0.01869 contrast, but
+that contrast now isolates deadline/cost awareness rather than FSO's additional
+burn and failure-domain terms.
+
+The clean no-diversity estimate is +0.00127 [-0.00015, +0.00331], so the study
+does not identify a diversity benefit. Fixed coding reaches 0.861, no
+redundancy 0.792, and unconditional no-semantics duplication 0.928 at overhead
+2.000. The current feedback rule remains unsupported. Four-structure replays
+also leave every FSO-minus-matched interval crossing zero. A 25-point global
+sensitivity design is mixed (52% positive point estimates, 24% wholly positive
+intervals, 12% wholly negative), while a separately coded author-designed
+trace yields a small positive +0.00259 [+0.00065, +0.00479]. The final claim is
+therefore a benchmark and mechanism-boundary result, not general scheduler
+superiority.
 
 ## Prospectively frozen feedback follow-up
 

@@ -63,26 +63,84 @@ The fixed-code pilot reused the original CAP-ME seeds. It was inferior to sessio
 The final replay has:
 
 - 5 adaptive-mobile architecture traces × 20 seeds × 36 epochs × 5 functions = 18,000 trace cells;
-- 13 strategies × 20 seeds = 260 strategy-seed runs;
-- 32 operations per function and epoch = 1,497,600 operation decisions; and
+- 14 strategies × 20 seeds = 280 strategy-seed runs;
+- 32 operations per function and epoch = 1,612,800 operation decisions; and
 - 5 mechanism variants relative to canonical feedback-off FSO: feedback enabled, fixed coding, no semantics, no diversity, and no redundancy.
 
 For each `(seed, epoch, function, operation index, lane)`, a stable keyed draw determines the potential lane outcome. Any strategy attempting that lane receives the same draw. A scheduler observes only outcomes for its past attempts; the trace probability, future values, and unattempted-lane outcomes remain hidden. These potential outcomes do not react to the number, timing, or byte volume of a strategy's other attempts. Consequently, the replay prices duplication in bytes but cannot represent a traffic-volume-reactive censor; this can favor redundant strategies and is an explicit validity limit.
 
+The pivotal comparison is `deadline_cost_failover`. It uses the same eligible
+lanes, per-function deadlines, declared survival and latency priors, and
+function-specific byte/latency weights as FSO. It enumerates generic single,
+sequential-failover, parallel-duplication, and hot-standby plans without FSO's
+semantic coding catalogue, feedback, endpoint-burn penalty, or failure-domain
+term. This isolates whether the additional FSO terms improve on ordinary
+deadline-and-cost-aware failover rather than comparing only with a deliberately
+deadline-blind session baseline.
+
 The CAP-ME trace probability is already the probability of completion under the workload deadline. The final FSO replay therefore samples it once and does not apply another hard deadline. An intermediate confirmation run did apply the deadline twice; the final pipeline corrected that modeling error and regenerated every output with the frozen seeds. The change is disclosed because it occurred after intermediate output was inspected.
 
-FSO uncertainty uses 2,000 seed bootstraps. Paired FSO-minus-baseline contrasts use 30,000 sign flips and Benjamini-Hochberg adjustment across 12 baselines. Intervals again cover only synthetic seed variation.
+FSO uncertainty uses 2,000 seed bootstraps. Paired FSO-minus-baseline contrasts use 30,000 sign flips and Benjamini-Hochberg adjustment across 13 baselines. Intervals again cover only synthetic seed variation.
+
+### Post-audit correction and complete rerun
+
+The July 2026 review pass found two problems in the earlier mechanism
+interpretation. First, prose incorrectly said that all strategies received
+identical outcome updates; in fact, each scheduler has always learned only from
+the lanes it attempted, while common potential outcomes align only overlapping
+attempts. Second, the former `no diversity` implementation restricted
+portfolios to the minimum possible number of failure domains instead of simply
+removing the diversity discount and penalty. The other component ablations also
+inherited the feedback-enabled default even though canonical FSO disables
+feedback. We corrected the ablation definitions, added the matched baseline,
+and reran the confirmation and all four structural replays with the frozen
+source traces and seeds. The earlier 0.027 diversity estimate is withdrawn; the
+clean estimate is +0.00127 [-0.00015, +0.00331] and is inconclusive.
 
 ### Four-structure all-strategy replay
 
-The same 13-strategy comparison is repeated at the unperturbed base parameters
+The same 14-strategy comparison is repeated at the unperturbed base parameters
 of each declared censor structure: classifier-dominant, endpoint-discovery,
 resource-bounded composed, and adaptive composed. Twenty paired seeds produce
-400 source simulations, 72,000 trace cells, 1,040 strategy-seed runs, and
-5,990,400 operation decisions. FSO is the feedback-off policy in all four
-structures. This check asks whether the primary ordering survives changes in
-model composition; it is distinct from the 72-point Latin-hypercube uncertainty
-study and does not add traffic-volume coupling.
+400 source simulations, 72,000 trace cells, 1,120 strategy-seed runs, and
+6,451,200 operation decisions. FSO is the feedback-off policy in all four
+structures. This check asks whether the matched FSO contrast changes under
+different model compositions; it is distinct from the 72-point Latin-hypercube
+uncertainty study and does not add traffic-volume coupling.
+
+The matched FSO-minus-deadline/cost intervals include zero in every structure:
+classifier +0.00027 [-0.00040, +0.00095], endpoint +0.00102 [-0.00031,
++0.00273], resource +0.00015 [-0.00055, +0.00090], and adaptive +0.00018
+[-0.00064, +0.00114]. The older FSO-minus-session contrast remains positive,
+but no longer supports a claim about FSO-specific scheduler terms.
+
+### Global scheduler sensitivity
+
+`configs/fso-sensitivity.json` fixes a deterministic 24-point stratified
+Latin-hypercube design plus the declared base point. It jointly varies the
+function cost and latency scales, burn weight, diversity-penalty weight,
+scheduler correlation assumption, outcome correlation, lane-survival-prior
+logit shift, and lane-latency-prior scale. Only canonical FSO and the matched
+baseline are replayed, for 1,000 strategy-seed runs and 5,760,000 operation
+decisions. This was hash-frozen before execution but was not externally
+preregistered. The ranges are deliberate stress ranges, not a probability
+distribution over real censors.
+
+Across the 25 points, paired mean differences span -0.00438 to +0.03086 with
+median +0.000095. Thirteen of 25 point estimates favor FSO; six intervals are
+wholly positive and three wholly negative. The result does not establish a
+general FSO advantage over the matched baseline.
+
+### Separately coded trace process
+
+`src/capme/fso/independent.py` implements an author-designed latent-pressure,
+health, renewal, and recovery process without importing the original CAP-ME
+detector, endpoint-discovery, block-budget, or network model. Twenty new seeds
+produce another 18,000-cell trace and 1,612,800 replay decisions. The process
+still shares the FSO replay and statistical analysis code and is neither an
+independent-researcher replication nor empirical calibration. It yields FSO
+0.97214 versus matched baseline 0.96955, a paired difference of +0.00259
+[+0.00065, +0.00479]; the clean diversity contrast remains inconclusive.
 
 ### Deterministic carrier-adapter execution
 

@@ -3,13 +3,14 @@ __pycache__/
 *.egg-info/
 .pytest_cache/
 .venv/
+.DS_Store
 build/
 dist/
 tmp/
+output/
 # Full raw matrices are deterministic but intentionally kept out of Git.
 # The processed, reviewable result tables remain versioned.
 results/raw/
 # Private manuscript materials must never be committed or published.
 paper/
-output/pdf/
 private/

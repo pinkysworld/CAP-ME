@@ -1,6 +1,6 @@
 # CAP-ME novelty audit
 
-- **Search cut-off:** 2026-07-17
+- **Search cut-off:** 2026-07-19
 - **Audit type:** structured scoping review, not a registered systematic review
 - **Claim status:** bounded “to our knowledge” claim; novelty cannot be proven exhaustively
 
@@ -38,6 +38,7 @@ Primary-source indexes and official project pages were prioritized: USENIX, NDSS
 | [Enemy at the Gateways](https://www.ndss-symposium.org/ndss-paper/enemy-at-the-gateways-censorship-resilient-proxy-distribution-using-game-theory/) | Game-theoretic proxy distribution and simulation | First formal proxy-assignment comparison | Cross-architecture messaging-function benchmark rather than optimal assignment |
 | [Snowflake](https://www.usenix.org/conference/usenixsecurity24/presentation/bocovich) | Deployed temporary WebRTC proxies, dynamic rendezvous, recovery from disappearing proxies | First ephemeral relay architecture | Abstract cross-layer comparison and per-function survival, not a replacement design |
 | [SpotProxy](https://www.usenix.org/conference/usenixsecurity24/presentation/kon) | Cloud-address churn and live connection migration | First churn-based proxy resilience | Controlled architecture comparison and layer attribution |
+| [QUICstep](https://petsymposium.org/popets/2026/popets-2026-0014.php) | Evaluates connection-migration-based QUIC censorship circumvention | First connection-migration or QUIC-based circumvention mechanism | Function-level benchmark and bounded carrier-portfolio evaluation across path, endpoint, and provider control |
 | [UPGen](https://www.usenix.org/conference/usenixsecurity25/presentation/wails) and [Proteus](https://www.petsymposium.org/foci/2023/foci-2023-0013.pdf) | Generated/unidentified and programmable protocols | First protocol generation or rapid protocol evolution | Effects of such diversity inside a larger messaging lifecycle model |
 | [Traffic-fingerprinting work](https://www.usenix.org/conference/usenixsecurity24/presentation/xue-fingerprinting) | Protocol-agnostic passive features and low-collateral classification evidence | First passive classifier or first encrypted-traffic fingerprint | Classifier is a transparent model component, not the principal novelty |
 | [Active-probing work](https://www.ndss-symposium.org/ndss-paper/detecting-probe-resistant-proxies/) | Empirical techniques for confirming proxy endpoints | First probing-aware threat model | Endpoint burn as one layer in a composed availability process |
@@ -58,6 +59,14 @@ This is a negative search result, not proof of absence.
 The structural-uncertainty ensemble and closed multi-host packet testbed improve
 the evidence for the implemented benchmark; they do not enlarge this novelty
 claim or establish correspondence to a deployed censor.
+
+FSO is a mechanism case study, not the principal priority claim. Persistent
+sessions, heterogeneous multipath use, deadline/reliability scheduling,
+connection migration, erasure coding, and authenticated encryption are prior
+art. The corrected matched-baseline experiment does not establish that FSO's
+additional burn or failure-domain terms outperform ordinary deadline-and-cost-
+aware failover. Its defensible role is to make CAP-ME's function-survival and
+trust constraints executable and falsifiable in closed testbeds.
 
 ## Pre-submission refresh
 

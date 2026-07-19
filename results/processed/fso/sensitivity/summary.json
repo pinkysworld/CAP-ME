@@ -1,0 +1,14 @@
+{
+  "base_mean_difference": 0.0001822916666666563,
+  "design_points_including_base": 25,
+  "fraction_ci_excludes_zero_negative": 0.12,
+  "fraction_ci_excludes_zero_positive": 0.24,
+  "fraction_mean_difference_positive": 0.52,
+  "interpretation": "The design jointly varies scheduler weights, scheduler correlation assumptions, outcome correlation, and lane survival/latency priors. It describes robustness over the declared ranges, not uncertainty about a deployed censor.",
+  "latin_hypercube_points": 24,
+  "mean_difference_max": 0.030859375,
+  "mean_difference_median": 9.548611111111494e-05,
+  "mean_difference_min": -0.004383680555555547,
+  "schema_version": 1,
+  "synthetic_only": true
+}

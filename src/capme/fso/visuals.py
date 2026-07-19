@@ -10,6 +10,11 @@ from pathlib import Path
 from reportlab.lib import colors
 from reportlab.pdfgen import canvas
 
+from capme.pdf_fonts import PDF_FONT_BOLD, PDF_FONT_REGULAR, register_pdf_fonts
+
+
+register_pdf_fonts()
+
 
 CANONICAL_FSO = "fso_no_feedback"
 FEEDBACK_ENABLED_FSO = "fso"
@@ -22,6 +27,7 @@ STRATEGY_LABELS = {
     "random_failover": "Random failover",
     "performance_only": "Performance only",
     "session_failover": "Session failover",
+    "deadline_cost_failover": "Deadline/cost baseline",
     "fso": "Feedback enabled",
     "fso_fixed_code": "FSO fixed code",
     "fso_no_semantics": "No semantics",
@@ -67,10 +73,10 @@ def _linear(value: float, low: float, high: float, start: float, span: float) ->
 def _base(c: canvas.Canvas, title: str, subtitle: str) -> None:
     c.setTitle(title)
     c.setFillColor(DARK)
-    c.setFont("Helvetica-Bold", 11)
+    c.setFont(PDF_FONT_BOLD, 11)
     c.drawString(52, 286, title)
     c.setFillColor(colors.HexColor("#555555"))
-    c.setFont("Helvetica", 7.5)
+    c.setFont(PDF_FONT_REGULAR, 7.5)
     c.drawString(52, 274, subtitle)
 
 
@@ -83,6 +89,7 @@ def tradeoff_figure(rows: list[dict[str, str]], output: Path) -> None:
         "ephemeral_only",
         "random_failover",
         "session_failover",
+        "deadline_cost_failover",
         CANONICAL_FSO,
         "fso_fixed_code",
         "fso_no_semantics",
@@ -104,7 +111,7 @@ def tradeoff_figure(rows: list[dict[str, str]], output: Path) -> None:
     c.setLineWidth(0.8)
     c.line(left, bottom, left + plot_width, bottom)
     c.line(left, bottom, left, bottom + plot_height)
-    c.setFont("Helvetica", 7.5)
+    c.setFont(PDF_FONT_REGULAR, 7.5)
     for tick in (1.0, 1.2, 1.4, 1.6, 1.8, 2.0):
         x = _linear(tick, x_low, x_high, left, plot_width)
         c.setStrokeColor(GRID)
@@ -120,9 +127,10 @@ def tradeoff_figure(rows: list[dict[str, str]], output: Path) -> None:
         c.setFillColor(DARK)
         c.drawRightString(left - 5, y - 2.5, f"{tick:.2f}")
 
-    c.setFont("Helvetica", 7.2)
+    c.setFont(PDF_FONT_REGULAR, 7.2)
     label_offsets = {
         CANONICAL_FSO: (8, 6),
+        "deadline_cost_failover": (-105, -12),
         "session_failover": (8, -11),
         "fso_no_semantics": (-84, 7),
         "fso_fixed_code": (8, 6),
@@ -147,7 +155,7 @@ def tradeoff_figure(rows: list[dict[str, str]], output: Path) -> None:
         c.drawString(x + dx, y + dy, STRATEGY_LABELS[strategy])
 
     c.setFillColor(DARK)
-    c.setFont("Helvetica", 8)
+    c.setFont(PDF_FONT_REGULAR, 8)
     c.drawCentredString(left + plot_width / 2, 18, "Bytes transmitted per payload byte")
     c.saveState()
     c.translate(15, bottom + plot_height / 2)
@@ -180,11 +188,16 @@ def function_figure(rows: list[dict[str, str]], output: Path) -> None:
         c.setLineWidth(0.35)
         c.line(left, y, left + plot_width, y)
         c.setFillColor(DARK)
-        c.setFont("Helvetica", 7.5)
+        c.setFont(PDF_FONT_REGULAR, 7.5)
         c.drawRightString(left - 5, y - 2.5, f"{tick:.1f}")
 
-    strategies = (CANONICAL_FSO, "session_failover", "generated_only")
-    fills = (BLUE, GREEN, GREY)
+    strategies = (
+        CANONICAL_FSO,
+        "deadline_cost_failover",
+        "session_failover",
+        "generated_only",
+    )
+    fills = (BLUE, MAGENTA, GREEN, GREY)
     functions = tuple(FUNCTION_LABELS)
     group_width = plot_width / len(functions)
     bar_width = 18
@@ -192,13 +205,13 @@ def function_figure(rows: list[dict[str, str]], output: Path) -> None:
         center = left + group_width * (function_index + 0.5)
         for strategy_index, (strategy, fill) in enumerate(zip(strategies, fills, strict=True)):
             value = float(by_strategy[strategy][f"auac_{function}"])
-            x = center + (strategy_index - 1) * (bar_width + 2) - bar_width / 2
+            x = center + (strategy_index - 1.5) * (bar_width + 1) - bar_width / 2
             c.setFillColor(fill)
             c.setStrokeColor(DARK)
             c.setLineWidth(0.35)
             c.rect(x, bottom, bar_width, plot_height * value, fill=1, stroke=1)
         c.setFillColor(DARK)
-        c.setFont("Helvetica", 7.5)
+        c.setFont(PDF_FONT_REGULAR, 7.5)
         c.drawCentredString(center, bottom - 14, FUNCTION_LABELS[function])
 
     legend_x = 64
@@ -206,14 +219,14 @@ def function_figure(rows: list[dict[str, str]], output: Path) -> None:
         c.setFillColor(fill)
         c.rect(legend_x, 266, 10, 7, fill=1, stroke=0)
         c.setFillColor(DARK)
-        c.setFont("Helvetica", 7.4)
+        c.setFont(PDF_FONT_REGULAR, 7.4)
         c.drawString(legend_x + 14, 265, STRATEGY_LABELS[strategy])
-        legend_x += 128
+        legend_x += 112
     c.saveState()
     c.translate(15, bottom + plot_height / 2)
     c.rotate(90)
     c.setFillColor(DARK)
-    c.setFont("Helvetica", 8)
+    c.setFont(PDF_FONT_REGULAR, 8)
     c.drawCentredString(0, 0, "Function AUAC")
     c.restoreState()
     c.showPage()
@@ -251,7 +264,7 @@ def ablation_figure(rows: list[dict[str, str]], output: Path) -> None:
         c.setLineWidth(0.35)
         c.line(left, y, left + plot_width, y)
         c.setFillColor(DARK)
-        c.setFont("Helvetica", 7.2)
+        c.setFont(PDF_FONT_REGULAR, 7.2)
         c.drawRightString(left - 5, y - 2.5, f"{tick:.1f}")
         c.drawString(left + plot_width + 5, y - 2.5, f"{1.0 + tick:.1f}")
 
@@ -270,7 +283,7 @@ def ablation_figure(rows: list[dict[str, str]], output: Path) -> None:
         c.setFillColor(ORANGE)
         c.circle(center, overhead_y, 3.6, fill=1, stroke=1)
         c.setFillColor(DARK)
-        c.setFont("Helvetica", 6.4)
+        c.setFont(PDF_FONT_REGULAR, 6.4)
         short_label = {
             CANONICAL_FSO: "FSO",
             FEEDBACK_ENABLED_FSO: "Feedback on",
@@ -285,7 +298,7 @@ def ablation_figure(rows: list[dict[str, str]], output: Path) -> None:
     c.translate(16, bottom + plot_height / 2)
     c.rotate(90)
     c.setFillColor(DARK)
-    c.setFont("Helvetica", 7.6)
+    c.setFont(PDF_FONT_REGULAR, 7.6)
     c.drawCentredString(0, 0, "AUAC")
     c.restoreState()
     c.saveState()
@@ -313,7 +326,14 @@ def write_tables(rows: list[dict[str, str]], contrasts: list[dict[str, str]], ou
     by_strategy = {row["strategy"]: row for row in rows}
     by_baseline = {row["baseline"]: row for row in contrasts}
 
-    main_order = (CANONICAL_FSO, "session_failover", "generated_only", "ephemeral_only", "random_failover")
+    main_order = (
+        CANONICAL_FSO,
+        "deadline_cost_failover",
+        "session_failover",
+        "generated_only",
+        "ephemeral_only",
+        "random_failover",
+    )
     main_lines = [
         r"\begin{tabular}{lrrrr}",
         r"\toprule",
@@ -331,14 +351,15 @@ def write_tables(rows: list[dict[str, str]], contrasts: list[dict[str, str]], ou
     (output / "fso_main_results.tex").write_text("\n".join(main_lines), encoding="utf-8")
 
     function_lines = [
-        r"\begin{tabular}{lrrr}",
+        r"\begin{tabular}{lrrrr}",
         r"\toprule",
-        r"Function & FSO & Session failover & Generated only \\",
+        r"Function & FSO & Deadline/cost & Session failover & Generated only \\",
         r"\midrule",
     ]
     for function, label in FUNCTION_LABELS.items():
         function_lines.append(
             f"{label} & {float(by_strategy[CANONICAL_FSO][f'auac_{function}']):.3f} & "
+            f"{float(by_strategy['deadline_cost_failover'][f'auac_{function}']):.3f} & "
             f"{float(by_strategy['session_failover'][f'auac_{function}']):.3f} & "
             f"{float(by_strategy['generated_only'][f'auac_{function}']):.3f} \\\\"
         )
@@ -430,6 +451,13 @@ def generate(
         "fso_auac": float(fso["auac"]),
         "fso_auac_ci": [float(fso["auac_ci_low"]), float(fso["auac_ci_high"])],
         "fso_byte_overhead": float(fso["byte_overhead"]),
+        "fso_minus_deadline_cost_failover": float(
+            by_baseline["deadline_cost_failover"]["mean_difference"]
+        ),
+        "fso_minus_deadline_cost_failover_ci": [
+            float(by_baseline["deadline_cost_failover"]["ci_low"]),
+            float(by_baseline["deadline_cost_failover"]["ci_high"]),
+        ],
         "fso_minus_session_failover": float(
             by_baseline["session_failover"]["mean_difference"]
         ),
@@ -447,6 +475,13 @@ def generate(
         "fso_minus_feedback_enabled": float(
             by_baseline[FEEDBACK_ENABLED_FSO]["mean_difference"]
         ),
+        "fso_minus_no_diversity": float(
+            by_baseline["fso_no_diversity"]["mean_difference"]
+        ),
+        "fso_minus_no_diversity_ci": [
+            float(by_baseline["fso_no_diversity"]["ci_low"]),
+            float(by_baseline["fso_no_diversity"]["ci_high"]),
+        ],
         "provider_controlled_attempts": 0,
         "loopback": {
             "operations": loopback_manifest["operations"],

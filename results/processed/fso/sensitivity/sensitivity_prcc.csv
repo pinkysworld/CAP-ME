@@ -1,0 +1,9 @@
+parameter,design_points,prcc_with_fso_minus_baseline
+cost_scale,24,-0.3598109150515706
+latency_scale,24,0.3926933167747209
+burn_weight,24,-0.47622077485276926
+correlation_penalty_weight,24,0.00578616339490506
+scheduler_correlation_weight,24,-0.18891613700637666
+outcome_correlation_weight,24,0.5278185981595684
+survival_prior_logit_shift,24,-0.6927053358562218
+latency_prior_scale,24,0.2132331017001148

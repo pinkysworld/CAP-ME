@@ -1,0 +1,92 @@
+{
+  "common_random_numbers": true,
+  "config": "/Users/michelpicker/Library/Mobile Documents/com~apple~CloudDocs/Projekte/cap-me/results/processed/fso/independent-replay/replay_config.json",
+  "config_sha256": "8b5bb9a8e8706d92f4f6fda0e06cd0a74503ee9c3fcf4bff2a1c3bb22e7324e3",
+  "counts": {
+    "cell_rows": 50400,
+    "operation_decisions": 1612800,
+    "strategy_seed_runs": 280,
+    "trace_rows": 18000
+  },
+  "information_policy": "Each scheduler updates only from the lanes that its own plan attempted.",
+  "interpretation": "Intervals cover replay and resampling variation across the 20 declared synthetic seeds. They are not population intervals for a deployed censor or country.",
+  "outcome_model": {
+    "failure_domain_correlation_weight": 0.35
+  },
+  "paired_contrast_family_size": 13,
+  "potential_outcome_sharing": "Strategies receive the same keyed potential outcome only when they select the same seed/epoch/function/operation/lane cell.",
+  "primary_strategy": "fso_no_feedback",
+  "processed_files": {
+    "aggregate_metrics.csv": "04b21ebc37e1c47e731ac079a61fbd8b7d3e31b17e25b55c0bc252407e52660b",
+    "lane_selection.csv": "1ba0f477044977c50b57712c0c287f296669b58803628540223e8ca704e6b7db",
+    "paired_contrasts.csv": "8d5d16f546cdde1d460346610f685754cd82d96f19b4f127998fce57ec127081",
+    "run_metrics.csv": "6b8faae24b54b90a2a23a395e68a0892823aa24af19a5b87ca6ba511fa660034",
+    "survival_curves.csv": "ac5f8c467e16a2d888b94930f187779d618a2707468dc1d7f38dd24d5fb3be74"
+  },
+  "provider_controlled_attempts": 0,
+  "raw_files": {
+    "observations.csv": "30fe7aec9cc5fd5c64a981b60cf6655e5b8d49f4acae24e41343ca623b5ae820"
+  },
+  "scheduler_parameters": {
+    "burn_weight": 0.16,
+    "correlation_penalty_weight": 0.1,
+    "cost_weights": {
+      "file": 0.045,
+      "media": 0.035,
+      "presence": 0.09,
+      "realtime": 0.015,
+      "text": 0.02
+    },
+    "failure_domain_correlation_weight": 0.35,
+    "latency_weights": {
+      "file": 0.02,
+      "media": 0.03,
+      "presence": 0.04,
+      "realtime": 0.18,
+      "text": 0.025
+    }
+  },
+  "schema_version": 2,
+  "seeds": [
+    12007,
+    12101,
+    12203,
+    12301,
+    12409,
+    12503,
+    12601,
+    12703,
+    12809,
+    12907,
+    13001,
+    13103,
+    13207,
+    13309,
+    13411,
+    13513,
+    13613,
+    13709,
+    13807,
+    13901
+  ],
+  "source_trace": "/Users/michelpicker/Library/Mobile Documents/com~apple~CloudDocs/Projekte/cap-me/results/processed/fso/independent-replay/independent_trace.csv",
+  "source_trace_sha256": "34dfdab59b0449dcbd37f0f9c62ab4c8c6da9cfe517a006819a2ef0ca7f97c7b",
+  "strategies": [
+    "direct_only",
+    "fixed_only",
+    "generated_only",
+    "ephemeral_only",
+    "random_failover",
+    "performance_only",
+    "session_failover",
+    "deadline_cost_failover",
+    "fso",
+    "fso_fixed_code",
+    "fso_no_semantics",
+    "fso_no_diversity",
+    "fso_no_feedback",
+    "fso_no_redundancy"
+  ],
+  "strict_trust": true,
+  "synthetic_only": true
+}

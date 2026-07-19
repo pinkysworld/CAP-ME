@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import unittest
 
-from capme.fso.scheduler import build_scheduler
+from capme.fso.scheduler import FSOScheduler, build_scheduler
 from capme.fso.types import LaneProfile, Operation
 
 
@@ -36,6 +36,54 @@ class FSOSchedulerTests(unittest.TestCase):
         decision = scheduler.plan(Operation("file", b"x" * 100, 30000))
         self.assertEqual(decision.total_shards, 1)
         self.assertEqual(decision.threshold, 1)
+
+    def test_component_ablations_match_feedback_off_primary(self) -> None:
+        for strategy in (
+            "fso_fixed_code",
+            "fso_no_semantics",
+            "fso_no_diversity",
+            "fso_no_redundancy",
+        ):
+            scheduler = build_scheduler(
+                strategy, profiles(), strict_trust=True, seed=7
+            )
+            self.assertIsInstance(scheduler, FSOScheduler)
+            self.assertFalse(scheduler.feedback, strategy)
+
+    def test_no_diversity_does_not_force_same_domain_portfolio(self) -> None:
+        candidates = [
+            LaneProfile("shared-a", "generated_transport", "shared", 100, 0.20, 0.8, False),
+            LaneProfile("shared-b", "generated_transport", "shared", 100, 0.20, 0.8, False),
+            LaneProfile("independent", "ephemeral_relay", "independent", 100, 0.95, 0.8, False),
+        ]
+        scheduler = FSOScheduler(
+            candidates,
+            strict_trust=True,
+            seed=8,
+            diversity=False,
+            feedback=False,
+            adaptive_modes=False,
+            cost_weights={function: 0.0 for function in ("text", "presence", "media", "file", "realtime")},
+            latency_weights={function: 0.0 for function in ("text", "presence", "media", "file", "realtime")},
+            burn_weight=0.0,
+            correlation_penalty_weight=0.0,
+        )
+        decision = scheduler.plan(Operation("realtime", b"x", 450))
+        domains = {scheduler.states[name].profile.failure_domain for name in decision.lanes}
+        self.assertIn("independent", decision.lanes)
+        self.assertEqual(len(domains), 2)
+
+    def test_deadline_cost_baseline_matches_objective_inputs(self) -> None:
+        scheduler = build_scheduler(
+            "deadline_cost_failover", profiles(), strict_trust=True, seed=9
+        )
+        self.assertFalse(scheduler.feedback)
+        self.assertFalse(scheduler.diversity)
+        self.assertEqual(scheduler.burn_weight, 0.0)
+        decision = scheduler.plan(Operation("realtime", b"x" * 100, 450))
+        self.assertEqual(decision.strategy, "deadline_cost_failover")
+        self.assertNotIn("permitted-0", decision.lanes)
+        self.assertLessEqual(decision.total_shards, 2)
 
 
 if __name__ == "__main__":

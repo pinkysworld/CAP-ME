@@ -1,0 +1,18 @@
+{
+  "inputs": {
+    "results/processed/fso/independent-replay/summary.json": "ca3ab22a1ecffac310e60f8415f1c587b53d43b0300b1bc359d95e2ecf74e487",
+    "results/processed/fso/sensitivity/sensitivity_results.csv": "da5acd23c29d854ad244d72b6fbafe94cb2f9ba9d61a911d2fcd1d87ee098856",
+    "results/processed/fso/sensitivity/summary.json": "140f5500cd058c0eb9650e6b75d742f9d4223bd078e32a6a57896becf7120217",
+    "results/processed/fso/structure-replay/adaptive_composed/paired_contrasts.csv": "2d61181962e99fa724f808b8c2ebacbea981f4d2ae6ba9f0a8a1fc05294c5273",
+    "results/processed/fso/structure-replay/classifier_dominant/paired_contrasts.csv": "e1c5c5c287106e3d2cf63561ef17360c70d2fce361d916f8938c856a35c7ca69",
+    "results/processed/fso/structure-replay/endpoint_discovery_dominant/paired_contrasts.csv": "d4390554ea7ab92ab5c8968e5441e8196d61fc1f47da25e4ec313a7d0fe54c55",
+    "results/processed/fso/structure-replay/resource_bounded_composed/paired_contrasts.csv": "ae100baa51f5a0fbfc6e6dfb3a4dddea476ee50221fb8a9923a662831f54a3df"
+  },
+  "outputs": {
+    "figures/fso_sensitivity.pdf": "e946fcfa186b27a3c9047cbd24289e1b95b03a318511a5da8bcd428a296d889d",
+    "fso_matched_baseline_results.tex": "eebe0fcd0fbbb062d2b00a949ed772318af8a2c6b417ab91213c704d113308d6",
+    "fso_sensitivity_results.tex": "7c6f650c3585115a8dce52196568bb27920b73a4d0e322216d8f097a85efe644"
+  },
+  "schema_version": 1,
+  "synthetic_only": true
+}

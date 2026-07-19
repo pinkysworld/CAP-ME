@@ -1,10 +1,17 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "synthetic_only": true,
   "source_trace": "results/processed/fso/confirmation/lane_trace_probabilities.csv",
   "epochs": 36,
   "operations_per_function": 32,
-  "correlation_weight": 0.35,
+  "outcome_correlation_weight": 0.35,
+  "scheduler_correlation_weight": 0.35,
+  "scheduler_parameters": {
+    "cost_weights": {"text": 0.020, "presence": 0.090, "media": 0.035, "file": 0.045, "realtime": 0.015},
+    "latency_weights": {"text": 0.025, "presence": 0.040, "media": 0.030, "file": 0.020, "realtime": 0.180},
+    "burn_weight": 0.16,
+    "correlation_penalty_weight": 0.10
+  },
   "strict_trust": true,
   "bootstrap_repetitions": 2000,
   "primary_strategy": "fso_no_feedback",
@@ -16,6 +23,7 @@
     "random_failover",
     "performance_only",
     "session_failover",
+    "deadline_cost_failover",
     "fso",
     "fso_fixed_code",
     "fso_no_semantics",

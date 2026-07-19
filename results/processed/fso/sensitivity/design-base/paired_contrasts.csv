@@ -1,0 +1,2 @@
+comparison,primary_strategy,baseline,paired_replicates,mean_difference,ci_low,ci_high,p_value,p_value_bh
+fso_no_feedback-minus-deadline_cost_failover,fso_no_feedback,deadline_cost_failover,20,0.0001822916666666563,-0.0006423611111111339,0.0011371527777777612,0.7399086697110097,0.7399086697110097

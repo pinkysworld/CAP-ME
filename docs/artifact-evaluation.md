@@ -34,6 +34,11 @@ Review:
 - `results/processed/fso/confirmation/paired_contrasts.csv`
 - `results/processed/fso/structure-replay/manifest.json`
 - `results/processed/fso/structure-replay/structure_summary.csv`
+- `results/processed/fso/sensitivity/manifest.json`
+- `results/processed/fso/sensitivity/summary.json`
+- `results/processed/fso/sensitivity/sensitivity_results.csv`
+- `results/processed/fso/independent-replay/independent_manifest.json`
+- `results/processed/fso/independent-replay/summary.json`
 - `results/processed/fso/deterministic-lab/manifest.json`
 - `results/processed/fso/loopback/manifest.json`
 - `results/processed/fso/multihost/manifest.json`
@@ -71,7 +76,7 @@ The FSO confirmation is a separate pipeline because it requires the disjoint CAP
 `make fso-confirmation-source fso-confirmation fso-deterministic-lab fso-loopback artifacts validate`
 
 Expected FSO scale before the optional external-backend run: 100 source runs,
-260 strategy-seed runs, 1,497,600 operation decisions, 125 deterministic
+280 strategy-seed runs, 1,612,800 operation decisions, 125 deterministic
 full-protocol operations, and 60 localhost packet operations. The CensorLab
 studies add two six-epoch closed runs of offline synthetic PCAP processing; their separate
 instructions and pinned dependency are in
@@ -86,10 +91,19 @@ containment invariants, recovery state, and headline values.
 
 The four-structure all-strategy check is reproduced with
 `make fso-structure-replay`. It regenerates 400 source simulations and replays
-all 13 strategies over 20 paired seeds in each structure, for 5,990,400
+all 14 strategies over 20 paired seeds in each structure, for 6,451,200
 decisions. It deliberately holds each structure at its declared base parameters
 and does not model censor reactions to strategy traffic volume; it complements
 rather than replaces the 72-point uncertainty ensemble.
+
+The matched-baseline sensitivity and separately coded trace check are
+reproduced with `make fso-sensitivity fso-independent-replay`. The first runs
+the declared base point plus 24 Latin-hypercube designs for FSO and the
+deadline/cost baseline (1,000 strategy-seed runs; 5,760,000 decisions). The
+second generates an 18,000-cell trace through a separate author implementation
+and replays all 14 strategies (280 strategy-seed runs; 1,612,800 decisions).
+Neither pipeline is a real-censor calibration or independent-researcher
+replication.
 
 The prospectively frozen feedback audit is reproduced with
 `make fso-feedback-source fso-feedback-evaluation`. The first command creates

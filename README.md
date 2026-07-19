@@ -14,9 +14,14 @@ This repository contains:
 - exact path/endpoint/platform ablations with Shapley attribution;
 - 900 main runs, 320 ablation runs, processed data, figures, and statistical analyses;
 - a working FSO envelope, MDS codec, scheduler, receiver, authenticated acknowledgements, and comparison baselines;
-- a 1,497,600-decision independent replay with five FSO ablations;
-- a 5,990,400-decision replay of all 13 strategies under four declared censor
+- a 1,612,800-decision disjoint-seed replay of 14 strategies, including a
+  deadline-and-cost-matched failover baseline and five FSO ablations;
+- a 6,451,200-decision replay of all 14 strategies under four declared censor
   structures, with the traffic-volume-reactivity boundary made explicit;
+- a 5,760,000-decision global sensitivity design that jointly varies eight
+  scheduler, correlation, survival-prior, and latency-prior dimensions;
+- a 1,612,800-decision replay on a separately coded, author-designed trace
+  process that does not import the original censor simulator;
 - a byte-reproducible closed-world carrier-adapter lab with loss, delay,
   reordering, duplication, burst, correlated-outage, tamper, and ACK faults;
 - an encrypted UDP loopback testbed with controlled loss, latency, and jitter;
@@ -84,32 +89,47 @@ media was not uniformly worse than text.
 
 All values above are simulation estimates. Confidence intervals quantify variation across declared random seeds, not uncertainty about a national network.
 
-## FSO confirmation result
+## FSO confirmation and robustness result
 
 The canonical FSO policy has online feedback disabled. On 20 disjoint synthetic
-seeds it reaches AUAC 0.915 (95% seed-bootstrap CI [0.909, 0.920]) at 1.238
-transmitted bytes per payload byte. Transport-independent session failover
-reaches 0.896 [0.890, 0.902] at overhead 1.212; the paired difference is 0.019
-[0.016, 0.021]. Generated-only delivery reaches 0.802.
+seeds it reaches AUAC 0.91476 (95% seed-bootstrap CI [0.90946, 0.91971]) at
+1.238 transmitted bytes per payload byte. The new deadline-and-cost-matched
+failover baseline reaches 0.91457 [0.90911, 0.91929] at overhead 1.241. Their
+paired difference is only +0.00018 [-0.00064, +0.00114] and is inconclusive.
+FSO therefore has no established advantage over a scheduler given the same
+eligible carriers, function deadlines, declared survival/latency priors, and
+cost objective.
 
-The ablations are part of the result, including findings unfavorable to the mechanism:
+The older session-failover baseline reaches 0.89607 [0.89024, 0.90154], so FSO
+minus session failover remains +0.01869 [0.01647, 0.02122]. That contrast shows
+the value of deadline/cost-aware plan selection relative to a deadline-blind
+baseline; it is not evidence that FSO's additional burn and failure-domain
+terms improve availability.
 
-- unconditional two-lane duplication reaches higher AUAC (0.927) but costs
-  2.000 bytes per payload byte, 61.5% more than FSO;
-- enabling the evaluated feedback rule lowers AUAC to 0.912; the paired
-  canonical-minus-feedback difference is 0.0024 [0.0008, 0.0042];
-- fixed coding reaches 0.857 at overhead 1.649; and
-- removing failure-domain diversity reduces AUAC to 0.888, a paired loss of
-  0.027 [0.014, 0.040].
+The corrected ablations include findings unfavorable to the mechanism:
 
-The all-strategy replay was then repeated under classifier-dominant,
+- unconditional two-lane duplication reaches AUAC 0.928 at overhead 2.000;
+- enabling the evaluated feedback rule reaches 0.912, with paired
+  canonical-minus-feedback difference +0.0024 [0.0008, 0.0041];
+- fixed coding reaches 0.861 at overhead 1.649;
+- removing redundancy reaches 0.792 at overhead 1.000; and
+- the clean no-diversity variant reaches 0.913, with paired difference +0.0013
+  [-0.0001, +0.0033], so a diversity contribution is not identified.
+
+All 14 strategies were then replayed under classifier-dominant,
 endpoint-discovery, resource-bounded-composed, and adaptive-composed censor
-structures. Mean FSO AUAC is 0.922, 0.936, 0.928, and 0.915, respectively; its
-paired advantage over session failover is 0.015--0.019 and has a positive 95%
-seed-bootstrap interval in every structure. The seed-level ordering FSO ≥
-session failover ≥ generated-only holds for 90%--100% of seeds. This is a
-bounded structural check at the declared base parameters, not the 72-point
-parameter-uncertainty study and not evidence about a deployed censor.
+structures. FSO-minus-matched-baseline differences are respectively +0.00027
+[-0.00040, +0.00095], +0.00102 [-0.00031, +0.00273], +0.00015
+[-0.00055, +0.00090], and +0.00018 [-0.00064, +0.00114]. Every interval
+includes zero.
+
+The 25-point global sensitivity design is deliberately broader: point
+estimates range from -0.0044 to +0.0309 (median +0.0001); 52% favor FSO, 24%
+have intervals wholly above zero, and 12% wholly below zero. A separately coded
+author-designed trace process yields a small positive difference of +0.0026
+[+0.0007, +0.0048], but it shares the FSO replay and analysis implementation.
+Together these checks reject a general scheduler-superiority claim. They do
+not weaken the benchmark, protocol-path, or failure-boundary contributions.
 
 The deterministic full-protocol lab completes 100/125 operations across five
 failure phases. Its two clean rebuilds produce identical observation and
@@ -223,6 +243,8 @@ Rebuild the FSO confirmation sample after generating its disjoint source trace:
 make fso-confirmation-source
 make fso-confirmation
 make fso-structure-replay
+make fso-sensitivity
+make fso-independent-replay
 python3 analysis/generate_fso_artifacts.py
 ```
 
@@ -282,8 +304,9 @@ make validate
 
 `artifacts/generated/tdsc_evidence_manifest.json` is the reviewer-facing digest
 index: it links the principal configurations, processed manifests, seed-level
-attribution, four-structure replay, implementation studies, and generated-output
-manifests with exact SHA-256 values.
+attribution, four-structure replay, global FSO sensitivity, separately coded
+trace replay, implementation studies, and generated-output manifests with exact
+SHA-256 values.
 
 The versioned processed results live in [`results/processed/study`](results/processed/study). Full raw CSVs are about 80 MB and are deliberately ignored by Git; the commands above regenerate them deterministically from the recorded configuration and seeds.
 
@@ -296,8 +319,9 @@ The versioned processed results live in [`results/processed/study`](results/proc
 - `analysis/`: analysis, artifact generation, and validation entry points
 - `results/processed/study/`: compact reviewable results
 - `results/processed/robustness/`: structural model-uncertainty results and sensitivity estimates
-- `results/processed/fso/`: confirmation, four-structure replay, packet-testbed,
-  and loopback results with manifests
+- `results/processed/fso/`: confirmation, four-structure replay, global
+  sensitivity, separately coded trace replay, packet-testbed, and loopback
+  results with manifests
 - `testbeds/censorlab/`: minimal external-source build and closed-testbed guide
 - `testbeds/multihost/`: internal-network Docker testbed and containment guide
 - `field/`: exact review bundle, independent-review templates, future-study authorization template, local-only manifest, protocol, and stop rules
@@ -318,4 +342,5 @@ data collection.
 
 ## License and citation
 
-Code and public artifact materials are licensed under Apache-2.0. See [`CITATION.cff`](CITATION.cff); replace the anonymous software author before a non-anonymous artifact release.
+Code and public artifact materials are licensed under Apache-2.0. See
+[`CITATION.cff`](CITATION.cff) for the software citation.

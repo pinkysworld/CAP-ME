@@ -25,16 +25,26 @@
   },
   "fso_auac": 0.9147569444444443,
   "fso_auac_ci": [
-    0.9091130642361114,
-    0.9198526475694444
+    0.9094615885416667,
+    0.919705512152778
   ],
   "fso_byte_overhead": 1.2384499731322065,
+  "fso_minus_deadline_cost_failover": 0.0001822916666666563,
+  "fso_minus_deadline_cost_failover_ci": [
+    -0.0006423611111111339,
+    0.0011371527777777612
+  ],
   "fso_minus_feedback_enabled": 0.002439236111111104,
   "fso_minus_generated_only": 0.11303819444444445,
+  "fso_minus_no_diversity": 0.0012673611111111039,
+  "fso_minus_no_diversity_ci": [
+    -0.0001475694444444399,
+    0.0033081597222221963
+  ],
   "fso_minus_session_failover": 0.018689236111111108,
   "fso_minus_session_failover_ci": [
-    0.016449652777777775,
-    0.02135438368055556
+    0.016466796875000002,
+    0.021215711805555558
   ],
   "interpretation": "Intervals quantify variation across synthetic seeds, not a deployed censor, network, or population.",
   "loopback": {
@@ -44,7 +54,7 @@
     "operations": 60,
     "successful_operations": 57
   },
-  "no_semantics_auac": 0.9270138888888889,
+  "no_semantics_auac": 0.9282118055555554,
   "no_semantics_byte_overhead": 2.000061214729795,
   "provider_controlled_attempts": 0,
   "schema_version": 1,

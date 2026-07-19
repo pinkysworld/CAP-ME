@@ -1,19 +1,19 @@
 {
   "inputs": {
-    "results/processed/fso/confirmation/aggregate_metrics.csv": "a428a93cdc5d536c4f656587a27f6176995788e3bc91d3e1b946356eac79ccba",
-    "results/processed/fso/confirmation/paired_contrasts.csv": "deb349a9126c82fcd17645af4cc6a5f2f745a9574b1321d476c5956183381380",
+    "results/processed/fso/confirmation/aggregate_metrics.csv": "36c38999319da59bd19c956a507ed2f6b7c56e014f1e729c5a2edd17a2b578d8",
+    "results/processed/fso/confirmation/paired_contrasts.csv": "2d61181962e99fa724f808b8c2ebacbea981f4d2ae6ba9f0a8a1fc05294c5273",
     "results/processed/fso/deterministic-lab/manifest.json": "0d3b4b60be31875e1a070b484ef73b0d383f0506d5981f5164ac4d2eafb0a705",
     "results/processed/fso/loopback/manifest.json": "c5618a5504540d40f634510fb1cbda95b0c06cfdc307560b87056283ed15a094"
   },
   "outputs": {
-    "figures/fso_ablation.pdf": "e20e6ad4d4d406e196b742192c506fea622c7e8567189840506ca6791ccd6b1a",
-    "figures/fso_function_comparison.pdf": "56dc91bf99cb264fd419b569a1651bd784b97c770a1393cc060a8d57d57c2d7f",
-    "figures/fso_tradeoff.pdf": "e5f524a6bb5fa17abc2d7bd72928fde35e206ed71a334abd507e6e4c6ebb5c73",
-    "fso_ablation_results.tex": "c3ff0441aef4e46476ef16a5e189732b8d3dce76903a34b57bd012c19bfc2621",
-    "fso_function_results.tex": "2122330b5212ed5fd5f68d6ad790e91179c256e1eda0c3b87441e372b3079b6b",
-    "fso_headline_results.json": "794040072730ca19e4f46ac98bfb37e17783ac4592828f9f2c16216723f5dc1c",
+    "figures/fso_ablation.pdf": "9cccd87635dd86f23705092bde7698dfa0df7e95ebec69af9685f7cd5932f96b",
+    "figures/fso_function_comparison.pdf": "a28f13dc33ce95634652362b43f933df3beaead1d7d055bd6100f904e3ce686c",
+    "figures/fso_tradeoff.pdf": "d2bc6de9125c4f37913860012cb78c3f160ca19d897b9d0f89428e47f23214fa",
+    "fso_ablation_results.tex": "1d6378f6b9179b807425d17f9a9c022ed1bbe9c3674ecdc8aabb3ccec6f4d10d",
+    "fso_function_results.tex": "75bf2e38a1ec1fd85fcc28d160ce9ace1955e46f3878bd06cfc105a874b29151",
+    "fso_headline_results.json": "e27b797e01b418d5c8af4e3725c4a7f8522162a775a44c59c8e92242c2a73f11",
     "fso_lab_results.tex": "4aa29eed1dfd73923e52ac73e6f5c115f6cdb0c32c627e8253d4c87ff80770e1",
-    "fso_main_results.tex": "784cd169eb94fb72970f3307d3e66c4a4350b4a757f0ad09dbac16132c312a63"
+    "fso_main_results.tex": "237b989c18209b959e03888b96c6089982e3ea8e74b264a73847d1cf7e663539"
   },
   "schema_version": 1
 }

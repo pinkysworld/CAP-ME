@@ -1,6 +1,6 @@
 {
   "build_context_policy": "root .dockerignore allowlists only src, the reviewed config, and testbeds/multihost build files",
-  "client_stdout_sha256": "2f90a72762ea316e4794c28b131477b751791187c0050a9f41aae4b93b0e273a",
+  "client_stdout_sha256": "4a371770fed8575bd2b6f08c388351be2e256501c933ddb695be68fd7bd791c5",
   "closed_world": true,
   "config": "configs/fso-multihost.json",
   "config_sha256": "bc313a75dee6f832544bd65a31b5fb6130c2c3e0185876cfd9bf2ac5fcd53cfb",
@@ -16,9 +16,9 @@
       "capabilities_dropped": [
         "ALL"
       ],
-      "image": "sha256:3711ce226409ff6045302c1fa2bdfdeffd01d23aad90368586094053f1c9ece3",
+      "image": "sha256:06fe19eda7168745e93eb2c789fea6d8531abca86c8aeef87b1a4bf70901eb62",
       "memory_limit_bytes": 268435456,
-      "name": "capme-receiver-36657-bc313a75",
+      "name": "capme-receiver-44147-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -36,9 +36,9 @@
       "capabilities_dropped": [
         "ALL"
       ],
-      "image": "sha256:3711ce226409ff6045302c1fa2bdfdeffd01d23aad90368586094053f1c9ece3",
+      "image": "sha256:06fe19eda7168745e93eb2c789fea6d8531abca86c8aeef87b1a4bf70901eb62",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-direct-0-36657-bc313a75",
+      "name": "capme-proxy-direct-0-44147-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -56,9 +56,9 @@
       "capabilities_dropped": [
         "ALL"
       ],
-      "image": "sha256:3711ce226409ff6045302c1fa2bdfdeffd01d23aad90368586094053f1c9ece3",
+      "image": "sha256:06fe19eda7168745e93eb2c789fea6d8531abca86c8aeef87b1a4bf70901eb62",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-fixed-0-36657-bc313a75",
+      "name": "capme-proxy-fixed-0-44147-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -76,9 +76,9 @@
       "capabilities_dropped": [
         "ALL"
       ],
-      "image": "sha256:3711ce226409ff6045302c1fa2bdfdeffd01d23aad90368586094053f1c9ece3",
+      "image": "sha256:06fe19eda7168745e93eb2c789fea6d8531abca86c8aeef87b1a4bf70901eb62",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-generated-0-36657-bc313a75",
+      "name": "capme-proxy-generated-0-44147-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -96,9 +96,9 @@
       "capabilities_dropped": [
         "ALL"
       ],
-      "image": "sha256:3711ce226409ff6045302c1fa2bdfdeffd01d23aad90368586094053f1c9ece3",
+      "image": "sha256:06fe19eda7168745e93eb2c789fea6d8531abca86c8aeef87b1a4bf70901eb62",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-ephemeral-0-36657-bc313a75",
+      "name": "capme-proxy-ephemeral-0-44147-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -116,9 +116,9 @@
       "capabilities_dropped": [
         "ALL"
       ],
-      "image": "sha256:3711ce226409ff6045302c1fa2bdfdeffd01d23aad90368586094053f1c9ece3",
+      "image": "sha256:06fe19eda7168745e93eb2c789fea6d8531abca86c8aeef87b1a4bf70901eb62",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-ephemeral-1-36657-bc313a75",
+      "name": "capme-proxy-ephemeral-1-44147-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -136,9 +136,9 @@
       "capabilities_dropped": [
         "ALL"
       ],
-      "image": "sha256:3711ce226409ff6045302c1fa2bdfdeffd01d23aad90368586094053f1c9ece3",
+      "image": "sha256:06fe19eda7168745e93eb2c789fea6d8531abca86c8aeef87b1a4bf70901eb62",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-permitted-0-36657-bc313a75",
+      "name": "capme-proxy-permitted-0-44147-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -156,9 +156,9 @@
       "capabilities_dropped": [
         "ALL"
       ],
-      "image": "sha256:3711ce226409ff6045302c1fa2bdfdeffd01d23aad90368586094053f1c9ece3",
+      "image": "sha256:06fe19eda7168745e93eb2c789fea6d8531abca86c8aeef87b1a4bf70901eb62",
       "memory_limit_bytes": 268435456,
-      "name": "capme-client-36657-bc313a75",
+      "name": "capme-client-44147-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -189,7 +189,7 @@
         "Subnet": "172.18.0.0/16"
       }
     ],
-    "name": "capme-internal-36657-bc313a75"
+    "name": "capme-internal-44147-bc313a75"
   },
   "external_destinations": 0,
   "image": {
@@ -197,14 +197,14 @@
     "base": "python:3.12-slim-bookworm",
     "base_digest": "sha256:d50fb7611f86d04a3b0471b46d7557818d88983fc3136726336b2a4c657aa30b",
     "config_sha256_label": "bc313a75dee6f832544bd65a31b5fb6130c2c3e0185876cfd9bf2ac5fcd53cfb",
-    "id": "sha256:3711ce226409ff6045302c1fa2bdfdeffd01d23aad90368586094053f1c9ece3",
+    "id": "sha256:06fe19eda7168745e93eb2c789fea6d8531abca86c8aeef87b1a4bf70901eb62",
     "os": "linux",
     "tag": "capme-multihost:bc313a75dee6"
   },
   "live_interfaces": 0,
   "published_ports": 0,
   "schema_version": 1,
-  "source_commit_at_run": "5d8caddd80daf25972bf26fa0f0b32e9b1512923",
+  "source_commit_at_run": "7a7ef9d3351eb6aaf32c2bb4ef2b52fee2360323",
   "source_files": {
     ".dockerignore": "46662045143f74bcf14b056b0ba5b6ae5d12501b94fc8686443e7cd370045603",
     "analysis/run_fso_multihost.py": "74cc6a713fbbf10ea2dcd4bcd3f2d3a7c71a9efe51cf77970ff468c780c2cfe8",
@@ -221,24 +221,26 @@
     "src/capme/fso/crypto.py": "56de1c5885d28c6035cfa699bed4991c6fbcf33216b6eed298ba7ff9939b73c1",
     "src/capme/fso/deployment.py": "836fd4c92ea9e7f605f38ed4702f8f0b99d620aab3a9459093b36f855fb6a3e4",
     "src/capme/fso/framing.py": "505ee4ae9ebb53730c937d0bee80b2134955ba8a9ea9b08f4a28d1a08531272e",
+    "src/capme/fso/independent.py": "e3b5175e17d618ba442a1a4048a0f8db520c47156b74e34071a7afde9a590078",
     "src/capme/fso/lab.py": "ea099fc30b74611ada271f5126efacec0335f1307bc353ae45e2ebbd13c7dea7",
     "src/capme/fso/multihost.py": "5807e918edd13efa46f08e8f864bc4ae7cd7a5518c2c098664037bc5e4d5e42b",
     "src/capme/fso/protocol.py": "207b740cd76723245303525ee7c7fac0c9d13baad93a30b3eef6b8e4d4e3d076",
     "src/capme/fso/reviews.py": "c7186aa30b364a2ac69fb48593591c52c38c22e52642c7a57b80a2c5cf3e1df7",
-    "src/capme/fso/scheduler.py": "e1e9ea781ac0bb63ad2877b4a6d9a2f21140eece2fbdcd77df0e151da206c7a1",
-    "src/capme/fso/study.py": "1cc772cd63eef304ceb21ba3616934addf74ce6b81977b88aee0b0e8f3178933",
+    "src/capme/fso/scheduler.py": "5ea3225830e914be77e7cf5b60f68d9fbe802741b9072f2165dc27e2a90afe5b",
+    "src/capme/fso/study.py": "c5f254b2248e53a2453338dce071180750d5ca636fb4f75d2024b3b6862fdcfc",
     "src/capme/fso/testbed.py": "cc32777e0c1b881364ad361cfd911561301ce6b465e0ca82075202bc7f10311f",
     "src/capme/fso/types.py": "69b07c1fa64e7ba97f252e0746273097985b4bcd8f4a1ec83e61246a5449343f",
-    "src/capme/fso/visuals.py": "a4e3535d689abccaea1f0de2843aaa452a7bc92275542184a6c8d45c90ee2e5c",
+    "src/capme/fso/visuals.py": "be537c1fa413fabb50a212fd62606fb82880f00b62ed5fed9e83cdedb5a3244c",
     "src/capme/io.py": "9a006f446f9e5dbb7f4ef3ddf7653e9c4aba756ea4623f53f4ef76fe01aba950",
     "src/capme/model.py": "db58b568f891c4b0b6589b30981348fa621bb0fa5c629a29e1acff8904b84de3",
+    "src/capme/pdf_fonts.py": "54c643ad4a9583a78aacbc95325dfb328acd2a9888e7660ee5002601c577a1d9",
     "src/capme/publication.py": "35bb5727d0ecfe1c9fc010df6f462a6426199f28005f8b94e91efe73f39a3fa3",
     "src/capme/robustness.py": "960f45faaa9ba7911fea1b53e7f346692bd24e32ecf78a354a7cf1edc14332d6",
     "src/capme/runner.py": "8b6ef5504ad68068ede6bb8e9522573c821356a04acda6035e47e72268f4afcd",
     "src/capme/simulation.py": "c1d3d03164ea5592e2cd29a3487794348c962bbe8be96e0d5032e60fd76a921a",
-    "src/capme/visuals.py": "9e9f67d0ae951885755ef2208c347b4b6587dd58e1a30bd6cb98b7b64e1287c6",
+    "src/capme/visuals.py": "23f77c5c8af410d76ab57ff42fc0d0938e18127f7be6a08d337760a70c8df567",
     "testbeds/multihost/Dockerfile": "5dce751b08c9b2107f6aede4b208a062fd5f1162d364e2f29db331c107f6035d",
     "testbeds/multihost/requirements.txt": "069b4bb69c009ba39fcd15999b7c2fa0e3e94cde260505f5e89dd7b18cd6fd7e"
   },
-  "source_tree_dirty_at_run": false
+  "source_tree_dirty_at_run": true
 }

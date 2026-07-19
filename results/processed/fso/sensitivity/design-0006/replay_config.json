@@ -1,0 +1,100 @@
+{
+  "bootstrap_repetitions": 2000,
+  "epochs": 36,
+  "lane_instances": [
+    {
+      "architecture": "direct_e2ee",
+      "endpoint_resilience": 0.12,
+      "failure_domain": "direct",
+      "latency_prior_ms": 166.29427098325004,
+      "name": "direct-0",
+      "provider_controls_delivery": false,
+      "survival_prior": 0.4615759845714343
+    },
+    {
+      "architecture": "fixed_proxy",
+      "endpoint_resilience": 0.1,
+      "failure_domain": "fixed",
+      "latency_prior_ms": 194.0099828137917,
+      "name": "fixed-0",
+      "provider_controls_delivery": false,
+      "survival_prior": 0.41125150974669045
+    },
+    {
+      "architecture": "generated_transport",
+      "endpoint_resilience": 0.7,
+      "failure_domain": "generated",
+      "latency_prior_ms": 240.2028358646945,
+      "name": "generated-0",
+      "provider_controls_delivery": false,
+      "survival_prior": 0.7879040202147829
+    },
+    {
+      "architecture": "generated_transport",
+      "endpoint_resilience": 0.72,
+      "failure_domain": "generated",
+      "latency_prior_ms": 263.2992623901459,
+      "name": "generated-1",
+      "provider_controls_delivery": false,
+      "survival_prior": 0.7586483361829384
+    },
+    {
+      "architecture": "ephemeral_relay",
+      "endpoint_resilience": 0.92,
+      "failure_domain": "ephemeral-a",
+      "latency_prior_ms": 295.63425952577785,
+      "name": "ephemeral-0",
+      "provider_controls_delivery": false,
+      "survival_prior": 0.7488784411681992
+    },
+    {
+      "architecture": "ephemeral_relay",
+      "endpoint_resilience": 0.92,
+      "failure_domain": "ephemeral-b",
+      "latency_prior_ms": 323.34997135631954,
+      "name": "ephemeral-1",
+      "provider_controls_delivery": false,
+      "survival_prior": 0.7293115758059694
+    },
+    {
+      "architecture": "platform_controlled",
+      "endpoint_resilience": 0.98,
+      "failure_domain": "permitted",
+      "latency_prior_ms": 147.81712976288892,
+      "name": "permitted-0",
+      "provider_controls_delivery": true,
+      "survival_prior": 0.8848417111677543
+    }
+  ],
+  "operations_per_function": 32,
+  "outcome_correlation_weight": 0.19841774222170405,
+  "primary_strategy": "fso_no_feedback",
+  "scheduler_correlation_weight": 0.55044807134702,
+  "scheduler_parameters": {
+    "burn_weight": 0.13281336275868674,
+    "correlation_penalty_weight": 0.053377748080716686,
+    "cost_weights": {
+      "file": 0.03356934545892612,
+      "media": 0.026109490912498097,
+      "presence": 0.06713869091785224,
+      "realtime": 0.011189781819642041,
+      "text": 0.014919709092856056
+    },
+    "latency_weights": {
+      "file": 0.01248045289683888,
+      "media": 0.01872067934525832,
+      "presence": 0.02496090579367776,
+      "realtime": 0.11232407607154993,
+      "text": 0.015600566121048601
+    }
+  },
+  "schema_version": 2,
+  "sensitivity_design_id": "design-0006",
+  "source_trace": "/Users/michelpicker/Library/Mobile Documents/com~apple~CloudDocs/Projekte/cap-me/results/processed/fso/confirmation/lane_trace_probabilities.csv",
+  "strategies": [
+    "fso_no_feedback",
+    "deadline_cost_failover"
+  ],
+  "strict_trust": true,
+  "synthetic_only": true
+}

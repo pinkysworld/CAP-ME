@@ -6,6 +6,7 @@ import itertools
 import math
 import random
 from abc import ABC, abstractmethod
+from collections.abc import Mapping
 
 from .types import FUNCTIONS, LaneProfile, LaneState, Operation, ScheduleDecision
 
@@ -54,6 +55,20 @@ LATENCY_WEIGHT = {
     "file": 0.020,
     "realtime": 0.180,
 }
+
+
+def _validated_weights(
+    defaults: Mapping[str, float],
+    overrides: Mapping[str, float] | None,
+    *,
+    label: str,
+) -> dict[str, float]:
+    weights = dict(defaults if overrides is None else overrides)
+    if set(weights) != set(FUNCTIONS):
+        raise ValueError(f"{label} must define exactly {sorted(FUNCTIONS)}")
+    if any(float(value) < 0.0 for value in weights.values()):
+        raise ValueError(f"{label} values must be non-negative")
+    return {function: float(weights[function]) for function in FUNCTIONS}
 
 
 def _at_least_k(probabilities: list[float], threshold: int) -> float:
@@ -190,6 +205,10 @@ class FSOScheduler(Scheduler):
         adaptive_modes: bool = True,
         strategy: str = "fso",
         correlation_weight: float = 0.35,
+        cost_weights: Mapping[str, float] | None = None,
+        latency_weights: Mapping[str, float] | None = None,
+        burn_weight: float = 0.16,
+        correlation_penalty_weight: float = 0.10,
     ) -> None:
         super().__init__(profiles, strict_trust=strict_trust, seed=seed)
         self.semantics = semantics
@@ -199,6 +218,16 @@ class FSOScheduler(Scheduler):
         self.adaptive_modes = adaptive_modes
         self.strategy = strategy
         self.correlation_weight = correlation_weight
+        self.cost_weights = _validated_weights(
+            COST_WEIGHT, cost_weights, label="cost_weights"
+        )
+        self.latency_weights = _validated_weights(
+            LATENCY_WEIGHT, latency_weights, label="latency_weights"
+        )
+        if burn_weight < 0.0 or correlation_penalty_weight < 0.0:
+            raise ValueError("scheduler penalty weights must be non-negative")
+        self.burn_weight = float(burn_weight)
+        self.correlation_penalty_weight = float(correlation_penalty_weight)
 
     def _dimensions(self, function: str, available: int) -> tuple[int, int, str]:
         if not self.redundancy:
@@ -292,14 +321,18 @@ class FSOScheduler(Scheduler):
             for state in states
         ) / len(states)
         repeated = len(states) - len(domains)
-        correlation_penalty = self.correlation_weight * repeated / max(1, len(states))
+        correlation_penalty = (
+            self.correlation_weight * repeated / max(1, len(states))
+            if self.diversity
+            else 0.0
+        )
         latency_fraction = min(1.0, predicted_latency / operation.deadline_ms)
         utility = (
             completion
-            - COST_WEIGHT[operation.function] * overhead
-            - LATENCY_WEIGHT[operation.function] * latency_fraction
-            - 0.16 * burn_risk
-            - 0.10 * correlation_penalty
+            - self.cost_weights[operation.function] * overhead
+            - self.latency_weights[operation.function] * latency_fraction
+            - self.burn_weight * burn_risk
+            - self.correlation_penalty_weight * correlation_penalty
         )
         return utility, completion, overhead, predicted_latency
 
@@ -314,16 +347,6 @@ class FSOScheduler(Scheduler):
             operation.function, len(candidates)
         ):
             portfolios = list(itertools.combinations(candidates, total))
-            if not self.diversity:
-                minimum_domains = min(
-                    len({state.profile.failure_domain for state in states})
-                    for states in portfolios
-                )
-                portfolios = [
-                    states
-                    for states in portfolios
-                    if len({state.profile.failure_domain for state in states}) == minimum_domains
-                ]
             for states in portfolios:
                 if mode in {"sequential", "hot_standby"}:
                     states = tuple(
@@ -353,7 +376,11 @@ class FSOScheduler(Scheduler):
             ranked,
             key=lambda item: (
                 item[0][0],
-                len({state.profile.failure_domain for state in item[1]}),
+                (
+                    len({state.profile.failure_domain for state in item[1]})
+                    if self.diversity
+                    else 0
+                ),
                 tuple(state.profile.name for state in item[1]),
             ),
         )
@@ -375,6 +402,59 @@ class FSOScheduler(Scheduler):
         )
 
 
+class DeadlineCostFailoverScheduler(FSOScheduler):
+    """Deadline/cost objective baseline without FSO semantics or domain terms.
+
+    The baseline shares FSO's eligible lanes, declared survival/latency priors,
+    per-function deadline, and cost/latency coefficients.  It can select one
+    lane or a generic two-lane sequential, parallel, or timed-standby plan, but
+    has no function-specific coding threshold, online feedback, burn penalty,
+    or failure-domain information.
+    """
+
+    def __init__(
+        self,
+        profiles: list[LaneProfile],
+        *,
+        strict_trust: bool,
+        seed: int,
+        correlation_weight: float = 0.35,
+        cost_weights: Mapping[str, float] | None = None,
+        latency_weights: Mapping[str, float] | None = None,
+    ) -> None:
+        super().__init__(
+            profiles,
+            strict_trust=strict_trust,
+            seed=seed,
+            semantics=False,
+            diversity=False,
+            feedback=False,
+            redundancy=True,
+            adaptive_modes=True,
+            strategy="deadline_cost_failover",
+            correlation_weight=correlation_weight,
+            cost_weights=cost_weights,
+            latency_weights=latency_weights,
+            burn_weight=0.0,
+            correlation_penalty_weight=0.0,
+        )
+
+    def _candidate_dimensions(
+        self, function: str, available: int
+    ) -> list[tuple[int, int, str]]:
+        del function
+        plans = [(1, 1, "single")]
+        if available >= 2:
+            plans.extend(
+                (
+                    (1, 2, "sequential"),
+                    (1, 2, "parallel"),
+                    (1, 2, "hot_standby"),
+                )
+            )
+        return plans
+
+
 def build_scheduler(
     strategy: str,
     profiles: list[LaneProfile],
@@ -382,6 +462,10 @@ def build_scheduler(
     strict_trust: bool,
     seed: int,
     correlation_weight: float = 0.35,
+    cost_weights: Mapping[str, float] | None = None,
+    latency_weights: Mapping[str, float] | None = None,
+    burn_weight: float = 0.16,
+    correlation_penalty_weight: float = 0.10,
 ) -> Scheduler:
     static = {
         "direct_only": "direct_e2ee",
@@ -403,13 +487,22 @@ def build_scheduler(
         return PerformanceScheduler(profiles, strict_trust=strict_trust, seed=seed)
     if strategy == "session_failover":
         return SessionFailoverScheduler(profiles, strict_trust=strict_trust, seed=seed)
+    if strategy == "deadline_cost_failover":
+        return DeadlineCostFailoverScheduler(
+            profiles,
+            strict_trust=strict_trust,
+            seed=seed,
+            correlation_weight=correlation_weight,
+            cost_weights=cost_weights,
+            latency_weights=latency_weights,
+        )
     options = {
         "fso": {},
-        "fso_fixed_code": {"adaptive_modes": False},
-        "fso_no_semantics": {"semantics": False},
-        "fso_no_diversity": {"diversity": False},
+        "fso_fixed_code": {"adaptive_modes": False, "feedback": False},
+        "fso_no_semantics": {"semantics": False, "feedback": False},
+        "fso_no_diversity": {"diversity": False, "feedback": False},
         "fso_no_feedback": {"feedback": False},
-        "fso_no_redundancy": {"redundancy": False},
+        "fso_no_redundancy": {"redundancy": False, "feedback": False},
     }
     if strategy not in options:
         raise ValueError(f"unknown FSO strategy: {strategy}")
@@ -419,5 +512,9 @@ def build_scheduler(
         seed=seed,
         strategy=strategy,
         correlation_weight=correlation_weight,
+        cost_weights=cost_weights,
+        latency_weights=latency_weights,
+        burn_weight=burn_weight,
+        correlation_penalty_weight=correlation_penalty_weight,
         **options[strategy],
     )

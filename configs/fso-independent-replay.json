@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "synthetic_only": true,
+  "purpose": "Separately coded generative trace process for checking whether conclusions depend on the original CAP-ME censor simulator.",
+  "declared_before_execution_utc": "2026-07-19T08:02:46Z",
+  "preregistration_status": "Hash-frozen reproducibility design, not an external preregistration or independent-researcher replication.",
+  "base_replay_config": "configs/fso-confirmation.json",
+  "epochs": 36,
+  "seeds": [12007, 12101, 12203, 12301, 12409, 12503, 12601, 12703, 12809, 12907, 13001, 13103, 13207, 13309, 13411, 13513, 13613, 13709, 13807, 13901],
+  "pressure": {"initial": 0.20, "memory": 0.55, "trend_initial": 0.25, "trend_final": 0.85, "innovation_sd": 0.06},
+  "architectures": {
+    "direct_e2ee": {"initial_health": 0.91, "exposure": 0.040, "recovery": 0.004, "renewal_period": 0, "renewal_boost": 0.0, "latency_ms": 175, "latency_pressure": 0.55, "endpoint_pool": 6},
+    "fixed_proxy": {"initial_health": 0.87, "exposure": 0.050, "recovery": 0.003, "renewal_period": 0, "renewal_boost": 0.0, "latency_ms": 205, "latency_pressure": 0.60, "endpoint_pool": 10},
+    "generated_transport": {"initial_health": 0.85, "exposure": 0.015, "recovery": 0.010, "renewal_period": 4, "renewal_boost": 0.055, "latency_ms": 255, "latency_pressure": 0.45, "endpoint_pool": 28},
+    "ephemeral_relay": {"initial_health": 0.82, "exposure": 0.010, "recovery": 0.015, "renewal_period": 2, "renewal_boost": 0.040, "latency_ms": 315, "latency_pressure": 0.40, "endpoint_pool": 120},
+    "platform_controlled": {"initial_health": 0.93, "exposure": 0.006, "recovery": 0.012, "renewal_period": 0, "renewal_boost": 0.0, "latency_ms": 155, "latency_pressure": 0.35, "endpoint_pool": 12}
+  },
+  "functions": {
+    "text": {"availability_multiplier": 1.00, "latency_multiplier": 0.90},
+    "presence": {"availability_multiplier": 0.99, "latency_multiplier": 0.75},
+    "media": {"availability_multiplier": 0.96, "latency_multiplier": 1.40},
+    "file": {"availability_multiplier": 0.91, "latency_multiplier": 1.80},
+    "realtime": {"availability_multiplier": 0.76, "latency_multiplier": 0.80}
+  },
+  "cell_availability_noise_sd": 0.018,
+  "cell_latency_noise_sd": 0.08,
+  "interpretation": "This author-designed state process shares neither detector, endpoint-discovery, block-budget, nor network implementation with the original simulator. It still shares the FSO replay and analysis code and is not empirical censor calibration."
+}

@@ -17,7 +17,7 @@ from capme.analysis import benjamini_hochberg, bootstrap_mean, sign_flip_pvalue
 from capme.io import read_csv, sha256_file, write_csv, write_json
 from capme.model import WORKLOADS
 
-from .scheduler import Scheduler, build_scheduler
+from .scheduler import COST_WEIGHT, LATENCY_WEIGHT, Scheduler, build_scheduler
 from .types import FUNCTIONS, LaneProfile, Operation, lane_profiles_from_config
 
 TRACE_ARCHITECTURES = {
@@ -447,7 +447,34 @@ def run_study(config_path: Path, raw_dir: Path, processed_dir: Path) -> dict[str
         raise ValueError("primary_strategy must be included in strategies")
     epochs = int(config["epochs"])
     operations_per_function = int(config["operations_per_function"])
-    correlation_weight = float(config["correlation_weight"])
+    legacy_correlation = float(config.get("correlation_weight", 0.35))
+    outcome_correlation_weight = float(
+        config.get("outcome_correlation_weight", legacy_correlation)
+    )
+    scheduler_correlation_weight = float(
+        config.get("scheduler_correlation_weight", legacy_correlation)
+    )
+    scheduler_parameters = dict(config.get("scheduler_parameters", {}))
+    cost_weights = {
+        function: float(
+            dict(scheduler_parameters.get("cost_weights", COST_WEIGHT))[function]
+        )
+        for function in FUNCTIONS
+    }
+    latency_weights = {
+        function: float(
+            dict(scheduler_parameters.get("latency_weights", LATENCY_WEIGHT))[function]
+        )
+        for function in FUNCTIONS
+    }
+    burn_weight = float(scheduler_parameters.get("burn_weight", 0.16))
+    correlation_penalty_weight = float(
+        scheduler_parameters.get("correlation_penalty_weight", 0.10)
+    )
+    if not 0.0 <= outcome_correlation_weight <= 1.0:
+        raise ValueError("outcome_correlation_weight must lie in [0, 1]")
+    if not 0.0 <= scheduler_correlation_weight <= 1.0:
+        raise ValueError("scheduler_correlation_weight must lie in [0, 1]")
     strict_trust = bool(config["strict_trust"])
     payloads = {
         function: bytes(max(1, int(WORKLOADS[function].payload_mb * 1_000_000)))
@@ -465,7 +492,11 @@ def run_study(config_path: Path, raw_dir: Path, processed_dir: Path) -> dict[str
                 profiles_list,
                 strict_trust=strict_trust,
                 seed=seed + 91_000,
-                correlation_weight=correlation_weight,
+                correlation_weight=scheduler_correlation_weight,
+                cost_weights=cost_weights,
+                latency_weights=latency_weights,
+                burn_weight=burn_weight,
+                correlation_penalty_weight=correlation_penalty_weight,
             )
             for epoch in range(epochs):
                 for function in FUNCTIONS:
@@ -494,7 +525,7 @@ def run_study(config_path: Path, raw_dir: Path, processed_dir: Path) -> dict[str
                             operation_index=operation_index,
                             profiles=profiles,
                             trace=trace,
-                            correlation_weight=correlation_weight,
+                            correlation_weight=outcome_correlation_weight,
                             outcome_cache=outcome_cache,
                         )
                         successes += int(result["success"])
@@ -551,7 +582,7 @@ def run_study(config_path: Path, raw_dir: Path, processed_dir: Path) -> dict[str
         "lane_selection.csv": write_csv(processed_dir / "lane_selection.csv", selection_rows),
     }
     manifest = {
-        "schema_version": 1,
+        "schema_version": 2,
         "synthetic_only": True,
         "source_trace": str(trace_path),
         "source_trace_sha256": sha256_file(trace_path),
@@ -560,6 +591,7 @@ def run_study(config_path: Path, raw_dir: Path, processed_dir: Path) -> dict[str
         "seeds": seeds,
         "strategies": strategies,
         "primary_strategy": primary_strategy,
+        "paired_contrast_family_size": len(strategies) - 1,
         "counts": {
             "trace_rows": len(trace),
             "cell_rows": len(cells),
@@ -571,6 +603,23 @@ def run_study(config_path: Path, raw_dir: Path, processed_dir: Path) -> dict[str
             * operations_per_function,
         },
         "common_random_numbers": True,
+        "potential_outcome_sharing": (
+            "Strategies receive the same keyed potential outcome only when they "
+            "select the same seed/epoch/function/operation/lane cell."
+        ),
+        "information_policy": (
+            "Each scheduler updates only from the lanes that its own plan attempted."
+        ),
+        "scheduler_parameters": {
+            "cost_weights": cost_weights,
+            "latency_weights": latency_weights,
+            "burn_weight": burn_weight,
+            "correlation_penalty_weight": correlation_penalty_weight,
+            "failure_domain_correlation_weight": scheduler_correlation_weight,
+        },
+        "outcome_model": {
+            "failure_domain_correlation_weight": outcome_correlation_weight,
+        },
         "strict_trust": strict_trust,
         "provider_controlled_attempts": int(
             sum(int(row["provider_controlled_attempts"]) for row in cells)

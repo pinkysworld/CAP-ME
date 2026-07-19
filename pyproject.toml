@@ -9,7 +9,7 @@ description = "Cross-layer survival benchmarking and function-aware messaging un
 readme = "README.md"
 requires-python = ">=3.11"
 license = "Apache-2.0"
-authors = [{name = "Anonymous research artifact authors"}]
+authors = [{name = "Michél Nguyen", email = "michel_ng@icloud.com"}]
 dependencies = ["numpy>=2.0,<3", "cryptography>=45,<50"]
 
 [project.optional-dependencies]

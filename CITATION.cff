@@ -3,10 +3,12 @@ message: "Please cite the CAP-ME and FSO software artifact."
 title: "CAP-ME and FSO research artifact"
 type: software
 version: 0.3.0
-date-released: 2026-07-17
+date-released: 2026-07-19
 authors:
-  - family-names: "Anonymous"
-    given-names: "CAP-ME artifact authors"
+  - family-names: "Nguyen"
+    given-names: "Michél"
+    orcid: "https://orcid.org/0000-0001-6834-4422"
+    affiliation: "University of the People"
 license: Apache-2.0
 repository-code: "https://github.com/pinkysworld/CAP-ME"
 keywords:

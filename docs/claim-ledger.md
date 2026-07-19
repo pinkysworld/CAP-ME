@@ -15,13 +15,17 @@ This ledger is the audit trail for the public artifact and the privately maintai
 | Endpoint attribution is 0.585 [0.522, 0.645] for Direct E2EE and 0.697 [0.677, 0.718] for Fixed App Proxy | `shapley_attribution.csv`; `shapley_seed_attribution.csv` | Exact within each of eight paired seeds; intervals describe seed dispersion only |
 | Path attribution exceeds endpoint attribution for Ephemeral Relay | Same | 0.089 versus 0.016 in this model |
 | Media is not uniformly worse than text | `aggregate_metrics.csv`; generated function table | H6 is only partly supported |
-| Canonical feedback-off FSO AUAC is 0.915 [0.909, 0.920] | `results/processed/fso/confirmation/aggregate_metrics.csv` | Synthetic adaptive-mobile trace replay; 20 disjoint seeds |
-| Canonical FSO exceeds session failover by 0.019 [0.016, 0.021] | `results/processed/fso/confirmation/paired_contrasts.csv` | Paired synthetic seeds; not a deployment effect |
-| Canonical FSO byte overhead is 1.238 versus 1.212 for session failover | FSO aggregate metrics | Payload-normalized encoded/envelope bytes in replay |
-| No-semantics duplication reaches 0.927 AUAC at overhead 2.000 | FSO aggregate metrics | Higher availability with 61.5% more bytes than canonical FSO |
-| Canonical FSO is 0.0024 [0.0008, 0.0042] above the feedback-enabled variant | FSO paired contrasts | Retained adverse result; feedback is not credited |
-| Failure-domain diversity adds 0.027 [0.014, 0.040] AUAC | FSO paired contrasts | Specific declared correlation model and trace |
-| FSO ≥ session failover ≥ generated-only in mean under all four declared censor structures | `results/processed/fso/structure-replay/structure_summary.csv` | 5,990,400 fixed-parameter decisions; seed-level ordering fraction 0.90--1.00; no traffic-volume-reactive censor |
+| Canonical feedback-off FSO AUAC is 0.91476 [0.90946, 0.91971] | `results/processed/fso/confirmation/aggregate_metrics.csv` | Synthetic adaptive-mobile trace replay; 20 disjoint seeds |
+| Deadline/cost-matched failover AUAC is 0.91457 [0.90911, 0.91929] | Same | Same eligible lanes, deadlines, declared priors, and cost objective; no FSO burn/diversity/semantic-coding terms |
+| FSO minus matched baseline is +0.00018 [-0.00064, +0.00114] | `results/processed/fso/confirmation/paired_contrasts.csv` | Inconclusive; no scheduler-superiority claim |
+| Canonical FSO exceeds deadline-blind session failover by +0.01869 [+0.01647, +0.02122] | Same | Shows the value of deadline/cost-aware selection relative to this baseline, not of uniquely FSO-specific terms |
+| Canonical FSO byte overhead is 1.238 versus 1.241 for the matched baseline and 1.212 for session failover | FSO aggregate metrics | Payload-normalized encoded/envelope bytes in replay |
+| No-semantics duplication reaches 0.928 AUAC at overhead 2.000 | FSO aggregate metrics | Higher availability with substantially more bytes than canonical FSO |
+| Canonical FSO is 0.0024 [0.0008, 0.0041] above the feedback-enabled variant | FSO paired contrasts | Retained adverse result; feedback is not credited |
+| Clean FSO minus no-diversity is +0.00127 [-0.00015, +0.00331] | FSO paired contrasts | Inconclusive; the superseded 0.027 estimate came from an anti-diverse implementation and is withdrawn |
+| FSO minus the matched baseline is inconclusive under all four declared censor structures | Structure-specific `paired_contrasts.csv` files | 6,451,200 fixed-parameter decisions; all four 95% intervals include zero |
+| The 25-point FSO sensitivity design spans paired means -0.00438 to +0.03086, with 52% positive point estimates | `results/processed/fso/sensitivity/summary.json` | Six intervals wholly positive, three wholly negative; declared ranges are not a real-censor distribution |
+| The separately coded author-designed trace gives FSO minus matched baseline +0.00259 [+0.00065, +0.00479] | `results/processed/fso/independent-replay/summary.json` | Does not import the original censor simulator, but shares FSO replay/analysis and is not independent-researcher replication |
 | Strict-trust FSO assigns zero provider-controlled attempts | FSO study and loopback manifests | Policy invariant, not empirical confidentiality measurement |
 | Deterministic full-protocol lab completes 100/125 operations | `results/processed/fso/deterministic-lab/manifest.json` | One frozen descriptive failure matrix; not an inferential or field result |
 | Two deterministic-lab executions produce identical CSV and manifest bytes | `tests/test_fso_lab.py`; deterministic-lab manifest | Laboratory-only deterministic entropy; prohibited for deployment |
@@ -61,6 +65,7 @@ This ledger is the audit trail for the public artifact and the privately maintai
 | Message overlays over disrupted heterogeneous networks are prior art | `cerf2007dtn` | FSO does not claim general disruption-tolerant messaging novelty |
 | Reliability-aware multipath scheduling for mobile media is prior art | `hu2025storm` | FSO's distinction is censorship-survival/trust constraints |
 | Deadline-aware block scheduling over multiple paths is prior art | `zuo2022dams` | FSO does not claim deadline-aware multipath scheduling novelty |
+| QUIC connection migration has been evaluated as a censorship-circumvention mechanism | `lee2026quicstep` | FSO does not claim connection migration or QUIC-based circumvention novelty |
 | Pluggable Transports provide a generic modular circumvention interface | `torproject2026pt` | FSO does not claim a new carrier interface or wire disguise |
 | FTE makes ciphertext match chosen formats | `dyer2013fte` | FSO does not claim format-transforming encryption or protocol mimicry |
 | Marionette programmably controls ciphertext formats, protocol semantics, and traffic properties | `dyer2015marionette` | FSO does not claim programmable traffic obfuscation |
@@ -74,8 +79,8 @@ This ledger is the audit trail for the public artifact and the privately maintai
 - Direct quotations are not used.
 - Product and country names appear only when a cited source directly concerns them.
 - All model numbers come from source code/configuration or generated outputs, never from a paper about a named deployment.
-- The failed fixed-code pilot, corrected deadline double-counting error, and adverse feedback ablation are disclosed rather than removed.
-- Citation metadata was checked against official venue, publisher, author-project, specification, or repository pages through 2026-07-17.
+- The failed fixed-code pilot, corrected deadline double-counting error, superseded anti-diverse ablation, matched-baseline null result, and adverse feedback ablation are disclosed rather than removed.
+- Citation metadata was checked against official venue, publisher, author-project, specification, or repository pages through 2026-07-19.
 - The novelty statement is explicitly defeasible and should be refreshed before submission.
 
 These controls reduce plagiarism and hallucination risk; they cannot substitute for a journal’s similarity checker, independent literature review, or author accountability.

@@ -1,27 +1,52 @@
 {
   "common_random_numbers": true,
   "config": "results/processed/fso/structure-replay/endpoint_discovery_dominant/replay_config.json",
-  "config_sha256": "87d5c25d5cb791995c059f855bed0c43607e5735b67192e65989facb5e58d073",
+  "config_sha256": "46f99f3eba13efe2ce442e323973aa9ee1adf58ed95674f079a8239f5987de1e",
   "counts": {
-    "cell_rows": 46800,
-    "operation_decisions": 1497600,
-    "strategy_seed_runs": 260,
+    "cell_rows": 50400,
+    "operation_decisions": 1612800,
+    "strategy_seed_runs": 280,
     "trace_rows": 18000
   },
+  "information_policy": "Each scheduler updates only from the lanes that its own plan attempted.",
   "interpretation": "Intervals cover replay and resampling variation across the 20 declared synthetic seeds. They are not population intervals for a deployed censor or country.",
+  "outcome_model": {
+    "failure_domain_correlation_weight": 0.35
+  },
+  "paired_contrast_family_size": 13,
+  "potential_outcome_sharing": "Strategies receive the same keyed potential outcome only when they select the same seed/epoch/function/operation/lane cell.",
   "primary_strategy": "fso_no_feedback",
   "processed_files": {
-    "aggregate_metrics.csv": "8f13ea4ef06ec10683480c69a22df3cb47c6e2cae1cf107b24b446ab22e9433c",
-    "lane_selection.csv": "688a7830486298cfc846734342a6062534cc202fab568861de2c6e46a669bbbf",
-    "paired_contrasts.csv": "cb7195f72794079e744fb6d8cb91c8091950ce4b52f50372e18e9773a7d33bc5",
-    "run_metrics.csv": "d60c135dc54f133a300bdd0cbdbb011c4a4dbabdb108be5809ca1ccfabe34c17",
-    "survival_curves.csv": "f0b18a8478cd266b9cd8021e69b1014915e83543551ebf1a4e7a688a9c3ed79d"
+    "aggregate_metrics.csv": "7afbbc53dfba582465cfd96c9a16b8e7ca194ac2239bf792dd08562aa6dee1b9",
+    "lane_selection.csv": "73756fdbc82ec89bbf26e64c0f45e873eb4b5b68546c5770e888e5d6a9fe2f25",
+    "paired_contrasts.csv": "d4390554ea7ab92ab5c8968e5441e8196d61fc1f47da25e4ec313a7d0fe54c55",
+    "run_metrics.csv": "45ca7cafcffcb87ecc5c3d4d119830f9a0481a763f2ac60a653951c707a724d8",
+    "survival_curves.csv": "f0ce136ec65a964ae3b94fbd9ee16e3ad0b9df7d21e4710cf4d628b1231d5350"
   },
   "provider_controlled_attempts": 0,
   "raw_files": {
-    "observations.csv": "049311c6acea0cc6595da8f14446d057073f4c5c4a64f074360e0b9e928c282a"
+    "observations.csv": "bc8ac02b8fd382d060e5c191050b8416f249865b5029828982e43d28e1fa4a3c"
   },
-  "schema_version": 1,
+  "scheduler_parameters": {
+    "burn_weight": 0.16,
+    "correlation_penalty_weight": 0.1,
+    "cost_weights": {
+      "file": 0.045,
+      "media": 0.035,
+      "presence": 0.09,
+      "realtime": 0.015,
+      "text": 0.02
+    },
+    "failure_domain_correlation_weight": 0.35,
+    "latency_weights": {
+      "file": 0.02,
+      "media": 0.03,
+      "presence": 0.04,
+      "realtime": 0.18,
+      "text": 0.025
+    }
+  },
+  "schema_version": 2,
   "seeds": [
     4001,
     4127,
@@ -54,6 +79,7 @@
     "random_failover",
     "performance_only",
     "session_failover",
+    "deadline_cost_failover",
     "fso",
     "fso_fixed_code",
     "fso_no_semantics",

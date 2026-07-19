@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "synthetic_only": true,
+  "purpose": "Deterministic global sensitivity analysis for the canonical FSO versus the deadline-and-cost-matched failover baseline.",
+  "declared_before_execution_utc": "2026-07-19T08:02:46Z",
+  "preregistration_status": "Hash-frozen reproducibility design, not an external preregistration.",
+  "base_replay_config": "configs/fso-confirmation.json",
+  "source_trace": "results/processed/fso/confirmation/lane_trace_probabilities.csv",
+  "design_points": 24,
+  "include_declared_base_point": true,
+  "design_seed": 20260719,
+  "strategies": ["fso_no_feedback", "deadline_cost_failover"],
+  "primary_strategy": "fso_no_feedback",
+  "comparison_strategy": "deadline_cost_failover",
+  "parameters": [
+    {"name": "cost_scale", "low": 0.5, "high": 2.0, "scale": "log"},
+    {"name": "latency_scale", "low": 0.5, "high": 2.0, "scale": "log"},
+    {"name": "burn_weight", "low": 0.0, "high": 0.32},
+    {"name": "correlation_penalty_weight", "low": 0.0, "high": 0.20},
+    {"name": "scheduler_correlation_weight", "low": 0.0, "high": 0.70},
+    {"name": "outcome_correlation_weight", "low": 0.05, "high": 0.70},
+    {"name": "survival_prior_logit_shift", "low": -0.70, "high": 0.70},
+    {"name": "latency_prior_scale", "low": 0.65, "high": 1.45}
+  ],
+  "interpretation": "The design jointly varies scheduler weights, scheduler correlation assumptions, outcome correlation, and lane survival/latency priors. It describes robustness over the declared ranges, not uncertainty about a deployed censor."
+}

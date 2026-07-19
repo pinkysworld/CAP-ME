@@ -1,0 +1,9 @@
+strategy,lane,attempts
+deadline_cost_failover,ephemeral-0,33916
+deadline_cost_failover,ephemeral-1,80
+deadline_cost_failover,generated-0,104904
+deadline_cost_failover,generated-1,34620
+fso_no_feedback,ephemeral-0,58225
+fso_no_feedback,ephemeral-1,200
+fso_no_feedback,generated-0,97739
+fso_no_feedback,generated-1,15574

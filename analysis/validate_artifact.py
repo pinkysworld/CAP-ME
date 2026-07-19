@@ -235,19 +235,20 @@ def validate_fso_processed() -> list[str]:
     assert manifest["strict_trust"] is True
     assert manifest["common_random_numbers"] is True
     assert manifest["primary_strategy"] == "fso_no_feedback"
+    assert manifest["paired_contrast_family_size"] == 13
     assert manifest["provider_controlled_attempts"] == 0
     assert manifest["counts"] == {
-        "cell_rows": 46_800,
-        "operation_decisions": 1_497_600,
-        "strategy_seed_runs": 260,
+        "cell_rows": 50_400,
+        "operation_decisions": 1_612_800,
+        "strategy_seed_runs": 280,
         "trace_rows": 18_000,
     }
     expected_rows = {
-        "aggregate_metrics.csv": 13,
-        "run_metrics.csv": 260,
-        "paired_contrasts.csv": 12,
-        "survival_curves.csv": 468,
-        "lane_selection.csv": 55,
+        "aggregate_metrics.csv": 14,
+        "run_metrics.csv": 280,
+        "paired_contrasts.csv": 13,
+        "survival_curves.csv": 504,
+        "lane_selection.csv": 53,
     }
     for name, count in expected_rows.items():
         path = processed / name
@@ -268,18 +269,28 @@ def validate_fso_processed() -> list[str]:
     fso = _find_row(aggregates, "strategy", "fso_no_feedback")
     feedback_enabled = _find_row(aggregates, "strategy", "fso")
     session = _find_row(aggregates, "strategy", "session_failover")
+    matched = _find_row(aggregates, "strategy", "deadline_cost_failover")
+    no_diversity = _find_row(aggregates, "strategy", "fso_no_diversity")
     no_semantics = _find_row(aggregates, "strategy", "fso_no_semantics")
     assert abs(float(fso["auac"]) - 0.9147569444444443) < 1e-12
     assert abs(float(session["auac"]) - 0.8960677083333332) < 1e-12
+    assert abs(float(matched["auac"]) - 0.9145746527777778) < 1e-12
     assert abs(float(fso["byte_overhead"]) - 1.2384499731322065) < 1e-12
     assert float(fso["auac"]) > float(feedback_enabled["auac"])
     assert abs(float(no_semantics["byte_overhead"]) - 2.000061214729795) < 1e-12
     contrasts = read_csv_rows(processed / "paired_contrasts.csv")
     session_contrast = _find_row(contrasts, "baseline", "session_failover")
     feedback_contrast = _find_row(contrasts, "baseline", "fso")
+    matched_contrast = _find_row(
+        contrasts, "baseline", "deadline_cost_failover"
+    )
+    diversity_contrast = _find_row(contrasts, "baseline", "fso_no_diversity")
     assert abs(float(session_contrast["mean_difference"]) - 0.018689236111111108) < 1e-12
     assert float(session_contrast["ci_low"]) > 0
     assert float(feedback_contrast["mean_difference"]) > 0
+    assert float(matched_contrast["ci_low"]) < 0 < float(matched_contrast["ci_high"])
+    assert float(diversity_contrast["ci_low"]) < 0 < float(diversity_contrast["ci_high"])
+    assert abs(float(no_diversity["auac"]) - 0.9134895833333335) < 1e-12
 
     raw = ROOT / "results" / "raw" / "fso-confirmation" / "observations.csv"
     if raw.exists():
@@ -288,7 +299,8 @@ def validate_fso_processed() -> list[str]:
     else:
         raw_status = "raw observations absent but regenerable"
     return [
-        "canonical feedback-off FSO counts, disjoint seeds, hashes, trust invariant, and headline values "
+        "14-strategy feedback-off FSO study, matched deadline/cost baseline, clean "
+        "diversity ablation, disjoint seeds, hashes, and trust invariant "
         f"({raw_status})"
     ]
 
@@ -305,10 +317,10 @@ def validate_fso_structure_replay() -> list[str]:
     assert manifest["primary_strategy"] == "fso_no_feedback"
     assert manifest["traffic_volume_coupling"] is False
     assert manifest["counts"] == {
-        "operation_decisions": 5_990_400,
+        "operation_decisions": 6_451_200,
         "source_simulation_runs": 400,
         "source_trace_rows": 72_000,
-        "strategy_seed_runs": 1_040,
+        "strategy_seed_runs": 1_120,
     }
     for name, digest in manifest["files"].items():
         path = directory / name
@@ -329,10 +341,17 @@ def validate_fso_structure_replay() -> list[str]:
         assert row_count(trace) == 18_000
         study_manifest = load_json(directory / structure / "study_manifest.json")
         assert study_manifest["primary_strategy"] == "fso_no_feedback"
-        assert study_manifest["counts"]["operation_decisions"] == 1_497_600
-        assert row_count(directory / structure / "aggregate_metrics.csv") == 13
-        assert row_count(directory / structure / "run_metrics.csv") == 260
-        assert row_count(directory / structure / "paired_contrasts.csv") == 12
+        assert study_manifest["counts"]["operation_decisions"] == 1_612_800
+        assert study_manifest["paired_contrast_family_size"] == 13
+        assert row_count(directory / structure / "aggregate_metrics.csv") == 14
+        assert row_count(directory / structure / "run_metrics.csv") == 280
+        assert row_count(directory / structure / "paired_contrasts.csv") == 13
+        matched = _find_row(
+            read_csv_rows(directory / structure / "paired_contrasts.csv"),
+            "baseline",
+            "deadline_cost_failover",
+        )
+        assert float(matched["ci_low"]) < 0 < float(matched["ci_high"])
     generated = load_json(
         ROOT / "artifacts" / "generated" / "fso_structure_generation_manifest.json"
     )
@@ -342,8 +361,72 @@ def validate_fso_structure_replay() -> list[str]:
     for relative, digest in generated["outputs"].items():
         assert sha256(ROOT / "artifacts" / "generated" / relative) == digest
     return [
-        "four-structure 13-strategy replay, 5,990,400 decisions, exact hashes, "
+        "four-structure 14-strategy replay, 6,451,200 decisions, exact hashes, "
         "stable mean ordering, and explicit no-volume-coupling boundary"
+    ]
+
+
+def validate_fso_sensitivity() -> list[str]:
+    config_path = ROOT / "configs" / "fso-sensitivity.json"
+    directory = ROOT / "results" / "processed" / "fso" / "sensitivity"
+    manifest = load_json(directory / "manifest.json")
+    summary = load_json(directory / "summary.json")
+    assert manifest["synthetic_only"] is True
+    assert manifest["config_sha256"] == sha256(config_path)
+    assert manifest["primary_strategy"] == "fso_no_feedback"
+    assert manifest["comparison_strategy"] == "deadline_cost_failover"
+    assert manifest["counts"] == {
+        "design_points_including_base": 25,
+        "latin_hypercube_points": 24,
+        "operation_decisions": 5_760_000,
+        "strategy_seed_runs": 1_000,
+    }
+    assert row_count(directory / "design.csv") == 25
+    assert row_count(directory / "sensitivity_results.csv") == 25
+    assert row_count(directory / "sensitivity_prcc.csv") == 8
+    for relative, digest in manifest["files"].items():
+        assert sha256(directory / relative) == digest, (
+            f"FSO sensitivity hash mismatch: {relative}"
+        )
+    assert abs(float(summary["base_mean_difference"]) - 0.0001822916666666563) < 1e-15
+    assert float(summary["mean_difference_min"]) < 0.0
+    assert float(summary["mean_difference_max"]) > 0.0
+    assert abs(float(summary["fraction_mean_difference_positive"]) - 0.52) < 1e-12
+    assert float(summary["fraction_ci_excludes_zero_negative"]) > 0.0
+    assert float(summary["fraction_ci_excludes_zero_positive"]) > 0.0
+    return [
+        "25-point scheduler/prior sensitivity with 5,760,000 decisions, mixed "
+        "effect signs, PRCCs, and exact hashes"
+    ]
+
+
+def validate_fso_independent_replay() -> list[str]:
+    config_path = ROOT / "configs" / "fso-independent-replay.json"
+    directory = ROOT / "results" / "processed" / "fso" / "independent-replay"
+    manifest = load_json(directory / "independent_manifest.json")
+    summary = load_json(directory / "summary.json")
+    assert manifest["synthetic_only"] is True
+    assert manifest["separately_coded_trace_generator"] is True
+    assert manifest["imports_original_simulator"] is False
+    assert manifest["shares_fso_replay_and_analysis"] is True
+    assert manifest["earlier_seeds_disjoint"] is True
+    assert manifest["config_sha256"] == sha256(config_path)
+    assert manifest["counts"] == {
+        "cell_rows": 50_400,
+        "operation_decisions": 1_612_800,
+        "strategy_seed_runs": 280,
+        "trace_rows": 18_000,
+    }
+    for relative, digest in manifest["files"].items():
+        assert sha256(directory / relative) == digest, (
+            f"independent replay hash mismatch: {relative}"
+        )
+    assert float(summary["fso_minus_deadline_cost_failover_ci"][0]) > 0.0
+    diversity_low, diversity_high = summary["fso_minus_no_diversity_ci"]
+    assert float(diversity_low) < 0.0 < float(diversity_high)
+    return [
+        "separately coded 18,000-cell state-process replay over 20 new seeds and "
+        "1,612,800 decisions, with shared-code boundary and exact hashes"
     ]
 
 
@@ -805,7 +888,7 @@ def validate_evidence_manifest() -> list[str]:
         "f4ca7bdb909bdeabbb9b297004846449eab98aa0"
     )
     files = manifest["files"]
-    assert len(files) == 23
+    assert len(files) == 29
     for relative, digest in files.items():
         evidence = ROOT / str(relative)
         assert evidence.is_file(), f"evidence manifest file missing: {relative}"
@@ -823,6 +906,8 @@ def main() -> int:
     checks.extend(validate_robustness())
     checks.extend(validate_fso_processed())
     checks.extend(validate_fso_structure_replay())
+    checks.extend(validate_fso_sensitivity())
+    checks.extend(validate_fso_independent_replay())
     checks.extend(validate_fso_deterministic_lab())
     checks.extend(validate_censorlab_results())
     checks.extend(validate_fso_loopback_and_gate())

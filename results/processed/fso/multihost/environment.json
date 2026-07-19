@@ -1,6 +1,6 @@
 {
   "build_context_policy": "root .dockerignore allowlists only src, the reviewed config, and testbeds/multihost build files",
-  "client_stdout_sha256": "4a371770fed8575bd2b6f08c388351be2e256501c933ddb695be68fd7bd791c5",
+  "client_stdout_sha256": "c6cce15fa70a2b70426fd590075b2e1923a64441dc104e06c7851c333227731f",
   "closed_world": true,
   "config": "configs/fso-multihost.json",
   "config_sha256": "bc313a75dee6f832544bd65a31b5fb6130c2c3e0185876cfd9bf2ac5fcd53cfb",
@@ -18,7 +18,7 @@
       ],
       "image": "sha256:06fe19eda7168745e93eb2c789fea6d8531abca86c8aeef87b1a4bf70901eb62",
       "memory_limit_bytes": 268435456,
-      "name": "capme-receiver-44147-bc313a75",
+      "name": "capme-receiver-63093-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -38,7 +38,7 @@
       ],
       "image": "sha256:06fe19eda7168745e93eb2c789fea6d8531abca86c8aeef87b1a4bf70901eb62",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-direct-0-44147-bc313a75",
+      "name": "capme-proxy-direct-0-63093-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -58,7 +58,7 @@
       ],
       "image": "sha256:06fe19eda7168745e93eb2c789fea6d8531abca86c8aeef87b1a4bf70901eb62",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-fixed-0-44147-bc313a75",
+      "name": "capme-proxy-fixed-0-63093-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -78,7 +78,7 @@
       ],
       "image": "sha256:06fe19eda7168745e93eb2c789fea6d8531abca86c8aeef87b1a4bf70901eb62",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-generated-0-44147-bc313a75",
+      "name": "capme-proxy-generated-0-63093-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -98,7 +98,7 @@
       ],
       "image": "sha256:06fe19eda7168745e93eb2c789fea6d8531abca86c8aeef87b1a4bf70901eb62",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-ephemeral-0-44147-bc313a75",
+      "name": "capme-proxy-ephemeral-0-63093-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -118,7 +118,7 @@
       ],
       "image": "sha256:06fe19eda7168745e93eb2c789fea6d8531abca86c8aeef87b1a4bf70901eb62",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-ephemeral-1-44147-bc313a75",
+      "name": "capme-proxy-ephemeral-1-63093-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -138,7 +138,7 @@
       ],
       "image": "sha256:06fe19eda7168745e93eb2c789fea6d8531abca86c8aeef87b1a4bf70901eb62",
       "memory_limit_bytes": 268435456,
-      "name": "capme-proxy-permitted-0-44147-bc313a75",
+      "name": "capme-proxy-permitted-0-63093-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -158,7 +158,7 @@
       ],
       "image": "sha256:06fe19eda7168745e93eb2c789fea6d8531abca86c8aeef87b1a4bf70901eb62",
       "memory_limit_bytes": 268435456,
-      "name": "capme-client-44147-bc313a75",
+      "name": "capme-client-63093-bc313a75",
       "nano_cpus": 1000000000,
       "no_new_privileges": true,
       "pids_limit": 128,
@@ -189,7 +189,7 @@
         "Subnet": "172.18.0.0/16"
       }
     ],
-    "name": "capme-internal-44147-bc313a75"
+    "name": "capme-internal-63093-bc313a75"
   },
   "external_destinations": 0,
   "image": {
@@ -204,7 +204,7 @@
   "live_interfaces": 0,
   "published_ports": 0,
   "schema_version": 1,
-  "source_commit_at_run": "7a7ef9d3351eb6aaf32c2bb4ef2b52fee2360323",
+  "source_commit_at_run": "cf11fe36f67781cb2d5e97314e280034354c0cd9",
   "source_files": {
     ".dockerignore": "46662045143f74bcf14b056b0ba5b6ae5d12501b94fc8686443e7cd370045603",
     "analysis/run_fso_multihost.py": "74cc6a713fbbf10ea2dcd4bcd3f2d3a7c71a9efe51cf77970ff468c780c2cfe8",
@@ -242,5 +242,5 @@
     "testbeds/multihost/Dockerfile": "5dce751b08c9b2107f6aede4b208a062fd5f1162d364e2f29db331c107f6035d",
     "testbeds/multihost/requirements.txt": "069b4bb69c009ba39fcd15999b7c2fa0e3e94cde260505f5e89dd7b18cd6fd7e"
   },
-  "source_tree_dirty_at_run": true
+  "source_tree_dirty_at_run": false
 }
